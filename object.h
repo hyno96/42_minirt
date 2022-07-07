@@ -37,11 +37,14 @@ typedef struct s_object
 
 	float	lux;
 	float	radius;
+
+	t_vec3	normal;
 }t_object;
 
 t_object	*new_sphere(t_vec3 coord, float radius, int color);
 t_object	*new_light(t_vec3 coord, float radius, float lux, int color);
 t_object	*new_mirror_sphere(t_vec3 coord, float radius, int color);
+t_object	*new_plane(t_vec3 coord, t_vec3 normal, int color);
 // t_sphere	*conv_sp(t_list *sp);
 // t_light		*conv_li(t_list *li);
 t_object	*conv_ob(t_list *ob);

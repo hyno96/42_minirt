@@ -37,6 +37,18 @@ t_object	*new_mirror_sphere(t_vec3 coord, float radius, int color)
 	return (new);
 }
 
+t_object	*new_plane(t_vec3 coord, t_vec3 normal, int color)
+{
+	t_object *new;
+
+	new = malloc(sizeof(t_object));
+	ft_vec3_copy(&(new->coord), &(coord));
+	new->normal = vec3_unit(normal);
+	new->color = color;
+	new->type = PLANE;
+	return (new);
+}
+
 // t_light	*new_light(t_vec3 coord, float lux, float color)
 // {
 // 	t_light *new;

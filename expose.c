@@ -57,6 +57,29 @@ float hit_sphere(t_vec3 center, float radius, t_ray r) {
 	return (rtn);
 }
 
+static float	abs_float(float a)
+{
+	if (a < 0)
+		return (-a);
+	return (a);
+}
+
+static float	hit_plane(t_object *plane, t_ray ray)
+{
+	float vn;
+	float t;
+	t_vec3 normal_vec;
+
+	normal_vec = plane->normal;
+	if (vec3_dot(normal_vec, ray.direction) < 0)
+		normal_vec = vec3_mult_scalar(normal_vec, -1);
+
+	vn = abs_float(vec3_dot(normal_vec, ray.direction));
+	if (vn <= 0)
+		return (-1);
+	t = vec3_dot(vec3_div(vec3_minus(plane->coord, ray.point), vn), normal_vec);
+	return (t);
+}
 
 static float	complict(t_ray ray, t_list	*list, t_object **object_hit)
 {
@@ -66,9 +89,11 @@ static float	complict(t_ray ray, t_list	*list, t_object **object_hit)
 	sol = 99999999;
 	while (list)
 	{
-		if (conv_ob(list)->type == LIGHT || conv_ob(list)->type == SPHERE || conv_ob(list)->type == MIRROR_SPHERE)
+		if (conv_ob(list)->type == SPHERE || conv_ob(list)->type == MIRROR_SPHERE)
 			temp = hit_sphere(conv_ob(list)->coord, conv_ob(list)->radius, ray);
-		if (temp > 0.001)
+		if (conv_ob(list)->type == PLANE)
+			temp = hit_plane(conv_ob(list), ray);
+		if (temp > 0.005)
 		{
 			if (temp < sol)
 			{
@@ -125,6 +150,46 @@ static t_vec3 random_in_hemisphere(t_vec3 normal)
 	}
 }
 
+static int find_light_and_get_lux(t_vec3 bumped, t_vec3 normal, t_rootdata *rootdata)
+{
+	int lux;
+	float t;
+	t_list *object_list;
+	t_list *head;
+	t_object *object_hit_from_ray;
+	t_ray from_bump_to_light;
+
+	float approach_angle;
+
+	object_list = rootdata->object_list;
+
+	float dist_bump_light;
+
+	
+
+	lux = 0;
+	head = object_list;
+	while (head)
+	{
+		if (conv_ob(head)->type == LIGHT)
+		{
+			from_bump_to_light.direction = vec3_minus(conv_ob(head)->coord, bumped);
+			dist_bump_light = vec3_len(from_bump_to_light.direction);
+			from_bump_to_light.direction = vec3_unit(from_bump_to_light.direction);
+			from_bump_to_light.point = bumped;
+			t = complict(from_bump_to_light, object_list, &object_hit_from_ray);
+			//printf("%f %f\n ", t, dist_bump_light);
+			if (t > dist_bump_light || t < 0)
+			{
+				approach_angle = vec3_dot(normal, from_bump_to_light.direction) / (vec3_len(from_bump_to_light.direction));
+				lux += (int)((float)(conv_ob(head)->lux) * approach_angle);
+			}
+		}
+		head = head->next;
+	}
+	return (lux);
+}
+
 static int get_color_temp3(t_ray ray, t_rootdata *rootdata, int depth)
 {
 	float t;
@@ -146,6 +211,7 @@ static int get_color_temp3(t_ray ray, t_rootdata *rootdata, int depth)
 	t = complict(ray, rootdata->object_list, &object_hit);
 	if (t > 0.01)
 	{
+		
 		if (object_hit->type == SPHERE)
 		{
 			bounce.point = ray_at(ray, t);
@@ -170,7 +236,14 @@ static int get_color_temp3(t_ray ray, t_rootdata *rootdata, int depth)
 			//rtn_color += (int)(((float)(object_hit->color >> 8 % 256) /(float)256) *  (float)color_old) << 8;
 			//rtn_color += (int)(((float)(object_hit->color % 256) /(float)256) *  (float)color_old) << 0;
 			//return (rtn_color);
-			return ((float)color_old * 0.5);
+
+			float approach_angle = vec3_dot(normal_vec, bounce.direction) / (vec3_len(bounce.direction));
+			//approach_angle = 1;
+
+			int rtn_light = (int)((float)color_old * approach_angle * 0.7) + find_light_and_get_lux(bounce.point, normal_vec, rootdata);
+			return (rtn_light * 0.5);
+
+			//return ((float)color_old * 0.5);
 		}
 		else if (object_hit->type == MIRROR_SPHERE)
 		{
@@ -181,14 +254,37 @@ static int get_color_temp3(t_ray ray, t_rootdata *rootdata, int depth)
 				normal_vec = vec3_mult_scalar(normal_vec, -1);
 			bounce.direction = vec3_minus(ray.direction, vec3_mult_scalar(normal_vec, 2 * vec3_dot(ray.direction, normal_vec)));
 			color_old = get_color_temp3(bounce, rootdata, depth - 1);
+
+			// float approach_angle = vec3_dot(normal_vec, ray.direction) / vec3_dot(normal_vec, normal_vec);
+			// if (approach_angle < 0)
+			// 	approach_angle *= -1;
+			// return ((float)color_old * approach_angle);
 			return ((float)color_old * 0.5);
 		}
-		else if (object_hit->type == LIGHT)
+		else if (object_hit->type == PLANE)
 		{
-			//printf("%d\n", depth);
-			//return (object_hit->color);
-			//return (object_hit->color);
-			return (3000);
+			bounce.point = ray_at(ray, t);
+			normal_vec = object_hit->normal;
+			if (vec3_dot(normal_vec, ray.direction) > 0)
+				normal_vec = vec3_mult_scalar(normal_vec, -1);
+
+			bounce.direction = random_in_hemisphere(normal_vec);
+			bounce.direction = random_unit_vector();
+			if (vec3_dot(normal_vec, bounce.direction) < 0)
+				bounce.direction = vec3_mult_scalar(bounce.direction, -1);
+
+			color_old = get_color_temp3(bounce, rootdata, depth - 1);
+
+			rtn_color = 0;
+			//rtn_color += (int)(((float)(object_hit->color >> 16) /(float)256) *  (float)color_old) << 16;
+			//rtn_color += (int)(((float)(object_hit->color >> 8 % 256) /(float)256) *  (float)color_old) << 8;
+			//rtn_color += (int)(((float)(object_hit->color % 256) /(float)256) *  (float)color_old) << 0;
+			//return (rtn_color);
+
+			float approach_angle = vec3_dot(normal_vec, bounce.direction) / (vec3_len(bounce.direction));
+			//approach_angle = 1;
+			int rtn_light = (int)((float)color_old * approach_angle * 0.7) + find_light_and_get_lux(bounce.point, normal_vec, rootdata);
+			return (rtn_light);
 		}
 	}
 	//printf("%d\n", depth);
@@ -308,8 +404,10 @@ int	**expose2(t_rootdata *rootdata)
 	{
 		for (int j = 0 ; j < rootdata->mlx_data->resolution_x ; j++)
 		{
+			if (i == 10 && j == 400)
+				printf("stop");
 			set_ray_from_viewport(&ray1, rootdata->viewport, j, i);
-			color = get_color_temp3(ray1, rootdata, 20);
+			color = get_color_temp3(ray1, rootdata, 10);
 			//color = get_color_temp2(ray1, rootdata->object_list);
 			// if (color > 255)
 			// 	color = 255;
