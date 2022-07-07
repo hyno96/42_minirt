@@ -48,16 +48,16 @@ void	set_rootdata(t_rootdata *rootdata)
 	// ft_vec3_set_xyz(&tempvec, 100, 600, 300);
 	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 50, 255)));
 
-	// ft_vec3_set_xyz(&tempvec, -900, 900, 900);
-	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 50, 255)));
-	// ft_vec3_set_xyz(&tempvec, 0, 900, 900);
-	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 50, 255)));
-	// ft_vec3_set_xyz(&tempvec, 900, 900, 900);
-	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 50, 255)));
+	ft_vec3_set_xyz(&tempvec, -900, 900, 900);
+	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
+	ft_vec3_set_xyz(&tempvec, 0, 900, 900);
+	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
+	ft_vec3_set_xyz(&tempvec, 900, 900, 900);
+	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
 
 
-	ft_vec3_set_xyz(&tempvec, 0, 100, -10);
-	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 80, 255)));
+	// ft_vec3_set_xyz(&tempvec, 0, 100, -10);
+	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 80, 255)));
 
 	// ft_vec3_set_xyz(&tempvec, 0, 50000, 0);
 	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 22000, 200, 255)));

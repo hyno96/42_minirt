@@ -182,7 +182,7 @@ static int find_light_and_get_lux(t_vec3 bumped, t_vec3 normal, t_rootdata *root
 			if (t > dist_bump_light || t < 0)
 			{
 				approach_angle = vec3_dot(normal, from_bump_to_light.direction) / (vec3_len(from_bump_to_light.direction));
-				lux += (int)((float)(conv_ob(head)->lux) * approach_angle);
+				lux += (int)((float)(conv_ob(head)->lux) * approach_angle / dist_bump_light);
 			}
 		}
 		head = head->next;
