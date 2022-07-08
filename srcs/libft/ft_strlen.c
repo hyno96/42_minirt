@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 13:40:56 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/08 20:20:25 by kangkim          ###   ########.fr       */
+/*   Created: 2021/05/07 14:52:23 by hyno              #+#    #+#             */
+/*   Updated: 2021/07/08 02:22:20 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include <stdio.h>
-#include <mlx.h>
 #include "libft.h"
 
-
-int main(void)
+size_t	ft_strlen(const char *s)
 {
-    printf("%c", ft_toupper('a'));
-    void *mlx_ptr = mlx_init();
-    void *mlx_win = mlx_new_window(mlx_ptr, 1600, 900, "TEST");
-    (void)mlx_win;
-    mlx_loop(mlx_ptr);
+	size_t	len;
+
+	len = 0;
+	while (s[len] != 0)
+		len++;
+	return (len);
 }

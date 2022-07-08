@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 13:40:56 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/08 20:20:25 by kangkim          ###   ########.fr       */
+/*   Created: 2021/05/13 11:15:42 by hyno              #+#    #+#             */
+/*   Updated: 2021/07/09 12:55:22 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include <stdio.h>
-#include <mlx.h>
 #include "libft.h"
 
-
-int main(void)
+char	*ft_strrchr(const char *s, int c)
 {
-    printf("%c", ft_toupper('a'));
-    void *mlx_ptr = mlx_init();
-    void *mlx_win = mlx_new_window(mlx_ptr, 1600, 900, "TEST");
-    (void)mlx_win;
-    mlx_loop(mlx_ptr);
+	int		i;
+
+	c = (char)c;
+	i = 0;
+	while (s[i])
+		i++;
+	while (i >= 0)
+	{
+		if (s[i] == c)
+			return ((char *)(s + i));
+		i--;
+	}
+	return (0);
 }

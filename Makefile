@@ -6,7 +6,7 @@
 #    By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 13:40:45 by kangkim           #+#    #+#              #
-#    Updated: 2022/07/05 15:21:28 by kangkim          ###   ########.fr        #
+#    Updated: 2022/07/08 20:23:38 by kangkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,21 +20,28 @@ SRC_DIR = srcs
 SRCS = main.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS = $(SRCS:.c=.o)
-INCLUDES = main.h
+INCLUDES = mlx.h libft.h main.h
 INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(INCLUDES))
 
 MLX_DIR = $(SRC_DIR)/minilibx
-MLX = $(MLX_DIR)/libmlx.a
-MLX_FRAMEWORK = -lmlx -framework OpenGL -framework AppKit -lz
+MLX = $(MLX_DIR)/libmlx.dylib
+MLX_FRAMEWORK = -L$(MLX_DIR) -lmlx -framework OpenGL -framework Appkit
 
-$(NAME) : $(OBJS) $(MLX)
+LIBFT_DIR = $(SRC_DIR)/libft
+LIBFT = $(LIBFT_DIR)/libft.a
+
+$(NAME) : $(OBJS) $(MLX) $(LIBFT)
 	$(CC) $(CFLAGS) $(MLX_FRAMEWORK) -I$(INCLUDE_DIR) -o $@ $^
+	install_name_tool -change libmlx.dylib $(MLX) $(NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c -o $@ $<
 
 $(MLX) :
-	make -C $(MLX_DIR) all
+	@make -C $(MLX_DIR) all
+
+$(LIBFT) :
+	@make -C $(LIBFT_DIR) all
 
 .PHONY : all
 all : $(NAME)
@@ -42,6 +49,7 @@ all : $(NAME)
 .PHONY : clean
 clean :
 	make -C $(MLX_DIR) clean
+	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJS)
 
 .PHONY : fclean

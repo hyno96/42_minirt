@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: myunkim <myunkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/05 13:40:56 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/08 20:20:25 by kangkim          ###   ########.fr       */
+/*   Created: 2022/06/20 18:13:51 by myunkim           #+#    #+#             */
+/*   Updated: 2022/06/20 18:13:52 by myunkim          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include <stdio.h>
-#include <mlx.h>
 #include "libft.h"
 
-
-int main(void)
+char	*ft_strdup(const char *s)
 {
-    printf("%c", ft_toupper('a'));
-    void *mlx_ptr = mlx_init();
-    void *mlx_win = mlx_new_window(mlx_ptr, 1600, 900, "TEST");
-    (void)mlx_win;
-    mlx_loop(mlx_ptr);
+	int		len;
+	char	*rtn;
+
+	len = 0;
+	while (s[len])
+		len++;
+	rtn = malloc(len + 1);
+	if (rtn == 0)
+		return (0);
+	len = 0;
+	while (s[len])
+	{
+		rtn[len] = s[len];
+		len++;
+	}
+	rtn[len] = 0;
+	return (rtn);
 }
