@@ -35,8 +35,8 @@ void	set_rootdata(t_rootdata *rootdata)
 	// ft_lstadd_back(&my_list, ft_lstnew(new_sphere(tempvec, 180, (200 << 16) + (100 << 8))));
 	ft_vec3_set_xyz(&tempvec, -400, 50, 500);
 	ft_lstadd_back(&my_list, ft_lstnew(new_sphere(tempvec, 180, (180 << 16) + (180 << 8) + 180)));
-	ft_vec3_set_xyz(&tempvec, -100, -70, 150);
-	ft_lstadd_back(&my_list, ft_lstnew(new_mirror_sphere(tempvec, 30, (180 << 16) + (180 << 8) + 180)));
+	// ft_vec3_set_xyz(&tempvec, -100, -70, 150);
+	// ft_lstadd_back(&my_list, ft_lstnew(new_mirror_sphere(tempvec, 30, (180 << 16) + (180 << 8) + 180)));
 	// ft_vec3_set_xyz(&tempvec, -30, 500, 1800);
 	// ft_lstadd_back(&my_list, ft_lstnew(new_mirror_sphere(tempvec, 1200, (180 << 16) + (180 << 8) + 180)));
 	ft_vec3_set_xyz(&tempvec, 120, 40, 300);
@@ -48,16 +48,23 @@ void	set_rootdata(t_rootdata *rootdata)
 	// ft_vec3_set_xyz(&tempvec, 100, 600, 300);
 	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 50, 255)));
 
-	ft_vec3_set_xyz(&tempvec, -900, 900, 900);
-	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
-	ft_vec3_set_xyz(&tempvec, 0, 900, 900);
-	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
-	ft_vec3_set_xyz(&tempvec, 900, 900, 900);
-	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
+	// ft_vec3_set_xyz(&tempvec, -900, 900, 900);
+	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
+	// ft_vec3_set_xyz(&tempvec, 0, 900, 900);
+	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 10000, 255)));
+	// ft_vec3_set_xyz(&tempvec, 900, 900, 900);
+	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 200000, 255)));
 
 
 	// ft_vec3_set_xyz(&tempvec, 0, 100, -10);
-	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 80, 255)));
+	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 20000, 255)));
+
+	// 	ft_vec3_set_xyz(&tempvec, 0, 1, 0);
+	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 20000, 255)));
+
+
+	ft_vec3_set_xyz(&tempvec, 400, 50, 500);
+	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 100000, 255)));
 
 	// ft_vec3_set_xyz(&tempvec, 0, 50000, 0);
 	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 22000, 200, 255)));
@@ -160,11 +167,11 @@ int main()
 	set_rootdata(&rootdata);
 
 	void* img;
-
+	abc(&rootdata);
 	//img = expose(&rootdata);
 	//mlx_put_image_to_window(rootdata.mlx_data->mlx_ptr, rootdata.mlx_data->win_ptr, img, 0, 0);
 	//mlx_key_hook(rootdata.mlx_data->win_ptr, abc, &rootdata);// 생성된 창에서 key입력 이벤트가 발생 시 close 함수를 실행한다.
-	mlx_loop_hook(rootdata.mlx_data->mlx_ptr, abc, &rootdata);
+	//mlx_loop_hook(rootdata.mlx_data->mlx_ptr, abc, &rootdata);
 	mlx_loop(rootdata.mlx_data->mlx_ptr);
 	return (0);
 }

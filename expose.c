@@ -19,7 +19,7 @@ static int	get_color_temp(t_ray ray)
 	ft_vec3_multi_float(&temp, t, &(ray.direction));
 	ft_vec3_add(&crossing, &(ray.point), &temp);
 
-	int recsize = 200;
+	int recsize = 10;
 
 	// if (crossing.x <= recsize && crossing.x >= -recsize && crossing.y <= recsize && crossing.y >= -recsize)
 	// 	return ((255 << 16) + 0 + 0);
@@ -190,6 +190,55 @@ static int find_light_and_get_lux(t_vec3 bumped, t_vec3 normal, t_rootdata *root
 	return (lux);
 }
 
+static int find_light_and_get_lux_specular(t_vec3 bumped, t_vec3 reflection, t_rootdata *rootdata)
+{
+	int lux;
+	float t;
+	t_list *object_list;
+	t_list *head;
+	t_object *object_hit_from_ray;
+	t_ray from_bump_to_light;
+
+	float approach_angle;
+
+	object_list = rootdata->object_list;
+
+	float dist_bump_light;
+
+	
+
+	lux = 0;
+	head = object_list;
+	while (head)
+	{
+		if (conv_ob(head)->type == LIGHT)
+		{
+			from_bump_to_light.direction = vec3_minus(conv_ob(head)->coord, bumped);
+			dist_bump_light = vec3_len(from_bump_to_light.direction);
+			from_bump_to_light.direction = vec3_unit(from_bump_to_light.direction);
+			from_bump_to_light.point = bumped;
+			t = complict(from_bump_to_light, object_list, &object_hit_from_ray);
+			//printf("%f %f\n ", t, dist_bump_light);
+			if (t > dist_bump_light || t < 0)
+			{
+				approach_angle = vec3_dot(reflection, from_bump_to_light.direction) / (vec3_len(from_bump_to_light.direction));
+
+				//printf("%f\n", approach_angle);
+				approach_angle = approach_angle * approach_angle * approach_angle * approach_angle * approach_angle;
+				// int specular_limit = 10;
+				// approach_angle -= ((float)(specular_limit - 1) / (float)specular_limit);
+				// if (approach_angle < 0)
+				// 	approach_angle  = 0;
+				// approach_angle *= specular_limit;
+
+				lux += (int)((float)(conv_ob(head)->lux) * approach_angle / dist_bump_light);
+			}
+		}
+		head = head->next;
+	}
+	return (lux);
+}
+
 static int get_color_temp3(t_ray ray, t_rootdata *rootdata, int depth)
 {
 	float t;
@@ -201,7 +250,6 @@ static int get_color_temp3(t_ray ray, t_rootdata *rootdata, int depth)
 	int rtn_color;
 	int color_old;
 	
-
 	if (depth == 0)
 	{
 		//write(1,"1",1);
@@ -294,6 +342,48 @@ static int get_color_temp3(t_ray ray, t_rootdata *rootdata, int depth)
 	// 충돌이 참이면
 		// return (재귀함수에서 받는 컬러와 현재 컬러를 합병);
 	// 배경색 반환 or 조명반환
+}
+
+static int	get_color_phong(t_ray ray, t_rootdata *rootdata)
+{
+	float t;
+	t_object *object_hit;
+
+	t_vec3 normal_vec;
+	t_vec3 rayat;
+
+	t_vec3	bounce_direction;
+
+	float rtn_color;
+
+	int base_ray = 10;
+
+	t = complict(ray, rootdata->object_list, &object_hit);
+
+	if (t > 0)
+	{
+		rayat = ray_at(ray, t);
+		if (object_hit->type == SPHERE)
+		{
+			normal_vec = vec3_minus(rayat, object_hit->coord);
+		}
+		else if (object_hit->type == PLANE)
+			normal_vec = object_hit->normal;
+		normal_vec = vec3_unit(normal_vec);
+		if (vec3_dot(normal_vec, ray.direction) > 0)
+			normal_vec = vec3_mult_scalar(normal_vec, -1);
+
+		bounce_direction = vec3_minus(ray.direction, vec3_mult_scalar(normal_vec, 2 * vec3_dot(ray.direction, normal_vec)));
+		bounce_direction = vec3_unit(bounce_direction);
+		
+
+		rtn_color = 0;
+		rtn_color += 0.5 * find_light_and_get_lux(rayat, normal_vec, rootdata);
+		rtn_color += 0.3 * find_light_and_get_lux_specular(rayat, bounce_direction, rootdata);
+		rtn_color += 0.2 * base_ray;
+		return (rtn_color);
+	}
+	return (base_ray);
 }
 
 static void	set_ray_from_viewport(t_ray *ray1, t_viewport *viewport, float x, float y)
@@ -407,7 +497,8 @@ int	**expose2(t_rootdata *rootdata)
 			if (i == 10 && j == 400)
 				printf("stop");
 			set_ray_from_viewport(&ray1, rootdata->viewport, j, i);
-			color = get_color_temp3(ray1, rootdata, 10);
+			color = get_color_phong(ray1, rootdata);
+			//color = get_color_temp3(ray1, rootdata, 10);
 			//color = get_color_temp2(ray1, rootdata->object_list);
 			// if (color > 255)
 			// 	color = 255;
