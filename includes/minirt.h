@@ -1,5 +1,5 @@
-#ifndef MAIN_H_
-# define MAIN_H_
+#ifndef MINIRT_H_
+# define MINIRT_H_
 
 # include <stdio.h>
 # include <mlx.h>
