@@ -6,7 +6,7 @@
 #    By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 13:40:45 by kangkim           #+#    #+#              #
-#    Updated: 2022/07/08 20:23:38 by kangkim          ###   ########.fr        #
+#    Updated: 2022/07/09 11:54:07 by kangkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ clean :
 
 .PHONY : fclean
 fclean : clean
+	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 
 .PHONY : re
