@@ -28,6 +28,8 @@ struct s_window
     void    *mlx_ptr;
     void    *win_ptr;
     t_img   mlx_img;
+    int     resolution_x;
+    int     resolution_y;
 };
 
 
