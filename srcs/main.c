@@ -6,21 +6,31 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 13:40:56 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/08 20:20:25 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/09 15:16:52 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-#include <stdio.h>
-#include <mlx.h>
-#include "libft.h"
+#include "minirt.h"
 
 
-int main(void)
+int main(int argc, char **argv)
 {
-    printf("%c", ft_toupper('a'));
-    void *mlx_ptr = mlx_init();
-    void *mlx_win = mlx_new_window(mlx_ptr, 1600, 900, "TEST");
-    (void)mlx_win;
-    mlx_loop(mlx_ptr);
+    t_window    window;
+
+    (void)argv;
+    if (argc != 2)
+    {
+        ft_perror("usage: ./minirt filename.rt");
+        return (ERR_ARGS);
+    }
+    if (!init_window(&window))
+    {
+        ft_perror("failed to initiative mlx window");
+        return (ERR_MLX_WIN);
+    }
+    // parse rt file
+    // draw image
+    mlx_put_image_to_window(window.mlx_ptr, window.win_ptr, \
+                            window.mlx_img.img_ptr, WIDTH, HEIGHT);
+    mlx_loop(window.mlx_ptr);
 }

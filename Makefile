@@ -6,7 +6,7 @@
 #    By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 13:40:45 by kangkim           #+#    #+#              #
-#    Updated: 2022/07/09 11:54:07 by kangkim          ###   ########.fr        #
+#    Updated: 2022/07/09 15:14:59 by kangkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,14 @@ NAME = minirt
 INCLUDE_DIR = includes
 SRC_DIR = srcs
 
-SRCS = main.c
+SRCS = main.c mlx_window.c perror.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS = $(SRCS:.c=.o)
-INCLUDES = mlx.h libft.h main.h
+DEPS = $(SRCS:.c=.d)
+
+INCLUDES = mlx.h libft.h minirt.h structure.h mlx_window.h perror.h
 INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(INCLUDES))
+
 
 MLX_DIR = $(SRC_DIR)/minilibx
 MLX = $(MLX_DIR)/libmlx.dylib
@@ -34,14 +37,16 @@ $(NAME) : $(OBJS) $(MLX) $(LIBFT)
 	$(CC) $(CFLAGS) $(MLX_FRAMEWORK) -I$(INCLUDE_DIR) -o $@ $^
 	install_name_tool -change libmlx.dylib $(MLX) $(NAME)
 
-%.o : %.c
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c -o $@ $<
-
 $(MLX) :
 	@make -C $(MLX_DIR) all
 
 $(LIBFT) :
 	@make -C $(LIBFT_DIR) all
+
+-include $(DEPS)
+
+%.o : %.c
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -MMD -c -o $@ $<
 
 .PHONY : all
 all : $(NAME)
@@ -50,6 +55,7 @@ all : $(NAME)
 clean :
 	make -C $(MLX_DIR) clean
 	make -C $(LIBFT_DIR) clean
+	$(RM) $(DEPS)
 	$(RM) $(OBJS)
 
 .PHONY : fclean
