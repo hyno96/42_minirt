@@ -64,7 +64,7 @@ void	set_rootdata(t_rootdata *rootdata)
 
 
 	ft_vec3_set_xyz(&tempvec, 400, 50, 500);
-	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 100000, 255)));
+	ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 50, 20000, 255)));
 
 	// ft_vec3_set_xyz(&tempvec, 0, 50000, 0);
 	// ft_lstadd_back(&my_list, ft_lstnew(new_light(tempvec, 22000, 200, 255)));
@@ -143,9 +143,16 @@ int	abc(t_rootdata *rootdata)// 이벤트 발생시 call될 함수
 		for (int j = 0 ; j < rootdata->mlx_data->resolution_x ; j++)
 		{
 			color = (int)(fullmap[i][j] / (time));
+			
+
 			if (color > 255)
 				color = 255;
+
+			
+
 			color = (int)(sqrt(((float)color / 256)) * 256);
+
+			
 
 			color = (color << 16) + (color << 8) + color;
 			my_mlx_pixel_put1(&image, j, i, color);

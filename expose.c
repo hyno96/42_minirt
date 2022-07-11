@@ -150,9 +150,9 @@ static t_vec3 random_in_hemisphere(t_vec3 normal)
 	}
 }
 
-static int find_light_and_get_lux(t_vec3 bumped, t_vec3 normal, t_rootdata *rootdata)
+static float find_light_and_get_lux(t_vec3 bumped, t_vec3 normal, t_rootdata *rootdata)
 {
-	int lux;
+	float lux;
 	float t;
 	t_list *object_list;
 	t_list *head;
@@ -182,7 +182,7 @@ static int find_light_and_get_lux(t_vec3 bumped, t_vec3 normal, t_rootdata *root
 			if (t > dist_bump_light || t < 0)
 			{
 				approach_angle = vec3_dot(normal, from_bump_to_light.direction) / (vec3_len(from_bump_to_light.direction));
-				lux += (int)((float)(conv_ob(head)->lux) * approach_angle / dist_bump_light);
+				lux += (int)((float)(conv_ob(head)->lux) * (approach_angle / dist_bump_light));
 			}
 		}
 		head = head->next;
@@ -190,9 +190,9 @@ static int find_light_and_get_lux(t_vec3 bumped, t_vec3 normal, t_rootdata *root
 	return (lux);
 }
 
-static int find_light_and_get_lux_specular(t_vec3 bumped, t_vec3 reflection, t_rootdata *rootdata)
+static float find_light_and_get_lux_specular(t_vec3 bumped, t_vec3 reflection, t_rootdata *rootdata)
 {
-	int lux;
+	float lux;
 	float t;
 	t_list *object_list;
 	t_list *head;
@@ -231,7 +231,7 @@ static int find_light_and_get_lux_specular(t_vec3 bumped, t_vec3 reflection, t_r
 				// 	approach_angle  = 0;
 				// approach_angle *= specular_limit;
 
-				lux += (int)((float)(conv_ob(head)->lux) * approach_angle / dist_bump_light);
+				lux += (int)((float)(conv_ob(head)->lux) * (approach_angle / dist_bump_light));
 			}
 		}
 		head = head->next;
@@ -356,7 +356,12 @@ static int	get_color_phong(t_ray ray, t_rootdata *rootdata)
 
 	float rtn_color;
 
-	int base_ray = 10;
+	
+
+	float base_ray = 0.0;
+
+	rtn_color = 0.0;
+	rtn_color += base_ray;
 
 	t = complict(ray, rootdata->object_list, &object_hit);
 
@@ -377,13 +382,13 @@ static int	get_color_phong(t_ray ray, t_rootdata *rootdata)
 		bounce_direction = vec3_unit(bounce_direction);
 		
 
-		rtn_color = 0;
-		rtn_color += 0.5 * find_light_and_get_lux(rayat, normal_vec, rootdata);
+		
+		rtn_color += 0.5 * (float)find_light_and_get_lux(rayat, normal_vec, rootdata);
 		rtn_color += 0.3 * find_light_and_get_lux_specular(rayat, bounce_direction, rootdata);
-		rtn_color += 0.2 * base_ray;
-		return (rtn_color);
+		
 	}
-	return (base_ray);
+	rtn_color += 0.01;
+	return (rtn_color);
 }
 
 static void	set_ray_from_viewport(t_ray *ray1, t_viewport *viewport, float x, float y)
