@@ -6,8 +6,11 @@
 # include <mlx.h>
 
 # include "structure.h"
+# include "objects.h"
 # include "mlx_window.h"
 # include "perror.h"
+# include "libft.h"
+
 
 
 

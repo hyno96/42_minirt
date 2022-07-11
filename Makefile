@@ -6,7 +6,7 @@
 #    By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 13:40:45 by kangkim           #+#    #+#              #
-#    Updated: 2022/07/09 15:14:59 by kangkim          ###   ########.fr        #
+#    Updated: 2022/07/11 16:04:08 by kangkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 
-INCLUDES = mlx.h libft.h minirt.h structure.h mlx_window.h perror.h
+INCLUDES = mlx.h libft.h minirt.h structure.h mlx_window.h perror.h \
+			float.h objects.h vec3.h
 INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(INCLUDES))
 
 
