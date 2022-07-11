@@ -6,7 +6,6 @@
 # include <stdlib.h>
 
 # include "structure.h"
-# include "libft.h"
 
 // for window constants
 # define WIDTH  1600

@@ -2,9 +2,16 @@
 # define STRUCTURE_H_
 
 
+# include "vec3.h"
+# include "libft.h"
+# include "float.h"
+
 typedef struct s_window t_window;
 typedef struct s_img    t_img;
+typedef struct s_camera t_camera;
 typedef enum e_bool     t_bool;
+typedef struct s_data   t_data;
+
 
 
 struct s_img
@@ -30,5 +37,24 @@ enum e_bool
     TRUE
 };
 
+struct s_data
+{
+    t_window    window;
+    t_color3    ambient;
+    t_camera    *camera;
+    t_list      *dot_lights;
+    t_list      *object_list;
+};
+
+struct s_camera
+{
+    t_point3    origin;
+    t_vec3      direction;
+    t_vec3      horizontal;
+    t_vec3      vertical;
+    t_float     focal_len;
+    t_point3    left_bottom;
+};
 
 #endif
+

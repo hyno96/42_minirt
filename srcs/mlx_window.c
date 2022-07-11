@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 14:47:31 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/09 15:11:28 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/11 15:42:09 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static t_bool  fail_to_window_init(t_window *window)
 
 t_bool  init_window(t_window *window)
 {
-    ft_memset((void *)window, 0, sizeof(t_window));
     window->mlx_ptr = mlx_init();
     window->win_ptr = mlx_new_window(window->mlx_ptr, WIDTH, HEIGHT, TITLE);
     if (window->win_ptr == NULL)
