@@ -11,6 +11,7 @@ enum    e_errno
 {
     ERR_ARGS = 1,
     ERR_MLX_WIN = 2,
+    ERR_PARSING = 3,
 };
 
 void ft_perror(char *err_msg);
