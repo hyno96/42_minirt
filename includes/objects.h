@@ -1,8 +1,9 @@
 #ifndef OBJECTS_H_
 # define OBJECTS_H_
 
-
+# include "libft.h"
 # include "vec3.h"
+# include "structure.h"
 
 typedef struct s_dot_light t_dot_light;
 typedef struct s_surf      t_surf;
@@ -44,5 +45,10 @@ struct s_cylinder
     t_float     height;
     t_surf      surf;
 };
+
+t_sphere *conv_sp(t_list	*head);
+t_plane *conv_pl(t_list	*head);
+t_cylinder *conv_cy(t_list	*head);
+t_dot_light *conv_li(t_list	*head);
 
 #endif
