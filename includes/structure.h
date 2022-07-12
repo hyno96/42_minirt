@@ -4,7 +4,7 @@
 
 # include "vec3.h"
 # include "libft.h"
-# include "float.h"
+# include "t_float.h"
 
 typedef struct s_window t_window;
 typedef struct s_img    t_img;

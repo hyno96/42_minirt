@@ -1,7 +1,7 @@
 #ifndef VEC3_H_
 # define VEC3_H_
 
-# include "float.h"
+# include "t_float.h"
 
 typedef struct s_vec3   t_vec3;
 typedef struct s_vec3   t_point3;
