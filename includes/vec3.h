@@ -2,6 +2,8 @@
 # define VEC3_H
 
 # include "float.h"
+# include <math.h>
+# include "perror.h"
 
 typedef struct s_vec3	t_vec3;
 typedef struct s_vec3	t_point3;

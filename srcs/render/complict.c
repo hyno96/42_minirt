@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:29:11 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 13:29:34 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/12 19:44:05 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "objects.h"
 #include "vec3.h"
 
-static t_float	get_dist_from_object(t_ray ray, t_list *head, t_data data)
+static t_float	get_dist_from_object(t_ray ray, t_list *head)
 {
 	t_float dist;
 	
@@ -26,12 +26,12 @@ static t_float	get_dist_from_object(t_ray ray, t_list *head, t_data data)
 		dist = hit_sphere(conv_sp(head)->origin, conv_sp(head)->radius, ray);
 	else if (head->type == PL)
 		dist = hit_plane(conv_pl(head)->origin, conv_pl(head)->normal, ray);
-	else if (head->type == CY)
-		dist = hit_cylinder();
+	// else if (head->type == CY)
+	// 	dist = hit_cylinder();
 	return (dist);
 }
 
-static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object, t_data data)
+static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object)
 {
 	t_float temp;
 	t_float dist;
@@ -40,11 +40,14 @@ static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object, t_data
 	is_hit = FALSE;
 	while (head)
 	{
-		temp = get_dist_from_object(ray, head, data);
+		temp = get_dist_from_object(ray, head);
 		if (temp > 0)
 		{
+			if (is_hit == FALSE)
+				dist = temp;
+			else if (temp < dist)
+				dist = temp;
 			is_hit = TRUE;
-			dist = temp;
 			*hit_object = head;
 		}
 		head = head->next;
@@ -80,7 +83,7 @@ int	complict(t_ray ray, t_data data, t_hit_record *hit_record)
 	t_list *hit_object;
 	
 	hit_object = 0;
-	hit_record->dist = complict_all(ray, data.object_list, &hit_object, data);
+	hit_record->dist = complict_all(ray, data.object_list, &hit_object);
 	if (hit_object)
 	{
 		set_hit_record(ray, hit_object, hit_record);

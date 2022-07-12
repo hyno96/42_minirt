@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:45:15 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 17:14:40 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/12 19:55:57 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,22 @@
 #include <math.h>
 #include "render.h"
 
+#include <stdio.h>
+
 static t_color3	get_specular_color( \
 	t_vec3 direction_to_light, t_vec3 specular_unit, t_list *head, t_data data)
 {
-	t_vec3		direction_to_light;
 	t_color3	rtn_color;
 	t_float		cos_theta;
 
 	rtn_color = vec3(0, 0, 0);
 	if (data.setting->use_dot_light_specular == FALSE)
 		return (rtn_color);
+	if (vec3_dot(specular_unit, direction_to_light))
+		specular_unit = vec3_mult_scalar(specular_unit, -1);
 	cos_theta = vec3_dot(specular_unit, direction_to_light) / \
 		(vec3_len(direction_to_light));
-	cos_theta = cos_theta * cos_theta * cos_theta * cos_theta * cos_theta;
+	cos_theta = cos_theta * cos_theta * cos_theta * cos_theta;
 	rtn_color = vec3_plus(rtn_color, \
 		vec3_mult_scalar(conv_li(head)->color, cos_theta));
 	rtn_color = vec3_mult_scalar(rtn_color, \
@@ -49,6 +52,8 @@ static t_color3	get_diffuse_color( \
 		return (rtn_color);
 	cos_theta = vec3_dot(normal_unit, direction_to_light) / \
 		(vec3_len(direction_to_light));
+	if (cos_theta < 0)
+		cos_theta *= -1;
 	rtn_color = vec3_plus(rtn_color, \
 		vec3_mult_scalar(conv_li(head)->color, cos_theta));
 	rtn_color = vec3_mult_scalar(rtn_color, \
@@ -72,14 +77,15 @@ t_color3	trace_dot_light( \
 		ray.point = shoot_coord;
 		ray.direction = vec3_minus(conv_li(head)->origin, shoot_coord);
 		dist = vec3_square_len(ray.direction);
-		if (complict(ray, data, &record) < 0 || \
+		//ray.direction = vec3_unit(ray.direction);
+		if (complict(ray, data, &record) == FALSE || \
 			record.dist * record.dist > dist)
 		{
 			dist = sqrt(dist);
-			rtn_color = vec3_div(vec3_plus(rtn_color, get_specular_color \
-				(shoot_coord, specular, head, data)), dist);
-			rtn_color = vec3_div(vec3_plus(rtn_color, get_diffuse_color \
-				(shoot_coord, normal_unit, head, data)), dist);
+			rtn_color = vec3_plus(rtn_color, vec3_div(get_specular_color( \
+				ray.direction, specular, head, data), dist));
+			rtn_color = vec3_plus(rtn_color, vec3_div(get_diffuse_color( \
+				ray.direction, normal_unit, head, data), dist));
 		}
 		head = head->next;
 	}

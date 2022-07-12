@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:25:48 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 15:52:14 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/12 20:10:37 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 
 	if (complict(ray, data, &record) == TRUE)
 	{
+		ray.direction = vec3_unit(ray.direction);
+		// if (vec3_dot(record.normal_unit, ray.direction) > 0)
+		// 	record.normal_unit = vec3_mult_scalar(record.normal_unit, -1);
 		specular_direction = vec3_minus(ray.direction, vec3_mult_scalar(\
 			record.normal_unit, \
-			2 * vec3_dot(ray.direction, record.normal_unit)));
+			2.0 * vec3_dot(ray.direction, record.normal_unit)));
 		rtn_color = trace_dot_light(\
 			record.hit_point, specular_direction, record.normal_unit, data);
 		if (data.setting->use_ambient)
