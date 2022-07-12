@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:45:15 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 16:49:32 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/12 17:14:40 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "ray.h"
 #include "libft.h"
 #include <math.h>
+#include "render.h"
 
 static t_color3	get_specular_color( \
 	t_vec3 direction_to_light, t_vec3 specular_unit, t_list *head, t_data data)
@@ -55,7 +56,6 @@ static t_color3	get_diffuse_color( \
 	return (rtn_color);
 }
 
-// dev_comment_hyno
 t_color3	trace_dot_light( \
 	t_point3	shoot_coord, t_vec3 specular, t_vec3 normal_unit, t_data data)
 {
