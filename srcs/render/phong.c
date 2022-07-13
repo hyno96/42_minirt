@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:25:48 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 15:50:32 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 20:11:44 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,19 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 	t_vec3			specular_direction;
 	t_point3		rtn_color;
 
+	ray.direction = vec3_unit(ray.direction);
 	if (complict(ray, data, &record) == TRUE)
 	{
+		// if (record.normal_unit.x < 0)
+		// 	record.normal_unit.x *= 1;
+		// if (record.normal_unit.y < 0)
+		// 	record.normal_unit.y *= 1;
+		// if (record.normal_unit.z < 0)
+		// 	record.normal_unit.z *= 1;
+		// return (vec3_mult_scalar(record.normal_unit, 100));
+
 		ray.direction = vec3_unit(ray.direction);
-		if (vec3_dot(record.normal_unit, ray.direction) < 0)
+		if (vec3_dot(record.normal_unit, ray.direction) > 0)
 			record.normal_unit = vec3_mult_scalar(record.normal_unit, -1);
 		specular_direction = vec3_minus(ray.direction, vec3_mult_scalar(\
 			record.normal_unit, \
@@ -37,5 +46,5 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 		rtn_color = vec3_mult(rtn_color, vec3_div(record.surf.color, 255));
 		return (rtn_color);
 	}
-	return (vec3(0, 0, 0));
+	return (vec3(100, 0, 0));
 }

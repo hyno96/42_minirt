@@ -12,7 +12,7 @@ void	setting_default(t_data *data)
 	myset->render_resolution_y = \
 		data->window.resolution_y / myset->row_resolution_render;
 	myset->use_dot_light_rgb = 0;
-	myset->use_dot_light_specular = 1;
+	myset->use_dot_light_specular = 0;
 	myset->use_dot_light_diffuse = 1;
 	myset->use_ambient = 0;
 	myset->switch_phong_path = 0;

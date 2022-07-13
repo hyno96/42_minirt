@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:46:23 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 16:28:23 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 17:08:27 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data)
 		j = 0;
 		while (j < data.setting->render_resolution_x)
 		{
+			if (i == 200 && j == 1000)
+				i += 0;
 			if (data.setting->switch_phong_path == 0)
 				screen[data.setting->render_resolution_y - 1 - i][j] = \
 				get_color_phong(ray_arr[i][j], data);

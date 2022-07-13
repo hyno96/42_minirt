@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:30:25 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 16:29:25 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 20:13:49 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,15 @@ void	hyno_test(t_data data)
 	t_ray		**ray_arr;
 	t_color3	**screen;
 
-	ft_lstadd_front(&data.object_list, ft_lstnew_type(new_sphere(vec3(0,0, -2), 0.5, vec3(200, 100, 50)), SP));
+	//ft_lstadd_front(&data.object_list, ft_lstnew_type(new_sphere(vec3(0,0, -2), 0.5, vec3(200, 100, 50)), SP));
 	ft_lstadd_front(&data.object_list, ft_lstnew_type(new_sphere(vec3(-1,1,-3), 1, vec3(10, 10, 200)), SP));
-	ft_lstadd_front(&data.object_list, ft_lstnew_type(new_plane(vec3(0, -1, 0), vec3(0,1,0), vec3(255, 155, 55)), PL));
-	ft_lstadd_front(&data.object_list, ft_lstnew_type(new_plane(vec3(0, 3, 0), vec3(0, 1,0), vec3(255, 155, 55)), PL));
-	ft_lstadd_front(&data.object_list, ft_lstnew_type(new_plane(vec3(0, 0, -3), vec3(0,0,1), vec3(0, 255, 10)), PL));
-	ft_lstadd_front(&data.dot_lights, ft_lstnew_type(new_dot_light(vec3(0, 2, -1), 1000), 0));
-	ft_lstadd_front(&data.dot_lights, ft_lstnew_type(new_dot_light(vec3(0, -0.5, 1), 1000), 0));
+
+	ft_lstadd_front(&data.object_list, ft_lstnew_type(new_plane(vec3(0, 2, 0), vec3(0,1,0), vec3(255, 155, 55)), PL));
+	ft_lstadd_front(&data.object_list, ft_lstnew_type(new_plane(vec3(0, -2, 0), vec3_unit(vec3(0, 1,0)), vec3(255, 155, 55)), PL));
+	//ft_lstadd_front(&data.object_list, ft_lstnew_type(new_plane(vec3(0, 0, -3), vec3_unit(vec3(0,0,1)), vec3(0, 255, 10)), PL));
+	
+	//ft_lstadd_front(&data.dot_lights, ft_lstnew_type(new_dot_light(vec3(0, 2, -1), 1000), 0));
+	ft_lstadd_front(&data.dot_lights, ft_lstnew_type(new_dot_light(vec3(0, 0, 1), 10000), 0));
 
 	data.camera.origin = vec3(0, 0, 0);
 	data.ambient = vec3(0 , 20, 0);

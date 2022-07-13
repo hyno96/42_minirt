@@ -29,15 +29,17 @@ t_float	hit_sphere(t_point3 center, t_float radius, t_ray r) {
 
 t_float	hit_plane(t_point3 coord, t_vec3 normal_vec, t_ray ray)
 {
-	t_float vn;
+	t_float dot_n_pa;
+	t_float	dot_n_rd;
 	t_float sol;
 
 	if (vec3_dot(normal_vec, ray.direction) < 0)
 		normal_vec = vec3_mult_scalar(normal_vec, -1);
-	vn = vec3_dot(normal_vec, ray.direction);
-	if (vn <= 0)
-		vn *= -1;
-	sol = vec3_dot(vec3_div(vec3_minus(coord, ray.point), vn), normal_vec);
+	dot_n_pa = vec3_dot(normal_vec, vec3_minus(coord, ray.point));
+	dot_n_rd = vec3_dot(normal_vec, ray.direction);
+	if (dot_n_pa < 0)
+		return (-1);
+	sol = dot_n_pa / dot_n_rd;
 	if (sol > 0.001)
 		return (sol);
 	return (-1);
