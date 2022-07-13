@@ -1,6 +1,41 @@
+#include <math.h>
+
 #include "parser.h"
 
-t_bool  set_camera(char **args, t_data *data)
+// del
+t_vec3  vec3(t_float x, t_float y, t_float z)
+{
+    t_vec3  vec;
+
+    vec.x = x;
+    vec.y = y;
+    vec.z = z;
+
+    return (vec);
+}
+// del
+t_vec3  vec3_mult_scalar(t_vec3 vec, t_float t)
+{
+    vec.x *= t;
+    vec.y *= t;
+    vec.z *= t;
+
+    return (vec);
+}
+
+static void    modify_camera_args(t_float points[3], t_float normals[3], \
+                            t_float fov, t_data *data)
+{
+    t_vec3  vec_y;
+    t_vec3  vec_z;
+    t_vec3  temp;
+
+    data->camera.origin = vec3(points[0], points[1], points[2]);
+    data->camera.direction = vec3(normals[0], normals[1], normals[2]);
+    
+}
+
+static t_bool  set_camera(char **args, t_data *data)
 {
     t_float points[3];
     t_float normals[3];
@@ -12,7 +47,7 @@ t_bool  set_camera(char **args, t_data *data)
         return (FALSE);
     if (!str_to_float(args[3], &fov) || !check_range(&fov, RANGE_FOV, 1))
         return (FALSE);
-    (void)data;
+    modify_camera_args(points, normals, fov, data);
     return (TRUE);
 }
 

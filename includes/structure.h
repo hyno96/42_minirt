@@ -43,7 +43,7 @@ struct s_data
 {
     t_window    window;
     t_color3    ambient;
-    t_camera    *camera;
+    t_camera    camera;
     t_list      *dot_lights;
     t_list      *object_list;
 };

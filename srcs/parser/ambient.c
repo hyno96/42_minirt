@@ -2,7 +2,7 @@
 
 #include "t_float.h"
 
-
+// del
 t_vec3  vec3(t_float x, t_float y, t_float z)
 {
     t_vec3  vec;
@@ -14,6 +14,7 @@ t_vec3  vec3(t_float x, t_float y, t_float z)
     return (vec);
 }
 
+// del
 t_vec3  vec3_mult_scalar(t_vec3 vec, t_float t)
 {
     vec.x *= t;

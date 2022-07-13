@@ -5,7 +5,7 @@
 # include "structure.h"
 
 typedef struct s_line_info  t_line_info;
-typedef enum e_range_type        t_range_type;
+typedef enum e_range_type   t_range_type;
 
 enum e_arg_num
 {
@@ -54,7 +54,7 @@ int	        ft_strcmp(const char *s1, const char *s2);
 size_t      get_arg_num(char **args);
 t_float    *get_range(t_range_type range_type);
 t_bool      str_to_float(char *arg, t_float *num);
-t_bool      str_to_vec3(char *arg, t_float vec3_args[]);
+t_bool      str_to_vec3(char *arg, t_float vec3_args[3]);
 // t_bool      str_to_int(char *arg, t_float color_rgb[], int idx);
 t_bool      check_range(t_float *args, t_range_type range_type, size_t arg_num);
 

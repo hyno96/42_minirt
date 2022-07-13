@@ -4,7 +4,7 @@
 #include "libft.h"
 
 
-t_bool  str_to_vec3(char *arg, t_float vec3_args[])
+t_bool  str_to_vec3(char *arg, t_float vec3_args[3])
 {
     char    **args;
     size_t     idx;
