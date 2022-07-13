@@ -8,25 +8,29 @@
 
 static t_bool   parse_line(t_line_info *line_info, t_data *data)
 {
-    char **lines;
+    char **args;
+    t_bool  result;
 
     if (ft_strncmp(line_info->line, "\n", 1) == 0)
         return (TRUE);
-    lines = ft_split(line_info->line, ' ');
-    if (ft_strncmp(line_info->line, "A", 1) == 0)
-        return (parse_ambient(line_info, lines, data));
-    if (ft_strncmp(line_info->line, "C", 1) == 0)
-        return (parse_camera(line_info, lines, data));
-    if (ft_strncmp(line_info->line, "L", 1) == 0)
-        return (parse_light(line_info, lines, data));
-    if (ft_strncmp(line_info->line, "sp", 2) == 0)
-        return (parse_sphere(line_info, lines, data));
-    if (ft_strncmp(line_info->line, "pl", 2) == 0)
-        return (parse_plane(line_info, lines, data));
-    if (ft_strncmp(line_info->line, "cy", 2) == 0)
-        return (parse_cylinder(line_info, lines, data));
-    free_lines(lines);
-    return (FALSE);
+    args = ft_split(line_info->line, ' ');
+    if (args == NULL)
+        return (FALSE);
+    result = FALSE;
+    if (ft_strcmp(args[0], "A") == 0)
+        result = parse_ambient(line_info, args, data);
+    else if (ft_strcmp(args[0], "C") == 0)
+        result = parse_camera(line_info, args, data);
+    else if (ft_strcmp(args[0], "L") == 0)
+        result = parse_light(line_info, args, data);
+    else if (ft_strcmp(args[0], "sp") == 0)
+        result = parse_sphere(line_info, args, data);
+    else if (ft_strcmp(args[0], "pl") == 0)
+        result = parse_plane(line_info, args, data);
+    else if (ft_strcmp(args[0], "cy") == 0)
+        result = parse_cylinder(line_info, args, data);
+    free_args(args);
+    return (result);
 }
 
 static t_bool   parse_lines(int fd, t_data *data)

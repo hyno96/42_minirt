@@ -1,7 +1,7 @@
 #ifndef VEC3_H
 # define VEC3_H
 
-# include "float.h"
+# include "t_float.h"
 # include <math.h>
 # include "perror.h"
 

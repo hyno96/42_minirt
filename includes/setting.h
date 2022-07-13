@@ -1,7 +1,7 @@
 #ifndef SETTING_H
 # define SETTING_H
 
-# include "float.h"
+# include "t_float.h"
 
 struct s_setting
 {

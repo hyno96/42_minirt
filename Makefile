@@ -6,7 +6,7 @@
 #    By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 13:40:45 by kangkim           #+#    #+#              #
-#    Updated: 2022/07/13 15:05:16 by hyno             ###   ########.fr        #
+#    Updated: 2022/07/13 16:22:01 by hyno             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC_DIR = srcs
 
 PARSER_DIR = $(SRC_DIR)/parser
 PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
-				plane.c sphere.c utils.c
+				plane.c sphere.c utils.c str_to_x.c range.c \
+				str_to_float.c
 
 RENDER_DIR = $(SRC_DIR)/render
 RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c
@@ -45,7 +46,7 @@ OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 
 INCLUDES = mlx.h libft.h structure.h mlx_window.h perror.h \
-			float.h objects.h object_f.h vec3.h parser.h get_next_line.h \
+			t_float.h objects.h object_f.h vec3.h parser.h get_next_line.h \
 			ray.h render.h setting.h setting_f.h vec.h \
 			
 INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(INCLUDES))

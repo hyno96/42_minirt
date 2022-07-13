@@ -36,7 +36,6 @@ static t_bool	ft_read_file(char **s_fdbuf, int fd, char *buf)
 	return (TRUE);
 }
 
-#include <stdio.h>
 static char	*ft_get_line(char **s_fdbuf, int fd)
 {
 	char	*line;

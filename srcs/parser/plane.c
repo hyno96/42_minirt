@@ -6,6 +6,6 @@ t_bool  parse_plane(t_line_info *line_info, char **lines, t_data *data)
     (void)line_info;
     (void)data;
     printf("plane\n");
-    free_lines(lines);
+    (void)lines;
     return (TRUE);
 }   

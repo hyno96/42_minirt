@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:30:25 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 16:15:55 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 16:29:25 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include "setting_f.h"
 #include "render.h"
 #include "perror.h"
+#include "objects.h"
+#include "vec3.h"
+#include "t_float.h"
 
 static void	malloc_screen(t_color3 ***target, int x, int y)
 {
@@ -59,10 +62,6 @@ static void	malloc_ray(t_ray ***target, int x, int y)
 	}
 	*target =ray_arr;
 }
-
-#include "objects.h"
-#include "vec3.h"
-#include "float.h"
 
 t_sphere	*new_sphere(t_vec3 origin, t_float radius, t_color3 color)
 {
@@ -122,14 +121,13 @@ void	hyno_test(t_data data)
 	ft_lstadd_front(&data.dot_lights, ft_lstnew_type(new_dot_light(vec3(0, 2, -1), 1000), 0));
 	ft_lstadd_front(&data.dot_lights, ft_lstnew_type(new_dot_light(vec3(0, -0.5, 1), 1000), 0));
 
-	data.camera = malloc(sizeof(t_camera));
-	data.camera->origin = vec3(0, 0, 0);
+	data.camera.origin = vec3(0, 0, 0);
 	data.ambient = vec3(0 , 20, 0);
-	data.camera->direction = vec3(0, 0, -1);
-	data.camera->horizontal = vec3(1, 0, 0);
-	data.camera->vertical = vec3(0, 1, 0);
-	data.camera->focal_len = 1;
-	data.camera->left_bottom = vec3(-960, -540, -800);
+	data.camera.direction = vec3(0, 0, -1);
+	data.camera.horizontal = vec3(1, 0, 0);
+	data.camera.vertical = vec3(0, 1, 0);
+	data.camera.focal_len = 1;
+	data.camera.left_bottom = vec3(-960, -540, -800);
 
 	data.window.resolution_x = 1920;
 	data.window.resolution_y = 1080;

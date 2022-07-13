@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:46:23 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 14:35:48 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 16:28:23 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_ray(t_ray **ray_arr, t_data data)
 	t_camera	camera;
 
 	interval = data.setting->row_resolution_render;
-	camera = *(data.camera);
+	camera = (data.camera);
 	i = 0;
 	while (i < data.setting->render_resolution_y)
 	{

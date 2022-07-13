@@ -6,13 +6,13 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:51:32 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 16:56:38 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 16:29:51 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
 #include "vec3.h"
-#include "float.h"
+#include "t_float.h"
 
 t_sphere	*new_sphere(t_vec3 origin, t_float radius, t_color3 color)
 {

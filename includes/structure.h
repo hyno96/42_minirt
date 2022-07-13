@@ -4,7 +4,7 @@
 
 # include "vec3.h"
 # include "libft.h"
-# include "float.h"
+# include "t_float.h"
 # include "setting.h"
 
 typedef struct s_window t_window;
@@ -41,16 +41,6 @@ enum e_bool
 	TRUE
 };
 
-struct s_data
-{
-	t_window    window;
-	t_color3    ambient;
-	t_camera    *camera;
-	t_list      *dot_lights;
-	t_list      *object_list;
-	t_setting	*setting;
-};
-
 struct s_camera
 {
 	t_point3    origin;
@@ -59,6 +49,16 @@ struct s_camera
 	t_vec3      vertical;
 	t_float     focal_len;
 	t_point3    left_bottom;
+};
+
+struct s_data
+{
+	t_window    window;
+	t_color3    ambient;
+	t_camera    camera;
+	t_list      *dot_lights;
+	t_list      *object_list;
+	t_setting	*setting;
 };
 
 #endif
