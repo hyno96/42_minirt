@@ -3,27 +3,52 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/05 13:40:45 by kangkim           #+#    #+#              #
-#    Updated: 2022/07/11 16:04:08 by kangkim          ###   ########.fr        #
+#    Updated: 2022/07/13 16:22:01 by hyno             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g #-Wall -Wextra -Werror
 
 NAME = minirt
 INCLUDE_DIR = includes
 SRC_DIR = srcs
 
-SRCS = main.c mlx_window.c perror.c
+PARSER_DIR = $(SRC_DIR)/parser
+PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
+				plane.c sphere.c utils.c str_to_x.c range.c \
+				str_to_float.c
+
+RENDER_DIR = $(SRC_DIR)/render
+RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c
+
+OBJECTS_DIR = $(SRC_DIR)/objects
+OBJECTS_SRCS = hit_object.c object_conv.c ray.c
+
+SETTING_DIR = $(SRC_DIR)/setting
+SETTING_SRCS = setting.c
+
+VEC3_DIR = $(SRC_DIR)/vec3
+VEC3_SRCS = vec3_1.c vec3_2.c vec3_3.c
+
+SRCS = main.c mlx_window.c perror.c get_next_line.c hyno_test_main.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
+SRCS += $(addprefix $(PARSER_DIR)/, $(PARSER_SRCS))
+SRCS += $(addprefix $(RENDER_DIR)/, $(RENDER_SRCS))
+SRCS += $(addprefix $(OBJECTS_DIR)/, $(OBJECTS_SRCS))
+SRCS += $(addprefix $(SETTING_DIR)/, $(SETTING_SRCS))
+SRCS += $(addprefix $(VEC3_DIR)/, $(VEC3_SRCS))
+
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 
-INCLUDES = mlx.h libft.h minirt.h structure.h mlx_window.h perror.h \
-			float.h objects.h vec3.h
+INCLUDES = mlx.h libft.h structure.h mlx_window.h perror.h \
+			t_float.h objects.h object_f.h vec3.h parser.h get_next_line.h \
+			ray.h render.h setting.h setting_f.h vec.h \
+			
 INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(INCLUDES))
 
 
@@ -69,7 +94,6 @@ re : fclean all
 
 
 	
-
 
 
 
