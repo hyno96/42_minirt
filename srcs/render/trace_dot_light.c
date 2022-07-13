@@ -6,13 +6,13 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:45:15 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 19:55:57 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 15:32:29 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec3.h"
 #include "structure.h"
-#include "objects.h"
+#include "objects_f.h"
 #include "ray.h"
 #include "libft.h"
 #include <math.h>
@@ -29,8 +29,8 @@ static t_color3	get_specular_color( \
 	rtn_color = vec3(0, 0, 0);
 	if (data.setting->use_dot_light_specular == FALSE)
 		return (rtn_color);
-	if (vec3_dot(specular_unit, direction_to_light))
-		specular_unit = vec3_mult_scalar(specular_unit, -1);
+	if (vec3_dot(specular_unit, direction_to_light) < 0)
+		return (rtn_color);
 	cos_theta = vec3_dot(specular_unit, direction_to_light) / \
 		(vec3_len(direction_to_light));
 	cos_theta = cos_theta * cos_theta * cos_theta * cos_theta;
@@ -62,10 +62,10 @@ static t_color3	get_diffuse_color( \
 }
 
 t_color3	trace_dot_light( \
-	t_point3	shoot_coord, t_vec3 specular, t_vec3 normal_unit, t_data data)
+	t_point3	origin, t_vec3 specular, t_vec3 normal_unit, t_data data)
 {
 	t_list			*head;
-	t_ray			ray;
+	t_ray			myray;
 	t_hit_record	record;
 	t_color3		rtn_color;
 	t_float			dist;
@@ -74,18 +74,17 @@ t_color3	trace_dot_light( \
 	head = data.dot_lights;
 	while (head)
 	{
-		ray.point = shoot_coord;
-		ray.direction = vec3_minus(conv_li(head)->origin, shoot_coord);
-		dist = vec3_square_len(ray.direction);
-		//ray.direction = vec3_unit(ray.direction);
-		if (complict(ray, data, &record) == FALSE || \
+		myray = ray(origin, vec3_minus(conv_li(head)->origin, origin));
+		dist = vec3_square_len(myray.direction);
+		myray.direction = vec3_unit(myray.direction);
+		if (complict(myray, data, &record) == FALSE || \
 			record.dist * record.dist > dist)
 		{
 			dist = sqrt(dist);
-			rtn_color = vec3_plus(rtn_color, vec3_div(get_specular_color( \
-				ray.direction, specular, head, data), dist));
-			rtn_color = vec3_plus(rtn_color, vec3_div(get_diffuse_color( \
-				ray.direction, normal_unit, head, data), dist));
+			rtn_color = vec3_plus(rtn_color, vec3_div(get_specular_color(\
+				myray.direction, specular, head, data), dist));
+			rtn_color = vec3_plus(rtn_color, vec3_div(get_diffuse_color(\
+				myray.direction, normal_unit, head, data), dist));
 		}
 		head = head->next;
 	}

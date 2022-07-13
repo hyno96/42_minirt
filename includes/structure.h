@@ -5,6 +5,7 @@
 # include "vec3.h"
 # include "libft.h"
 # include "float.h"
+# include "setting.h"
 
 typedef struct s_window t_window;
 typedef struct s_img    t_img;
@@ -40,23 +41,6 @@ enum e_bool
 	TRUE
 };
 
-struct s_setting
-{
-	int		row_resolution_render;
-	int		render_resolution_x;
-	int		render_resolution_y;
-	int 	use_dot_light_rgb;
-	int		use_dot_light_specular;
-	int		use_dot_light_diffuse;
-	int		use_ambient;
-	int		switch_phong_path;
-	t_float	ignore_complict_distance;
-
-	t_float	dot_light_diffuse_ratio;
-	t_float	dot_light_specular_ratio;
-	t_float	ambient_ratio;
-};
-
 struct s_data
 {
 	t_window    window;
@@ -76,10 +60,6 @@ struct s_camera
 	t_float     focal_len;
 	t_point3    left_bottom;
 };
-
-# include "setting.h"
-
-void	setting_default(t_data *data);
 
 #endif
 

@@ -1,6 +1,6 @@
 #include "vec3.h"
 
-t_vec3  vec3_div(t_vec3 vec, float t)
+t_vec3  vec3_div(t_vec3 vec, t_float t)
 {
     vec.x *= 1 / t;
     vec.y *= 1 / t;
@@ -8,7 +8,7 @@ t_vec3  vec3_div(t_vec3 vec, float t)
     return (vec);
 }
 
-float  vec3_dot(t_vec3 vec, t_vec3 vec2)
+t_float  vec3_dot(t_vec3 vec, t_vec3 vec2)
 {
     return (vec.x * vec2.x + vec.y * vec2.y + vec.z * vec2.z);
 }
@@ -25,7 +25,7 @@ t_vec3  vec3_cross(t_vec3 vec, t_vec3 vec2)
 
 t_vec3  vec3_unit(t_vec3 vec)
 {
-    float len;
+    t_float len;
 
     len = vec3_len(vec);
     if (len == 0)

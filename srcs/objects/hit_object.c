@@ -1,4 +1,4 @@
-#include "objects.h"
+#include "objects_f.h"
 #include "ray.h"
 #include <math.h>
 
@@ -38,5 +38,7 @@ t_float	hit_plane(t_point3 coord, t_vec3 normal_vec, t_ray ray)
 	if (vn <= 0)
 		vn *= -1;
 	sol = vec3_dot(vec3_div(vec3_minus(coord, ray.point), vn), normal_vec);
-	return (sol);
+	if (sol > 0.001)
+		return (sol);
+	return (-1);
 }

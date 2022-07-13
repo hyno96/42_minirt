@@ -1,6 +1,6 @@
 #include "vec3.h"
 
-t_vec3  vec3_plus_scalar(t_vec3 vec, float x, float y, float z)
+t_vec3  vec3_plus_scalar(t_vec3 vec, t_float x, t_float y, t_float z)
 {
     vec.x += x;
     vec.y += y;
@@ -16,7 +16,7 @@ t_vec3  vec3_minus(t_vec3 vec, t_vec3 vec2)
     return (vec);
 }
 
-t_vec3  vec3_minus_scalar(t_vec3 vec, float x, float y, float z)
+t_vec3  vec3_minus_scalar(t_vec3 vec, t_float x, t_float y, t_float z)
 {
     vec.x -= x;
     vec.y -= y;
@@ -32,7 +32,7 @@ t_vec3 vec3_mult(t_vec3 vec, t_vec3 vec2)
     return (vec);
 }
 
-t_vec3  vec3_mult_scalar(t_vec3 vec, float t)
+t_vec3  vec3_mult_scalar(t_vec3 vec, t_float t)
 {
     vec.x *= t;
     vec.y *= t;

@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:29:11 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 19:44:05 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 15:45:50 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "float.h"
 #include "ray.h"
 #include "structure.h"
-#include "objects.h"
+#include "objects_f.h"
 #include "vec3.h"
 
 static t_float	get_dist_from_object(t_ray ray, t_list *head)
@@ -75,6 +75,8 @@ static void	set_hit_record(t_ray ray, t_list *hit_object, t_hit_record *hit_reco
 		hit_record->surf = conv_pl(hit_object)->surf;
 	}
 }
+
+#include <stdio.h>
 
 // dev_comment
 // 충돌 최적화 함수를 새로 만들고 여기에 추가하시오

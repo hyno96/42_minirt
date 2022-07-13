@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   setting.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 16:34:45 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 20:01:14 by hyno             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "setting.h"
 #include "structure.h"
 
@@ -25,12 +13,12 @@ void	setting_default(t_data *data)
 		data->window.resolution_y / myset->row_resolution_render;
 	myset->use_dot_light_rgb = 0;
 	myset->use_dot_light_specular = 1;
-	myset->use_dot_light_diffuse = 0;
+	myset->use_dot_light_diffuse = 1;
 	myset->use_ambient = 0;
 	myset->switch_phong_path = 0;
 	myset->ignore_complict_distance = 0.001;
 	myset->dot_light_diffuse_ratio = 0.4;
-	myset->dot_light_specular_ratio = 4;
-	myset->ambient_ratio = 0.8;
+	myset->dot_light_specular_ratio = 0.4;
+	myset->ambient_ratio = 0.2;
 	data->setting = myset;
 }

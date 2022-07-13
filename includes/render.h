@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 20:37:16 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 17:10:52 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 15:32:02 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ struct s_hit_record
 
 int	complict(t_ray ray, t_data data, t_hit_record *hit_record);
 t_color3	trace_dot_light( \
-	t_point3	shoot_coord, t_vec3 specular, t_vec3 normal_unit, t_data data);
+	t_point3	origin, t_vec3 specular, t_vec3 normal_unit, t_data data);
 t_color3 get_color_phong(t_ray ray, t_data data);
 void	render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data);
 void	draw_screen(t_color3 **screen, t_data data);

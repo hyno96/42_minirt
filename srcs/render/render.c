@@ -6,14 +6,14 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:46:23 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 18:21:08 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 14:35:48 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure.h"
 #include "perror.h"
 #include "ray.h"
-#include "setting.h"
+#include "setting_f.h"
 #include "render.h"
 
 // dev_comment_hyno

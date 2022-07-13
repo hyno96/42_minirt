@@ -6,11 +6,12 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:07:36 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 19:12:07 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 14:37:37 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "structure.h"
+#include "setting_f.h"
 #include "mlx.h"
 
 static void	my_mlx_pixel_put(int x, int y, int color, t_img image)
