@@ -33,12 +33,12 @@ t_float	hit_plane(t_point3 coord, t_vec3 normal_vec, t_ray ray)
 	t_float	dot_n_rd;
 	t_float sol;
 
-	if (vec3_dot(normal_vec, ray.direction) < 0)
+	if (vec3_dot(normal_vec, ray.direction) > 0)
 		normal_vec = vec3_mult_scalar(normal_vec, -1);
 	dot_n_pa = vec3_dot(normal_vec, vec3_minus(coord, ray.point));
 	dot_n_rd = vec3_dot(normal_vec, ray.direction);
-	if (dot_n_pa < 0)
-		return (-1);
+	// if (dot_n_pa < 0)
+	// 	return (-1);
 	sol = dot_n_pa / dot_n_rd;
 	if (sol > 0.001)
 		return (sol);

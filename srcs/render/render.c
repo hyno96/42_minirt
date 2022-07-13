@@ -57,7 +57,7 @@ void	render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data)
 		j = 0;
 		while (j < data.setting->render_resolution_x)
 		{
-			if (i == 200 && j == 1000)
+			if (i == 540 && j == 960)
 				i += 0;
 			if (data.setting->switch_phong_path == 0)
 				screen[data.setting->render_resolution_y - 1 - i][j] = \

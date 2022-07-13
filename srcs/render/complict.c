@@ -68,6 +68,7 @@ static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object)
 static void	set_hit_record(t_ray ray, t_list *hit_object, t_hit_record *hit_record)
 {
 	hit_record->hit_point = ray_at(ray, hit_record->dist);
+	hit_record->obj = hit_object;
 	if (hit_object->type == SP)
 	{
 		hit_record->normal_unit = vec3_minus(hit_record->hit_point, conv_sp(hit_object)->origin);

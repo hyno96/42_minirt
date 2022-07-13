@@ -70,7 +70,6 @@ t_color3	trace_dot_light( \
 	t_color3		rtn_color;
 	t_float			dist;
 
-	rtn_color = vec3(0, 0, 0);
 	head = data.dot_lights;
 	while (head)
 	{
@@ -81,10 +80,11 @@ t_color3	trace_dot_light( \
 			record.dist * record.dist > dist)
 		{
 			dist = sqrt(dist);
-			rtn_color = vec3_plus(rtn_color, vec3_div(get_specular_color(\
-				myray.direction, specular, head, data), dist));
-			rtn_color = vec3_plus(rtn_color, vec3_div(get_diffuse_color(\
-				myray.direction, normal_unit, head, data), dist));
+			rtn_color = vec3_plus(\
+				get_diffuse_color(myray.direction, normal_unit, head, data), \
+				get_specular_color(myray.direction, specular, head, data));
+			if (data.setting->use_dist_lose != 0)
+				rtn_color = vec3_div(rtn_color, dist);
 		}
 		head = head->next;
 	}

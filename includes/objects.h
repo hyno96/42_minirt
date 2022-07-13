@@ -5,6 +5,8 @@
 # include "vec3.h"
 # include "structure.h"
 # include "ray.h"
+# include "image.h"
+# include "checkerboard.h"
 
 typedef struct s_dot_light t_dot_light;
 typedef struct s_surf      t_surf;
@@ -22,7 +24,12 @@ struct s_dot_light
 
 struct s_surf
 {
+    int       use_ctc;
     t_color3    color;
+    t_img       texture;
+    t_checkerboard  checker;
+    t_bool      use_normal_map;
+    t_img       normal_map;
 };
 
 struct s_sphere
