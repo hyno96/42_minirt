@@ -8,8 +8,8 @@
 # include "structure.h"
 
 // for window constants
-# define WIDTH  1600
-# define HEIGHT 900
+# define WIDTH  1920
+# define HEIGHT 1080
 # define TITLE  "miniRT"
 
 // for event constants
