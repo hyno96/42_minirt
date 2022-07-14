@@ -22,13 +22,13 @@ static t_bool   parse_line(t_line_info *line_info, t_data *data)
     else if (ft_strcmp(args[0], "C") == 0)
         result = parse_camera(line_info, args, data);
     else if (ft_strcmp(args[0], "L") == 0)
-        result = parse_light(line_info, args, data);
+        result = parse_dot_light(args, data);
     else if (ft_strcmp(args[0], "sp") == 0)
-        result = parse_sphere(line_info, args, data);
+        result = parse_sphere(args, data);
     else if (ft_strcmp(args[0], "pl") == 0)
-        result = parse_plane(line_info, args, data);
+        result = parse_plane(args, data);
     else if (ft_strcmp(args[0], "cy") == 0)
-        result = parse_cylinder(line_info, args, data);
+        result = parse_cylinder(args, data);
     free_args(args);
     return (result);
 }

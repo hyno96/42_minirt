@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myunkim <myunkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:04:43 by hyno              #+#    #+#             */
-/*   Updated: 2022/06/10 00:58:22 by myunkim          ###   ########seoul.kr  */
+/*   Updated: 2022/07/14 13:08:31 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,22 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+typedef enum e_type	t_type;
+
+enum e_type
+{
+	NONE_TYPE,
+	SP,
+	PL,
+	CY,
+	DOT_LI,
+};
+
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	t_type			type;
 }				t_list;
 
 int		ft_atoi(const char *nptr);
