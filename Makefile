@@ -11,7 +11,8 @@ PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
 				str_to_float.c constructor.c
 
 RENDER_DIR = $(SRC_DIR)/render
-RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c
+RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c \
+				mapping.c checkerboard.c\
 
 OBJECTS_DIR = $(SRC_DIR)/objects
 OBJECTS_SRCS = hit_object.c object_conv.c ray.c
@@ -35,7 +36,7 @@ DEPS = $(SRCS:.c=.d)
 
 INCLUDES = mlx.h libft.h structure.h mlx_window.h perror.h \
 			t_float.h objects.h object_f.h vec3.h parser.h get_next_line.h \
-			ray.h render.h setting.h setting_f.h vec.h \
+			ray.h render.h setting.h setting_f.h vec.h mapping_f.h \
 			
 INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(INCLUDES))
 

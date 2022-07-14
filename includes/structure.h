@@ -6,6 +6,7 @@
 # include "libft.h"
 # include "t_float.h"
 # include "setting.h"
+# include "image.h"
 
 typedef struct s_window t_window;
 typedef struct s_img    t_img;
@@ -13,17 +14,6 @@ typedef struct s_camera t_camera;
 typedef enum e_bool     t_bool;
 typedef struct s_data   t_data;
 typedef struct s_setting	t_setting;
-
-
-
-struct s_img
-{
-	void    *img_ptr;
-	char    *data_addr;
-	int     bits_per_pixel;
-	int     size_line;
-	int     endian;
-};
 
 struct s_window
 {

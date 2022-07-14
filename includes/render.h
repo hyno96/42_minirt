@@ -17,6 +17,7 @@
 # include "vec3.h"
 # include "ray.h"
 # include "objects.h"
+# include "libft.h"
 
 typedef struct s_hit_record	t_hit_record;
 
@@ -26,6 +27,7 @@ struct s_hit_record
 	t_point3	hit_point;
 	t_vec3		normal_unit;
 	t_surf		surf;
+	t_list		*obj;
 };
 
 int	complict(t_ray ray, t_data data, t_hit_record *hit_record);

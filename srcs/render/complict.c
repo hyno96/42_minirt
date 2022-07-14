@@ -6,7 +6,7 @@
 /*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:29:11 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 15:45:50 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/13 20:11:20 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object)
 		if (temp > 0)
 		{
 			if (is_hit == FALSE)
+			{
 				dist = temp;
+				*hit_object = head;
+			}
 			else if (temp < dist)
+			{
 				dist = temp;
+				*hit_object = head;
+			}
 			is_hit = TRUE;
-			*hit_object = head;
 		}
 		head = head->next;
 	}
@@ -63,6 +68,7 @@ static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object)
 static void	set_hit_record(t_ray ray, t_list *hit_object, t_hit_record *hit_record)
 {
 	hit_record->hit_point = ray_at(ray, hit_record->dist);
+	hit_record->obj = hit_object;
 	if (hit_object->type == SP)
 	{
 		hit_record->normal_unit = vec3_minus(hit_record->hit_point, conv_sp(hit_object)->origin);

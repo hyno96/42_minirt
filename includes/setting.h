@@ -12,6 +12,7 @@ struct s_setting
 	int		use_dot_light_specular;
 	int		use_dot_light_diffuse;
 	int		use_ambient;
+	int		use_dist_lose;
 	int		switch_phong_path;
 	t_float	ignore_complict_distance;
 
