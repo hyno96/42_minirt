@@ -52,17 +52,19 @@ t_float	hit_cylinder_cap(t_cylinder cylinder, t_ray myray)
 	t_float dist_cap2;
 	t_vec3	temp_rayat;
 	t_float	ignore;
+	t_vec3	origin2;
 
+	cylinder.normal = vec3_unit(cylinder.normal);
 	ignore = 0.001;
 	dist_cap1 = hit_plane(cylinder.origin, cylinder.normal, myray);
 	temp_rayat = ray_at(myray, dist_cap1);
 	if (vec3_square_len(vec3_minus(cylinder.origin, temp_rayat)) \
 		> cylinder.radius * cylinder.radius)
 		dist_cap1 = -1;
-	dist_cap2 = hit_plane(ray_at(ray(cylinder.origin, cylinder.normal), 
-		cylinder.height), cylinder.normal, myray);
+	origin2 = ray_at(ray(cylinder.origin, cylinder.normal), cylinder.height);
+	dist_cap2 = hit_plane(origin2, cylinder.normal, myray);
 	temp_rayat = ray_at(myray, dist_cap2);
-	if (vec3_square_len(vec3_minus(cylinder.origin, temp_rayat)) \
+	if (vec3_square_len(vec3_minus(origin2, temp_rayat)) \
 		> cylinder.radius * cylinder.radius)
 		dist_cap2 = -1;
 	if (dist_cap1 > ignore && (dist_cap2 < ignore || dist_cap1 < dist_cap2))
@@ -72,9 +74,29 @@ t_float	hit_cylinder_cap(t_cylinder cylinder, t_ray myray)
 	return (-1);
 }
 
-t_float	hit_cylinder_body()
+t_float	hit_cylinder_body(t_cylinder cylinder, t_ray ray)
 {
-	return (-1);
+	t_float	a;
+	t_float	b;
+	t_float	c;
+	t_vec3 	tempvec;
+	t_vec3	tempvec2;
+
+	t_float temp1;
+	t_float temp2;
+
+	tempvec = vec3_cross(cylinder.normal, ray.direction);
+	a = vec3_dot(tempvec, tempvec);
+	tempvec2 = vec3_cross(cylinder.origin, cylinder.normal);
+	b = vec3_dot(tempvec, tempvec2) * 2.0;
+	c = vec3_dot(tempvec2, tempvec2) - cylinder.radius * cylinder.radius;
+	// temp1 = vec3_dot(cylinder.normal, ray.direction);
+	// a = temp1 * temp1;
+	// temp2= vec3_dot(cylinder.origin, cylinder.normal);
+	// b = temp1 * temp2;
+	// b = 2 * temp1 * temp2;
+	// c = temp2 * temp2 - cylinder.radius * cylinder.radius;
+	return (find_quadratic_formula(a, b, c));
 }
 
 t_float	hit_cylinder(t_cylinder cylinder, t_ray ray)

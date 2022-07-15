@@ -4,7 +4,7 @@
 void	setting_default(t_data *data)
 {
 	t_setting	*myset;
-	
+
 	myset = malloc(sizeof(t_setting));
 	myset->row_resolution_render = 1;
 	myset->render_resolution_x = \

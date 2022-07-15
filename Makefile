@@ -15,7 +15,7 @@ RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c \
 				mapping.c checkerboard.c\
 
 OBJECTS_DIR = $(SRC_DIR)/objects
-OBJECTS_SRCS = hit_object.c object_conv.c ray.c
+OBJECTS_SRCS = hit_object.c object_conv.c ray.c mymath.c
 
 SETTING_DIR = $(SRC_DIR)/setting
 SETTING_SRCS = setting.c

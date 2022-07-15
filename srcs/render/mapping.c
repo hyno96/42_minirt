@@ -34,7 +34,7 @@ void	get_xy_mapping_sphere(\
 	t_vec3	xy_vec;
 
 	if (origin.x == 0 && origin.z == 0)
-		origin = vec3_unit(vec3(0, 0, -0.6));
+		origin = vec3_unit(vec3(0, 0, -1));
 	xy_vec = vec3_unit(vec3(normal_unit.x, 0 ,normal_unit.z));
 	// cos_theta = vec3_dot(origin, xy_vec);
 	// if (cos_theta < 0)

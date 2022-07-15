@@ -36,6 +36,7 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 		
 		if (vec3_dot(record.normal_unit, ray.direction) > 0)
 			record.normal_unit = vec3_mult_scalar(record.normal_unit, -1);
+		
 		specular_direction = vec3_minus(ray.direction, vec3_mult_scalar(\
 			record.normal_unit, \
 			2.0 * vec3_dot(ray.direction, record.normal_unit)));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hyno_test_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 16:30:25 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/14 15:23:00 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/13 20:13:49 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "vec3.h"
 #include "t_float.h"
 #include "mapping_f.h"
+#include "mlx_window.h"
 
 static void	malloc_screen(t_color3 ***target, int x, int y)
 {
@@ -155,8 +156,8 @@ void	hyno_test(t_data data)
 	// data.camera.focal_len = 1;
 	// data.camera.left_bottom = vec3(-960, -540, -800);
 
-	data.window.resolution_x = 1920;
-	data.window.resolution_y = 1080;
+	data.window.resolution_x = WIDTH;
+	data.window.resolution_y = HEIGHT;
 	setting_default(&data);
 	malloc_ray(&ray_arr, data.setting->render_resolution_x, \
 		data.setting->render_resolution_y);
