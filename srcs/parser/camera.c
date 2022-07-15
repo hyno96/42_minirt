@@ -1,18 +1,49 @@
 #include <math.h>
 
 #include "parser.h"
+#include "mlx_window.h"
+#include "vec3.h"
 
+
+static t_vec3   get_horizontal(t_camera *cam)
+{
+    t_vec3  vec_y;
+    t_vec3  vec_z;
+
+    vec_y = vec3(0.0, 1.0, 0.0);
+    vec_z = vec3(0.0, 0.0, -1.0);
+    
+    if (vec3_len(vec3_cross(vec_y, cam->direction)))
+        return (vec3_unit(vec3_cross(cam->direction, vec_y)));
+    else
+        return (vec3_unit(vec3_cross(cam->direction, vec_z)));
+}
+
+static t_point3 get_left_bottom(t_camera *cam)
+{
+    t_point3  temp;
+
+    temp = vec3_plus(cam->origin, \
+            vec3_mult_scalar(cam->direction, cam->focal_len));
+    temp = vec3_plus(temp, \
+            vec3_mult_scalar(cam->horizontal, -(t_float)(WIDTH - 1) / 2));
+    temp = vec3_plus(temp, \
+            vec3_mult_scalar(cam->vertical, -(t_float)(HEIGHT - 1) / 2));
+    return (temp);
+}
 
 static void    modify_camera_args(t_float points[3], t_float normals[3], \
                             t_float fov, t_data *data)
 {
-    t_vec3  vec_y;
-    t_vec3  vec_z;
-    t_vec3  temp;
+    t_camera    *cam;
 
-    data->camera.origin = vec3(points[0], points[1], points[2]);
-    data->camera.direction = vec3(normals[0], normals[1], normals[2]);
-    
+    cam = &(data->camera);
+    cam->origin = vec3(points[0], points[1], points[2]);
+    cam->direction = vec3(normals[0], normals[1], normals[2]);
+    cam->horizontal = get_horizontal(cam);
+    cam->vertical = vec3_unit(vec3_cross(cam->horizontal, cam->direction));
+    cam->focal_len = (t_float)WIDTH / 2 / tan(fov / 2 * M_PI / 180);
+    cam->left_bottom = get_left_bottom(cam);
 }
 
 static t_bool  set_camera(char **args, t_data *data)
@@ -43,6 +74,5 @@ t_bool  parse_camera(t_line_info *line_info, char **args, t_data *data)
         return (FALSE);
     if (!set_camera(args, data))
         return (FALSE);
-    (void)data;
-    return (TRUE);    
+    return (TRUE);
 }

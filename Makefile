@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/07/05 13:40:45 by kangkim           #+#    #+#              #
-#    Updated: 2022/07/13 16:22:01 by hyno             ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 CC = cc
 CFLAGS = -g #-Wall -Wextra -Werror
 
@@ -20,7 +8,7 @@ SRC_DIR = srcs
 PARSER_DIR = $(SRC_DIR)/parser
 PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
 				plane.c sphere.c utils.c str_to_x.c range.c \
-				str_to_float.c
+				str_to_float.c constructor.c
 
 RENDER_DIR = $(SRC_DIR)/render
 RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c \

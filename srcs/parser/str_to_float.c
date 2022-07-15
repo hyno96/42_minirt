@@ -16,6 +16,8 @@ static t_float get_integer_place(char **arg)
     t_float num;
 
     num = 0.0;
+    if (**arg == '0' && ft_isdigit(*(*arg + 1)))
+        return (num);
     while (ft_isdigit(**arg))
     {
         num = num * 10 + **arg - '0';

@@ -12,8 +12,6 @@ t_bool  set_ambient(char **args, t_data *data)
         return (FALSE);
     if (!str_to_vec3(args[2], color_rgb) || !check_range(color_rgb, RANGE_COLOR, 3))
         return (FALSE);
-    printf("ambient\n");
-    printf("%f %f %f %f\n", ratio, color_rgb[0], color_rgb[1], color_rgb[2]);
     data->ambient = vec3_mult_scalar(vec3(color_rgb[0], color_rgb[1], color_rgb[2]), ratio);
     return (TRUE);
 }
