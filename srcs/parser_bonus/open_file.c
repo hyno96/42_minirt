@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:59:06 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 20:59:25 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/15 21:07:36 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 #include "perror.h"
-#include "parser.h"
+#include "parser_bonus.h"
 #include "libft.h"
 
 static t_bool	check_file_extension(char *file_name)

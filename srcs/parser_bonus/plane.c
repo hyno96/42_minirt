@@ -1,64 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 21:02:52 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 21:03:52 by kangkim          ###   ########.fr       */
+/*   Created: 2022/07/15 20:59:35 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/15 21:07:07 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include "parser.h"
+#include "parser_bonus.h"
 #include "libft.h"
 
-static t_bool	modify_sphere_args(t_float points[3], t_float diameter, \
-									t_float colors[3], t_data *data)
+static t_bool	modify_plane_args(t_float points[3], t_float normals[3], \
+								t_float colors[3], t_data *data)
 {
-	t_sphere	*sp;
-	t_list		*list;
+	t_plane	*pl;
+	t_list	*list;
 
-	sp = (t_sphere *)malloc(sizeof(t_sphere));
-	if (!sp)
+	pl = (t_plane *)malloc(sizeof(t_plane));
+	if (!pl)
 		return (FALSE);
-	sp->origin = vec3(points[0], points[1], points[2]);
-	sp->radius = (t_float)(diameter / 2.0);
-	sp->surf.color = vec3(colors[0], colors[1], colors[2]);
-	list = ft_lstnew((void *)sp);
-	list->type = SP;
+	pl->origin = vec3(points[0], points[1], points[2]);
+	pl->normal = vec3(normals[0], normals[1], normals[2]);
+	pl->surf.color = vec3(colors[0], colors[1], colors[2]);
+	list = ft_lstnew((void *)pl);
+	list->type = PL;
 	ft_lstadd_back(&(data->object_list), list);
 	return (TRUE);
 }
 
-static t_bool	set_sphere(char **args, t_data *data)
+static t_bool	set_plane(char **args, t_data *data)
 {
 	t_float	points[3];
-	t_float	diameter;
+	t_float	normals[3];
 	t_float	colors[3];
 
 	if (!str_to_vec3(args[1], points) || !check_range(points, RANGE_FLOAT, 3))
 		return (FALSE);
-	if (!str_to_float(args[2], &diameter) || \
-		!check_range(&diameter, RANGE_LENGTH, 1))
+	if (!str_to_vec3(args[2], normals) || \
+		!check_range(normals, RANGE_NORMAL, 3))
 		return (FALSE);
 	if (!str_to_vec3(args[3], colors) || !check_range(colors, RANGE_COLOR, 3))
 		return (FALSE);
-	if (!modify_sphere_args(points, diameter, colors, data))
+	if (!modify_plane_args(points, normals, colors, data))
 		return (FALSE);
 	return (TRUE);
 }
 
-t_bool	parse_sphere(char **args, t_data *data)
+t_bool	parse_plane(char **args, t_data *data)
 {
 	size_t	arg_num;
 
 	arg_num = get_arg_num(args);
-	if (arg_num != SPHERE_ARG_NUM)
+	if (arg_num != PLANE_ARG_NUM)
 		return (FALSE);
-	if (!set_sphere(args, data))
+	if (!set_plane(args, data))
 		return (FALSE);
 	return (TRUE);
 }

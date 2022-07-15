@@ -1,5 +1,5 @@
-#ifndef STRUCTURE_H_
-# define STRUCTURE_H_
+#ifndef STRUCTURE_H
+# define STRUCTURE_H
 
 
 # include "vec3.h"

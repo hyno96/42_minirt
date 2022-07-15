@@ -95,14 +95,14 @@ int main(int argc, char **argv)
         return (ERR_ARGS);
     }
     ft_memset((void *)&data, 0, sizeof(t_data));
-    if (!parse_rt_file(argv[1], &data))
-        return (ERR_PARSING);
-    // print_parsing_result(&data);
     if (!init_window(&data.window))
     {
         ft_perror("failed to initiative mlx window");
         return (ERR_MLX_WIN);
     }
+    if (!parse_rt_file(argv[1], &data))
+        return (ERR_PARSING);
+    // print_parsing_result(&data);
     // // draw image
     // mlx_put_image_to_window(data.window.mlx_ptr, data.window.win_ptr, \
     //                         data.window.mlx_img.img_ptr, 0, 0);

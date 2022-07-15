@@ -63,17 +63,17 @@ static t_color3	get_color_in_image(t_float x, t_float y, t_img image)
 	return (vec);
 }
 
-t_bool	load_image(char	*filename, t_img *image, t_data data)
-{
-	image->img_ptr = 0;
-	image->img_ptr = mlx_xpm_file_to_image(\
-		data.window.mlx_ptr, filename, &(image->x), &(image->y));
-	if (image->img_ptr == 0)
-		return (FALSE);
-	image->data_addr = mlx_get_data_addr(image->img_ptr, \
-			&(image->bits_per_pixel), &(image->size_line), &(image->endian));
-	return (TRUE);
-}
+// t_bool	load_image(char	*filename, t_img *image, t_data data)
+// {
+// 	image->img_ptr = 0;
+// 	image->img_ptr = mlx_xpm_file_to_image(\
+// 		data.window.mlx_ptr, filename, &(image->x), &(image->y));
+// 	if (image->img_ptr == 0)
+// 		return (FALSE);
+// 	image->data_addr = mlx_get_data_addr(image->img_ptr, \
+// 			&(image->bits_per_pixel), &(image->size_line), &(image->endian));
+// 	return (TRUE);
+// }
 
 t_color3	get_color_in_texture(t_hit_record record)
 {

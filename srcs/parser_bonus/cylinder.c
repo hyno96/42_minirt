@@ -6,13 +6,13 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:55:32 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 20:57:44 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/15 21:08:21 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include "parser.h"
+#include "parser_bonus.h"
 #include "libft.h"
 
 static t_bool	modify_cylinder_args(t_cylinder_tmp_content *cy_content, \

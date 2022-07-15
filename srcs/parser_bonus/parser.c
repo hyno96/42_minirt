@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:00:28 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 21:01:41 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/15 21:07:23 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 
 #include "perror.h"
-#include "parser.h"
+#include "parser_bonus.h"
 #include "get_next_line.h"
 
 static t_bool	parse_line(t_line_info *line_info, t_data *data)

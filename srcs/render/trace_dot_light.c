@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace_dot_light.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:45:15 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 15:32:29 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/15 19:33:16 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ t_color3	trace_dot_light( \
 	t_hit_record	record;
 	t_color3		rtn_color;
 	t_float			dist;
+	t_color3		temp;
 
+	rtn_color = vec3(0,0,0);
 	head = data.dot_lights;
 	while (head)
 	{
@@ -80,9 +82,10 @@ t_color3	trace_dot_light( \
 			record.dist * record.dist > dist)
 		{
 			dist = sqrt(dist);
-			rtn_color = vec3_plus(\
+			temp = vec3_plus(\
 				get_diffuse_color(myray.direction, normal_unit, head, data), \
 				get_specular_color(myray.direction, specular, head, data));
+			rtn_color = vec3_plus(rtn_color, temp);
 			if (data.setting->use_dist_lose != 0)
 				rtn_color = vec3_div(rtn_color, dist);
 		}

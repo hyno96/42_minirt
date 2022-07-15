@@ -6,13 +6,13 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:52:24 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 20:55:24 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/15 21:08:35 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 
-#include "parser.h"
+#include "parser_bonus.h"
 #include "mlx_window.h"
 #include "vec3.h"
 
