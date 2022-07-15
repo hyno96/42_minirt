@@ -22,7 +22,7 @@ static t_bool   parse_line(t_line_info *line_info, t_data *data)
     else if (ft_strcmp(args[0], "C") == 0)
         result = parse_camera(line_info, args, data);
     else if (ft_strcmp(args[0], "L") == 0)
-        result = parse_dot_light(args, data);
+        result = parse_dot_light(line_info, args, data);
     else if (ft_strcmp(args[0], "sp") == 0)
         result = parse_sphere(args, data);
     else if (ft_strcmp(args[0], "pl") == 0)
@@ -31,6 +31,17 @@ static t_bool   parse_line(t_line_info *line_info, t_data *data)
         result = parse_cylinder(args, data);
     free_args(args);
     return (result);
+}
+
+static t_bool   check_components(t_element e)
+{
+    t_element   must_include_element;
+
+    must_include_element = DUP_CHECK_AMBIENT | DUP_CHECK_CAMERA \
+                            | CHECK_LIGHT;
+    if (e != must_include_element)
+        return (FALSE);
+    return (TRUE);
 }
 
 static t_bool   parse_lines(int fd, t_data *data)
@@ -50,6 +61,8 @@ static t_bool   parse_lines(int fd, t_data *data)
         }
         free(line_info.line);
     }
+    if (!check_components(line_info.check_dup))
+        return (FALSE);
     return (TRUE);
 }
 

@@ -8,7 +8,7 @@ SRC_DIR = srcs
 PARSER_DIR = $(SRC_DIR)/parser
 PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
 				plane.c sphere.c utils.c str_to_x.c range.c \
-				str_to_float.c constructor.c
+				str_to_float.c constructor.c open_file.c
 
 RENDER_DIR = $(SRC_DIR)/render
 RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c \

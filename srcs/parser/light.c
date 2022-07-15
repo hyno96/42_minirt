@@ -39,10 +39,11 @@ static t_bool   set_dot_light(char **args, t_data *data)
     return (TRUE);
 }
 
-t_bool  parse_dot_light(char **args, t_data *data)
+t_bool  parse_dot_light(t_line_info *line_info, char **args, t_data *data)
 {
     size_t  arg_num;
 
+    line_info->check_dup |= CHECK_LIGHT;
     arg_num = get_arg_num(args);
     if (arg_num != LIGHT_ARG_NUM)
         return (FALSE);

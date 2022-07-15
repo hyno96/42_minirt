@@ -8,6 +8,7 @@
 typedef struct s_line_info              t_line_info;
 typedef enum e_range_type               t_range_type;
 typedef struct s_cylinder_tmp_content   t_cylinder_tmp_content;
+typedef enum e_element                  t_element;
 
 enum e_arg_num
 {
@@ -29,10 +30,11 @@ enum e_range_type
     RANGE_FLOAT,
 };
 
-enum e_check_dup
+enum e_element
 {
     DUP_CHECK_AMBIENT = 1,
     DUP_CHECK_CAMERA = 2,
+    CHECK_LIGHT = 4,
 };
 
 struct s_line_info
@@ -54,7 +56,7 @@ struct s_cylinder_tmp_content
 t_bool      parse_rt_file(char *file_name, t_data *data);
 t_bool      parse_ambient(t_line_info *line_info, char **args, t_data *data);
 t_bool      parse_camera(t_line_info *line_info, char **args, t_data *data);
-t_bool      parse_dot_light(char **args, t_data *data);
+t_bool      parse_dot_light(t_line_info *line_info, char **args, t_data *data);
 t_bool      parse_sphere(char **args, t_data *data);
 t_bool      parse_plane(char **args, t_data *data);
 t_bool      parse_cylinder(char **args, t_data *data);
