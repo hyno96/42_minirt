@@ -1,6 +1,19 @@
 #include "t_float.h"
 #include <math.h>
 
+t_float	mypow(t_float val, int time)
+{
+	t_float rtn;
+
+	rtn = 1;
+	while (time)
+	{
+		rtn *= val;
+		time--;
+	}
+	return (rtn);
+}
+
 t_float	find_small_solution(t_float sol1, t_float sol2)
 {
 	t_float	ignore;
