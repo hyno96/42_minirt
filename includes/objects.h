@@ -28,8 +28,8 @@ struct s_surf
     t_color3    color;
     t_img       texture;
     t_checkerboard  checker;
-    t_bool      use_normal_map;
-    t_img       normal_map;
+    t_bool      use_bump_map;
+    t_img       bump_map;
 };
 
 struct s_sphere
