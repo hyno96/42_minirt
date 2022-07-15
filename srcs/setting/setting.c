@@ -4,7 +4,7 @@
 void	setting_default(t_data *data)
 {
 	t_setting	*myset;
-	
+
 	myset = malloc(sizeof(t_setting));
 	myset->row_resolution_render = 1;
 	myset->render_resolution_x = \
@@ -12,9 +12,9 @@ void	setting_default(t_data *data)
 	myset->render_resolution_y = \
 		data->window.resolution_y / myset->row_resolution_render;
 	myset->use_dot_light_rgb = 0;
-	myset->use_dot_light_specular = 0;
+	myset->use_dot_light_specular = 1;
 	myset->use_dot_light_diffuse = 1;
-	myset->use_ambient = 0;
+	myset->use_ambient = 1;
 	myset->use_dist_lose = 0;
 	myset->switch_phong_path = 0;
 	myset->ignore_complict_distance = 0.001;

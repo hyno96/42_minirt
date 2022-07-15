@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 16:07:36 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 14:37:37 by hyno             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "structure.h"
 #include "setting_f.h"
 #include "mlx.h"
@@ -23,52 +11,42 @@ static void	my_mlx_pixel_put(int x, int y, int color, t_img image)
 	*(unsigned int *)dst = color;
 }
 
-static void	row_resoultion_draw(int ij[2], int row, int color, t_img image)
+static void	limit_color(t_color3 *color)
+{
+	if ((*color).x >= 255)
+		(*color).x = 255;
+	if ((*color).y >= 255)
+		(*color).y = 255;
+	if ((*color).z >= 255)
+		(*color).z = 255;
+}
+
+static int	get_int_color(t_color3 color)
+{
+	int	int_color;
+
+	int_color = (int)color.x << 16;
+	int_color += (int)color.y << 8;
+	int_color += (int)color.z;
+	return (int_color);
+}
+
+static void	draw_image_loop(t_color3 **screen, t_img image, t_data data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < row)
+	while (i < data.window.resolution_y)
 	{
 		j = 0;
-		while (j < row)
+		while (j < data.window.resolution_x)
 		{
-			my_mlx_pixel_put(ij[1] + j, ij[0] + i, color, image);
+			limit_color(&screen[i][j]);
+			my_mlx_pixel_put(j, i, get_int_color(screen[i][j]), image);
 			j++;
 		}
 		i++;
-	}
-}
-
-static void	draw_image_loop(t_color3 **screen, t_img image, t_data data)
-{
-	int	ij[2];
-	int	color;
-
-	ij[0] = 0;
-	while (ij[0] < data.window.resolution_y)
-	{
-		ij[1] = 0;
-		while (ij[1] < data.window.resolution_x)
-		{
-			if (screen[ij[0]][ij[1]].z >= 255)
-				color = 255;
-			else
-				color = screen[ij[0]][ij[1]].z;
-			if (screen[ij[0]][ij[1]].y >= 255)
-				color += 255 << 8;
-			else
-				color += (int)screen[ij[0]][ij[1]].y << 8;
-			if (screen[ij[0]][ij[1]].x >= 255)
-				color += 255 << 16;
-			else
-				color += (int)screen[ij[0]][ij[1]].x << 16;
-			row_resoultion_draw(ij, data.setting->row_resolution_render, \
-				color, image);
-			ij[1]++;
-		}
-		ij[0]++;
 	}
 }
 

@@ -13,8 +13,8 @@
 
 static t_color3	my_mlx_pixel_get(int x, int y, t_img image)
 {
-	char	*dst;
-	unsigned int uint;
+	char			*dst;
+	unsigned int	uint;
 
 	dst = image.data_addr + \
 		(y * image.size_line + x * (image.bits_per_pixel / 8));
@@ -29,13 +29,13 @@ static t_color3	my_mlx_pixel_get(int x, int y, t_img image)
 void	get_xy_mapping_sphere(\
 	t_float *x, t_float *y, t_vec3 normal_unit, t_sphere sp)
 {
-	t_float cos_theta;
+	t_float			cos_theta;
 	static t_vec3	origin;
-	t_vec3	xy_vec;
+	t_vec3			xy_vec;
 
 	if (origin.x == 0 && origin.z == 0)
-		origin = vec3_unit(vec3(0, 0, -0.6));
-	xy_vec = vec3_unit(vec3(normal_unit.x, 0 ,normal_unit.z));
+		origin = vec3_unit(vec3(0, 0, -1));
+	xy_vec = vec3_unit(vec3(normal_unit.x, 0, normal_unit.z));
 	// cos_theta = vec3_dot(origin, xy_vec);
 	// if (cos_theta < 0)
 	// 	cos_theta = (-cos_theta + 1) / 2;
@@ -51,13 +51,13 @@ void	get_xy_mapping_sphere(\
 		*x = cos_theta / 2;
 	else
 		*x = (1 - (cos_theta / 2));
-	*y = acos(vec3_dot(vec3(0, 1, 0), normal_unit)) / M_PI; 
+	*y = acos(vec3_dot(vec3(0, 1, 0), normal_unit)) / M_PI;
 	//printf("%f %f\n", *x, *y);
 }
 
 static t_color3	get_color_in_image(t_float x, t_float y, t_img image)
 {
-	t_vec3 vec;
+	t_vec3	vec;
 
 	vec = my_mlx_pixel_get((t_float)image.x * x, (t_float)image.y * y, image);
 	return (vec);
@@ -77,8 +77,8 @@ t_bool	load_image(char	*filename, t_img *image, t_data data)
 
 t_color3	get_color_in_texture(t_hit_record record)
 {
-	t_float x;
-	t_float y;
+	t_float	x;
+	t_float	y;
 
 	if (record.obj->type == SP)
 	{

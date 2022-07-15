@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   trace_dot_light.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/12 12:45:15 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 15:32:29 by hyno             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "vec3.h"
 #include "structure.h"
 #include "objects_f.h"
@@ -70,19 +58,18 @@ t_color3	trace_dot_light( \
 	t_color3		rtn_color;
 	t_float			dist;
 
+	rtn_color = vec3(0, 0, 0);
 	head = data.dot_lights;
 	while (head)
 	{
 		myray = ray(origin, vec3_minus(conv_li(head)->origin, origin));
-		dist = vec3_square_len(myray.direction);
+		dist = vec3_len(myray.direction);
 		myray.direction = vec3_unit(myray.direction);
-		if (complict(myray, data, &record) == FALSE || \
-			record.dist * record.dist > dist)
+		if (complict(myray, data, &record) == FALSE || record.dist > dist)
 		{
-			dist = sqrt(dist);
-			rtn_color = vec3_plus(\
+			rtn_color = vec3_plus(rtn_color, vec3_plus(\
 				get_diffuse_color(myray.direction, normal_unit, head, data), \
-				get_specular_color(myray.direction, specular, head, data));
+				get_specular_color(myray.direction, specular, head, data)));
 			if (data.setting->use_dist_lose != 0)
 				rtn_color = vec3_div(rtn_color, dist);
 		}
