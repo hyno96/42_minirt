@@ -26,8 +26,8 @@ static t_float	get_dist_from_object(t_ray ray, t_list *head)
 		dist = hit_sphere(conv_sp(head)->origin, conv_sp(head)->radius, ray);
 	else if (head->type == PL)
 		dist = hit_plane(conv_pl(head)->origin, conv_pl(head)->normal, ray);
-	// else if (head->type == CY)
-	// 	dist = hit_cylinder();
+	else if (head->type == CY)
+		dist = hit_cylinder(*conv_cy(head), ray);
 	return (dist);
 }
 

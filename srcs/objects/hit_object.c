@@ -4,8 +4,9 @@
 
 // dev_comment
 // ray의 direction이 유닛벡터가 아니여도 정상적으로 작동합니까?
-t_float	hit_sphere(t_point3 center, t_float radius, t_ray r) {
-    t_vec3	oc;
+t_float	hit_sphere(t_point3 center, t_float radius, t_ray r)
+{
+	t_vec3	oc;
 	t_float	cal[4];
 	t_float	sol[2];
 
@@ -42,5 +43,52 @@ t_float	hit_plane(t_point3 coord, t_vec3 normal_vec, t_ray ray)
 	sol = dot_n_pa / dot_n_rd;
 	if (sol > 0.001)
 		return (sol);
+	return (-1);
+}
+
+t_float	hit_cylinder_cap(t_cylinder cylinder, t_ray myray)
+{
+	t_float	dist_cap1;
+	t_float dist_cap2;
+	t_vec3	temp_rayat;
+	t_float	ignore;
+
+	ignore = 0.001;
+	dist_cap1 = hit_plane(cylinder.origin, cylinder.normal, myray);
+	temp_rayat = ray_at(myray, dist_cap1);
+	if (vec3_square_len(vec3_minus(cylinder.origin, temp_rayat)) \
+		> cylinder.radius * cylinder.radius)
+		dist_cap1 = -1;
+	dist_cap2 = hit_plane(ray_at(ray(cylinder.origin, cylinder.normal), 
+		cylinder.height), cylinder.normal, myray);
+	temp_rayat = ray_at(myray, dist_cap2);
+	if (vec3_square_len(vec3_minus(cylinder.origin, temp_rayat)) \
+		> cylinder.radius * cylinder.radius)
+		dist_cap2 = -1;
+	if (dist_cap1 > ignore && (dist_cap2 < ignore || dist_cap1 < dist_cap2))
+		return (dist_cap1);
+	else if (dist_cap2 > ignore && (dist_cap1 < ignore || dist_cap2 < dist_cap1))
+		return (dist_cap2);
+	return (-1);
+}
+
+t_float	hit_cylinder_body()
+{
+	return (-1);
+}
+
+t_float	hit_cylinder(t_cylinder cylinder, t_ray ray)
+{
+	t_float	dist_cap;
+	t_float dist_body;
+	t_float ignore;
+
+	ignore = 0.001;
+	dist_cap = hit_cylinder_cap(cylinder, ray);
+	dist_body = hit_cylinder_body(cylinder, ray);
+	if (dist_cap > ignore && (dist_body < ignore || dist_cap < dist_body))
+		return (dist_cap);
+	else if (dist_body > ignore && (dist_cap < ignore || dist_body < dist_cap))
+		return (dist_body);
 	return (-1);
 }
