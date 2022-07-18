@@ -1,9 +1,17 @@
-#include <fcntl.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/15 21:04:58 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/18 16:05:19 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
-
-#include "perror.h"
 #include "parser.h"
-
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -23,38 +31,32 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (us1[index] - us2[index]);
 }
 
-int open_rt_file(char *file_name)
+void	free_args(char **args)
 {
-    int fd;
+	char	**temp;
 
-    fd = open(file_name, O_RDONLY);
-    if (fd < 0)
-    {
-        ft_perror("can't open file");
-        return (-1);
-    }
-    return (fd);
+	temp = args;
+	while (*temp)
+	{
+		free(*temp);
+		temp++;
+	}
+	free(args);
 }
 
-void    free_args(char **args)
+size_t	get_arg_num(char **args)
 {
-    char **temp;
+	size_t	arg_num;
 
-    temp = args;
-    while (*temp)
-    {
-        free(*temp);
-        temp++; 
-    }
-    free(args);
+	arg_num = 0;
+	while (args[arg_num])
+		arg_num++;
+	return (arg_num);
 }
 
-size_t  get_arg_num(char **args)
+t_bool	check_normal(t_vec3 normal)
 {
-    size_t  arg_num;
-
-    arg_num = 0;
-    while (args[arg_num])
-        arg_num++;
-    return (arg_num);
+	if (vec3_len(normal) > 1)
+		return (FALSE);
+	return (TRUE);
 }

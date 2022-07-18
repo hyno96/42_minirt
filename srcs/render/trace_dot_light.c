@@ -57,6 +57,7 @@ t_color3	trace_dot_light( \
 	t_hit_record	record;
 	t_color3		rtn_color;
 	t_float			dist;
+	t_color3		temp;
 
 	rtn_color = vec3(0, 0, 0);
 	head = data.dot_lights;

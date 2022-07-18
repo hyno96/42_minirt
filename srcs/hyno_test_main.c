@@ -53,72 +53,72 @@ static void	malloc_ray(t_ray ***target, int x, int y)
 	*target =ray_arr;
 }
 
-t_sphere	*new_sphere(t_vec3 origin, t_float radius, t_color3 color, t_data data)
-{
-	t_sphere *rtn;
+// t_sphere	*new_sphere(t_vec3 origin, t_float radius, t_color3 color, t_data data)
+// {
+// 	t_sphere *rtn;
 
-	rtn = malloc(sizeof(t_sphere));
-	rtn->origin = origin;
-	rtn->radius = radius;
-	rtn->surf.color = color;
-	rtn->surf.use_ctc = load_image("earthmap1k.xpm", &(rtn->surf.texture), data);
-	return (rtn);
-}
+// 	rtn = malloc(sizeof(t_sphere));
+// 	rtn->origin = origin;
+// 	rtn->radius = radius;
+// 	rtn->surf.color = color;
+// 	rtn->surf.use_ctc = load_image("earthmap1k.xpm", &(rtn->surf.texture), data);
+// 	return (rtn);
+// }
 
-t_sphere	*new_sphere_c(t_vec3 origin, t_float radius, t_color3 color, t_data data)
-{
-	t_sphere *rtn;
+// t_sphere	*new_sphere_c(t_vec3 origin, t_float radius, t_color3 color, t_data data)
+// {
+// 	t_sphere *rtn;
 
-	rtn = malloc(sizeof(t_sphere));
-	rtn->origin = origin;
-	rtn->radius = radius;
-	rtn->surf.color = color;
-	rtn->surf.use_ctc = 2;
-	rtn->surf.checker.x_range = 1;
-	rtn->surf.checker.y_range = 1;
-	rtn->surf.checker.color1 = vec3(180, 100 ,30);
-	rtn->surf.checker.color2 = vec3(25, 88, 130);
-	return (rtn);
-}
+// 	rtn = malloc(sizeof(t_sphere));
+// 	rtn->origin = origin;
+// 	rtn->radius = radius;
+// 	rtn->surf.color = color;
+// 	rtn->surf.use_ctc = 2;
+// 	rtn->surf.checker.x_range = 1;
+// 	rtn->surf.checker.y_range = 1;
+// 	rtn->surf.checker.color1 = vec3(180, 100 ,30);
+// 	rtn->surf.checker.color2 = vec3(25, 88, 130);
+// 	return (rtn);
+// }
 
-t_plane	*new_plane(t_vec3 origin, t_vec3 normal, t_color3 color)
-{
-	t_plane *rtn;
+// t_plane	*new_plane(t_vec3 origin, t_vec3 normal, t_color3 color)
+// {
+// 	t_plane *rtn;
 
-	rtn = malloc(sizeof(t_plane));
-	rtn->origin = origin;
-	rtn->normal = normal;
-	rtn->surf.color = color;
-	// rtn->surf.use_ctc = 2;
-	// rtn->surf.checker.x_range = 1;
-	// rtn->surf.checker.y_range = 1;
-	// rtn->surf.checker.color1 = vec3(180, 100 ,30);
-	// rtn->surf.checker.color2 = vec3(25, 88, 130);
-	return (rtn);
-}
+// 	rtn = malloc(sizeof(t_plane));
+// 	rtn->origin = origin;
+// 	rtn->normal = normal;
+// 	rtn->surf.color = color;
+// 	// rtn->surf.use_ctc = 2;
+// 	// rtn->surf.checker.x_range = 1;
+// 	// rtn->surf.checker.y_range = 1;
+// 	// rtn->surf.checker.color1 = vec3(180, 100 ,30);
+// 	// rtn->surf.checker.color2 = vec3(25, 88, 130);
+// 	return (rtn);
+// }
 
-t_dot_light	*new_dot_light(t_vec3 origin, int color)
-{
-	t_dot_light *rtn;
+// t_dot_light	*new_dot_light(t_vec3 origin, int color)
+// {
+// 	t_dot_light *rtn;
 
-	rtn = malloc(sizeof(t_dot_light));
-	rtn->origin = origin;
-	rtn->color.x = color;
-	rtn->color.y = color;
-	rtn->color.z = color;
-		return (rtn);
-}
+// 	rtn = malloc(sizeof(t_dot_light));
+// 	rtn->origin = origin;
+// 	rtn->color.x = color;
+// 	rtn->color.y = color;
+// 	rtn->color.z = color;
+// 		return (rtn);
+// }
 
-t_list	*ft_lstnew_type(void *content, int type)
-{
-	t_list	*rtn;
+// t_list	*ft_lstnew_type(void *content, int type)
+// {
+// 	t_list	*rtn;
 	
-	rtn = malloc(sizeof(t_list));
-	rtn->content = content;
-	rtn->next = 0;
-	rtn->type = type;
-	return (rtn);
-}
+// 	rtn = malloc(sizeof(t_list));
+// 	rtn->content = content;
+// 	rtn->next = 0;
+// 	rtn->type = type;
+// 	return (rtn);
+// }
 
 void	hyno_test(t_data data)
 {

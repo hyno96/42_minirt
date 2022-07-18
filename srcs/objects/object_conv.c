@@ -20,3 +20,8 @@ t_dot_light	*conv_li(t_list	*head)
 {
 	return ((t_dot_light *)(head->content));
 }
+
+t_cone *conv_cn(t_list	*head)
+{
+	return ((t_cone *)(head->content));
+}

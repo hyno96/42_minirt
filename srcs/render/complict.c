@@ -21,6 +21,8 @@ static t_float	get_dist_from_object(t_ray ray, t_list *head)
 		conv_cy(head)->normal = vec3_unit(conv_cy(head)->normal);
 		dist = hit_cylinder(*conv_cy(head), ray);
 	}
+	else if (head->type == CN)
+		dist = hit_cone(conv_cn(head), ray);
 	return (dist);
 }
 

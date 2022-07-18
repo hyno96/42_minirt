@@ -27,14 +27,14 @@ t_vec3	vec3_unit(t_vec3 vec)
 {
 	t_float	len;
 
-	len = vec3_len(vec);
-	if (len == 0)
-	{
-		ft_perror("Error\n:vec3_unit");
-		exit(1);
-	}
-	vec = vec3_div(vec, len);
-	return (vec);
+    len = vec3_len(vec);
+    if (len == 0)
+    {
+        ft_perror("vec3_unit");
+        exit(1);
+    }
+    vec = vec3_div(vec, len);
+    return (vec);
 }
 
 t_vec3	vec3_min(t_vec3 vec1, t_vec3 vec2)
