@@ -15,7 +15,12 @@ static t_float	get_dist_from_object(t_ray ray, t_list *head)
 	else if (head->type == PL)
 		dist = hit_plane(conv_pl(head)->origin, conv_pl(head)->normal, ray);
 	else if (head->type == CY)
+	{
+		// dev_comment_hyno
+		// 유닛벡터화 삭제하시오
+		conv_cy(head)->normal = vec3_unit(conv_cy(head)->normal);
 		dist = hit_cylinder(*conv_cy(head), ray);
+	}
 	return (dist);
 }
 
@@ -45,6 +50,21 @@ static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object)
 	return (-1);
 }
 
+static void	set_hit_record_cy(t_cylinder *cy, t_hit_record *rec)
+{
+		rec->perpen = vec3_dot(vec3_minus(rec->hit_point, cy->origin), \
+			cy->normal) / vec3_dot(cy->normal, cy->normal);
+		rec->perpen_at = ray_at(ray(cy->origin, cy->normal), rec->perpen);
+		if (rec->perpen <= 0.001)
+			rec->normal_unit = vec3_mult_scalar(cy->normal, -1);
+		else if (rec->perpen >= cy->height - 0.001)
+			rec->normal_unit = cy->normal;
+		else
+			rec->normal_unit = \
+			vec3_unit(vec3_minus(rec->hit_point, rec->perpen_at));
+		rec->surf = cy->surf;
+}
+
 // dev_comment
 // 이시점전에 plane의 노말벡터는 유닛벡터임이 보증되어있도록 하시오
 // 실린더, 콘의 경우 추가하기
@@ -64,6 +84,10 @@ static void	set_hit_record( \
 	{
 		hit_record->normal_unit = conv_pl(hit_object)->normal;
 		hit_record->surf = conv_pl(hit_object)->surf;
+	}
+	else if (hit_object->type == CY)
+	{
+		set_hit_record_cy(conv_cy(hit_object), hit_record);
 	}
 }
 

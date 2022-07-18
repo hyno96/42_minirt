@@ -14,6 +14,13 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 	ray.direction = vec3_unit(ray.direction);
 	if (complict(ray, data, &record) == TRUE)
 	{
+		// t_float dist1;
+		// dist1 = record.dist;
+		// dist1  *= 10;
+		// dist1 += 100;
+		// dist1 = (int)dist1 % 255;
+		// return (vec3(dist1, dist1, dist1));
+
 		// if (record.normal_unit.x < 0)
 		// 	record.normal_unit.x *= -1;
 		// if (record.normal_unit.y < 0)
@@ -21,6 +28,7 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 		// if (record.normal_unit.z < 0)
 		// 	record.normal_unit.z *= -1;
 		// return (vec3_mult_scalar(record.normal_unit, 100));
+
 		if (vec3_dot(record.normal_unit, ray.direction) > 0)
 			record.normal_unit = vec3_mult_scalar(record.normal_unit, -1);
 		specular_direction = vec3_minus(ray.direction, vec3_mult_scalar(\
@@ -39,6 +47,7 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 				rtn_color, vec3_div(get_color_checker(record), 255));
 		else
 			rtn_color = vec3_mult(rtn_color, vec3_div(record.surf.color, 255));
+
 		return (rtn_color);
 	}
 	return (vec3(100, 0, 0));
