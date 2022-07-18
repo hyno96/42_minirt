@@ -28,6 +28,8 @@ struct s_hit_record
 	t_vec3		normal_unit;
 	t_surf		surf;
 	t_list		*obj;
+	t_float		perpen;
+	t_vec3		perpen_at;
 };
 
 int	complict(t_ray ray, t_data data, t_hit_record *hit_record);
