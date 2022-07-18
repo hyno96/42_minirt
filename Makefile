@@ -16,7 +16,7 @@ RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c \
 				mapping.c checkerboard.c\
 
 OBJECTS_DIR = $(SRC_DIR)/objects
-OBJECTS_SRCS = hit_object.c object_conv.c ray.c
+OBJECTS_SRCS = hit_object.c object_conv.c ray.c hit_cone.c
 
 SETTING_DIR = $(SRC_DIR)/setting
 SETTING_SRCS = setting.c
@@ -41,7 +41,7 @@ BONUS_NAME = minirt_bonus
 BONUS_PARSER_DIR = $(SRC_DIR)/parser_bonus
 BONUS_PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
 				plane.c sphere.c utils.c str_to_x.c range.c \
-				str_to_float.c open_file.c set_surf.c
+				str_to_float.c open_file.c set_surf.c cone.c
 
 BONUS_SRCS = main.c mlx_window.c perror.c get_next_line.c hyno_test_main.c
 BONUS_SRCS := $(addprefix $(SRC_DIR)/, $(BONUS_SRCS))

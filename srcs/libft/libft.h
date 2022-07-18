@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 12:04:43 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/14 13:08:31 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/18 15:56:46 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ enum e_type
 	PL,
 	CY,
 	DOT_LI,
+	CN,
 };
 
 typedef struct s_list

@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:59:35 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 21:00:23 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/18 18:29:05 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static t_bool	modify_plane_args(t_float points[3], t_float normals[3], \
 		return (FALSE);
 	pl->origin = vec3(points[0], points[1], points[2]);
 	pl->normal = vec3(normals[0], normals[1], normals[2]);
+	if (!check_normal(pl->normal))
+	{
+		free(pl);
+		return (FALSE);
+	}
+	pl->normal = vec3_unit(pl->normal);
 	pl->surf.color = vec3(colors[0], colors[1], colors[2]);
 	list = ft_lstnew((void *)pl);
 	list->type = PL;

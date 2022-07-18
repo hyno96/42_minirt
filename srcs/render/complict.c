@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   complict.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:29:11 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 20:11:20 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/18 17:18:35 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static t_float	get_dist_from_object(t_ray ray, t_list *head)
 		dist = hit_plane(conv_pl(head)->origin, conv_pl(head)->normal, ray);
 	// else if (head->type == CY)
 	// 	dist = hit_cylinder();
+	else if (head->type == CN)
+		dist = hit_cone(conv_cn(head), ray);
 	return (dist);
 }
 

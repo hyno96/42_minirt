@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_conv.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 12:50:42 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/12 12:51:22 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/18 16:54:09 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,9 @@ t_cylinder *conv_cy(t_list	*head)
 t_dot_light *conv_li(t_list	*head)
 {
 	return ((t_dot_light *)(head->content));
+}
+
+t_cone *conv_cn(t_list	*head)
+{
+	return ((t_cone *)(head->content));
 }

@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:29:36 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 20:35:54 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/18 16:12:00 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef enum e_range_type				t_range_type;
 typedef struct s_sphere_tmp_content		t_sphere_tmp_content;
 typedef struct s_plane_tmp_content		t_plane_tmp_content;
 typedef struct s_cylinder_tmp_content	t_cylinder_tmp_content;
+typedef struct s_cone_tmp_content		t_cone_tmp_content;
 typedef enum e_element					t_element;
 typedef enum e_arg_num					t_arg_num;
 
@@ -34,7 +35,7 @@ enum e_arg_num
 	PLANE_ARG_NUM = 4,
 	BONUS_PLANE_ARG_NUM = 5,
 	CYLINDER_ARG_NUM = 6,
-	BONUS_CYLINDER_ARG_NUM = 7,
+	CONE_ARG_NUM = 6,
 };
 
 enum e_range_type
@@ -83,6 +84,15 @@ struct s_cylinder_tmp_content
 	t_float	*colors;
 };
 
+struct s_cone_tmp_content
+{
+	t_float	*points;
+	t_float	*normals;
+	t_float	diameter;
+	t_float	height;
+	t_float	*colors;	
+};
+
 t_bool		parse_rt_file(char *file_name, t_data *data);
 t_bool		parse_ambient(t_line_info *line_info, char **args, t_data *data);
 t_bool		parse_camera(t_line_info *line_info, char **args, t_data *data);
@@ -90,6 +100,7 @@ t_bool		parse_dot_light(t_line_info *line_info, char **args, t_data *data);
 t_bool		parse_sphere(char **args, t_data *data);
 t_bool		parse_plane(char **args, t_data *data);
 t_bool		parse_cylinder(char **args, t_data *data);
+t_bool		parse_cone(char **args, t_data *data);
 int			open_rt_file(char *file_name);
 void		free_args(char **args);
 int			ft_strcmp(const char *s1, const char *s2);
@@ -104,5 +115,5 @@ t_bool		set_bump_mapping(t_data *data, char **args, t_surf *surf);
 t_bool		set_texture(t_data *data, char *arg, t_surf *surf);
 t_bool		set_bonus_surf(char **args, t_surf *surf, t_data *data, \
 						t_arg_num bonus_arg_num);
-
+t_bool		check_normal(t_vec3 normal);
 #endif

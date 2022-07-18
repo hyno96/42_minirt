@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:55:32 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 20:57:44 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/18 18:28:50 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ static t_bool	modify_cylinder_args(t_cylinder_tmp_content *cy_content, \
 						cy_content->points[2]);
 	cy->normal = vec3(cy_content->normals[0], cy_content->normals[1], \
 						cy_content->normals[2]);
+	if (!check_normal(cy->normal))
+	{
+		free(cy);
+		return (FALSE);
+	}
+	cy->normal = vec3_unit(cy->normal);
 	cy->radius = (t_float)(cy_content->diameter / 2.0);
 	cy->height = cy_content->height;
 	cy->surf.color = vec3(cy_content->colors[0], cy_content->colors[1], \

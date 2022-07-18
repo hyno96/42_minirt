@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:00:28 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 21:07:23 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/18 15:45:17 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static t_bool	parse_line(t_line_info *line_info, t_data *data)
 		result = parse_plane(args, data);
 	else if (ft_strcmp(args[0], "cy") == 0)
 		result = parse_cylinder(args, data);
+	else if (ft_strcmp(args[0], "cn") == 0)
+		result = parse_cone(args, data);
 	free_args(args);
 	return (result);
 }

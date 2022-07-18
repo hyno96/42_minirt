@@ -30,7 +30,7 @@ t_vec3  vec3_unit(t_vec3 vec)
     len = vec3_len(vec);
     if (len == 0)
     {
-        ft_perror("Error\n:vec3_unit");
+        ft_perror("vec3_unit");
         exit(1);
     }
     vec = vec3_div(vec, len);
