@@ -1,64 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sphere.c                                           :+:      :+:    :+:   */
+/*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 21:02:52 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 21:03:52 by kangkim          ###   ########.fr       */
+/*   Created: 2022/07/15 20:57:48 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/15 21:07:58 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-#include "parser.h"
+#include "parser_bonus.h"
 #include "libft.h"
 
-static t_bool	modify_sphere_args(t_float points[3], t_float diameter, \
+static t_bool	modify_dot_light_args(t_float points[3], t_float ratio, \
 									t_float colors[3], t_data *data)
 {
-	t_sphere	*sp;
+	t_dot_light	*light;
 	t_list		*list;
 
-	sp = (t_sphere *)malloc(sizeof(t_sphere));
-	if (!sp)
+	light = (t_dot_light *)malloc(sizeof(t_dot_light));
+	if (!light)
 		return (FALSE);
-	sp->origin = vec3(points[0], points[1], points[2]);
-	sp->radius = (t_float)(diameter / 2.0);
-	sp->surf.color = vec3(colors[0], colors[1], colors[2]);
-	list = ft_lstnew((void *)sp);
-	list->type = SP;
-	ft_lstadd_back(&(data->object_list), list);
+	light->origin = vec3(points[0], points[1], points[2]);
+	light->color = vec3_mult_scalar(\
+		vec3(colors[0], colors[1], colors[2]), ratio);
+	list = ft_lstnew((void *)light);
+	list->type = DOT_LI;
+	ft_lstadd_back(&(data->dot_lights), list);
 	return (TRUE);
 }
 
-static t_bool	set_sphere(char **args, t_data *data)
+static t_bool	set_dot_light(char **args, t_data *data)
 {
 	t_float	points[3];
-	t_float	diameter;
+	t_float	ratio;
 	t_float	colors[3];
 
 	if (!str_to_vec3(args[1], points) || !check_range(points, RANGE_FLOAT, 3))
 		return (FALSE);
-	if (!str_to_float(args[2], &diameter) || \
-		!check_range(&diameter, RANGE_LENGTH, 1))
+	if (!str_to_float(args[2], &ratio) || !check_range(&ratio, RANGE_RATIO, 1))
 		return (FALSE);
 	if (!str_to_vec3(args[3], colors) || !check_range(colors, RANGE_COLOR, 3))
 		return (FALSE);
-	if (!modify_sphere_args(points, diameter, colors, data))
+	if (!modify_dot_light_args(points, ratio, colors, data))
 		return (FALSE);
 	return (TRUE);
 }
 
-t_bool	parse_sphere(char **args, t_data *data)
+t_bool	parse_dot_light(t_line_info *line_info, char **args, t_data *data)
 {
 	size_t	arg_num;
 
+	line_info->check_dup |= DUP_CHECK_LIGHT;
 	arg_num = get_arg_num(args);
-	if (arg_num != SPHERE_ARG_NUM)
+	if (arg_num != LIGHT_ARG_NUM)
 		return (FALSE);
-	if (!set_sphere(args, data))
+	if (!set_dot_light(args, data))
 		return (FALSE);
 	return (TRUE);
 }
