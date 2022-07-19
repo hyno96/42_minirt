@@ -4,9 +4,6 @@
 #include "setting_f.h"
 #include "render.h"
 
-// dev_comment_hyno
-// 레이 배열에 카메라의 상태에 따라서 레이 값을 저장함
-// 레이 배열은 오른손좌표계의 순서로 채워짐 (스크린과 다르다!!!)
 void	set_ray(t_ray **ray_arr, t_data data)
 {
 	int			i;
@@ -32,7 +29,6 @@ void	set_ray(t_ray **ray_arr, t_data data)
 	}
 }
 
-// dev_comment_hyno
 void	render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data)
 {
 	int			i;
@@ -50,8 +46,6 @@ void	render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data)
 			if (data.setting->switch_phong_path == 0)
 				screen[data.setting->render_resolution_y - 1 - i][j] = \
 				get_color_phong(ray_arr[i][j], data);
-			//else
-				//screen[i][j] = get_color_path(ray_arr[i][j], data);
 			j++;
 		}
 		i++;

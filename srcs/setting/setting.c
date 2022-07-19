@@ -6,6 +6,8 @@ void	setting_default(t_data *data)
 	t_setting	*myset;
 
 	myset = malloc(sizeof(t_setting));
+	if (myset == 0)
+		exit(1);
 	myset->row_resolution_render = 1;
 	myset->render_resolution_x = \
 		data->window.resolution_x / myset->row_resolution_render;
@@ -21,5 +23,7 @@ void	setting_default(t_data *data)
 	myset->dot_light_diffuse_ratio = 0.4;
 	myset->dot_light_specular_ratio = 0.4;
 	myset->ambient_ratio = 0.2;
+	myset->use_dist_show = 0;
+	myset->use_normal_show = 0;
 	data->setting = myset;
 }
