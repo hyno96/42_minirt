@@ -10,6 +10,7 @@
 #include "t_float.h"
 #include "mapping_f.h"
 #include "mlx_window.h"
+#include "objects_f.h"
 
 static void	malloc_screen(t_color3 ***target, int x, int y)
 {
@@ -19,14 +20,20 @@ static void	malloc_screen(t_color3 ***target, int x, int y)
 	screen = 0;
 	screen = (t_color3 **)malloc(sizeof(t_color3 *) * y);
 	if (screen == 0)
+	{
 		ft_perror("malloc failed");
+		exit(1);
+	}
 	i = 0;
 	while (i < y)
 	{
 		screen[i] = 0;
 		screen[i] = (t_color3 *)malloc(sizeof(t_color3) * x);
 		if (screen[i] == 0)
+		{
 			ft_perror("malloc failed");
+			exit(1);
+		}
 		i++;
 	}
 	*target = screen;
@@ -40,14 +47,20 @@ static void	malloc_ray(t_ray ***target, int x, int y)
 	ray_arr = 0;
 	ray_arr = (t_ray **)malloc(sizeof(t_ray *) * y);
 	if (ray_arr == 0)
+	{
 		ft_perror("malloc failed");
+		exit(1);
+	}
 	i = 0;
 	while (i < y)
 	{
 		ray_arr[i] = 0;
 		ray_arr[i] = (t_ray *)malloc(sizeof(t_ray) * x);
 		if (ray_arr[i] == 0)
-			ft_perror("malloc failed");
+	{
+		ft_perror("malloc failed");
+		exit(1);
+	}
 		i++;
 	}
 	*target =ray_arr;
@@ -120,6 +133,45 @@ static void	malloc_ray(t_ray ***target, int x, int y)
 // 	return (rtn);
 // }
 
+static t_vec3	get_plane_orivec(t_point3 point, t_vec3 normal)
+{
+	t_vec3	rtn;
+
+	if (normal.x == 0)
+		return (vec3(1, 0, 0));
+	if (normal.y == 0)
+		return (vec3(0, 1, 0));
+	if (normal.z == 0)
+		return (vec3(0, 0, -1));
+	rtn.z = -1;
+	rtn.x = 0;
+	rtn.y = normal.z / normal.y;
+	rtn = vec3_unit(rtn);
+	return (rtn);
+}
+
+static void	set_orivec(t_list *head)
+{
+	while (head)
+	{
+		if (head->type == PL)
+		{
+			conv_pl(head)->orivec_top = \
+				get_plane_orivec(conv_pl(head)->origin, conv_pl(head)->normal);
+			conv_pl(head)->orivec_right = vec3_unit(vec3_cross(\
+				conv_pl(head)->orivec_top, conv_pl(head)->normal));
+		}
+		if (head->type == CY)
+		{
+			conv_cy(head)->orivec_top = \
+				get_plane_orivec(conv_cy(head)->origin, conv_cy(head)->normal);
+			conv_cy(head)->orivec_right = vec3_unit(vec3_cross(\
+				conv_cy(head)->orivec_top, conv_cy(head)->normal));
+		}
+		head = head->next;
+	}
+}
+
 void	hyno_test(t_data data)
 {
 	t_ray		**ray_arr;
@@ -144,9 +196,22 @@ void	hyno_test(t_data data)
 	// data.camera.focal_len = 1;
 	// data.camera.left_bottom = vec3(-960, -540, -800);
 
+	// conv_pl(data.object_list)->surf.checker.color1 = vec3(255,255,255);
+	// conv_pl(data.object_list)->surf.checker.color2 = vec3(10,255,10);
+	// conv_pl(data.object_list)->surf.checker.x_range = 1;
+	// conv_pl(data.object_list)->surf.checker.y_range = 1;
+	// conv_pl(data.object_list)->surf.use_ctc = 2;
+
+	// conv_cy(data.object_list)->surf.checker.color1 = vec3(255,255,255);
+	// conv_cy(data.object_list)->surf.checker.color2 = vec3(10,255,10);
+	// conv_cy(data.object_list)->surf.checker.x_range = 1;
+	// conv_cy(data.object_list)->surf.checker.y_range = 1;
+	// conv_cy(data.object_list)->surf.use_ctc = 2;
+
 	data.window.resolution_x = WIDTH;
 	data.window.resolution_y = HEIGHT;
 	setting_default(&data);
+	set_orivec(data.object_list);
 	malloc_ray(&ray_arr, data.setting->render_resolution_x, \
 		data.setting->render_resolution_y);
 	malloc_screen(&screen, data.setting->render_resolution_x, \
