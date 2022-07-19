@@ -52,6 +52,8 @@ struct s_plane
 	t_point3	origin;
 	t_vec3		normal;
 	t_surf		surf;
+	t_vec3		orivec_top;
+	t_vec3		orivec_right;
 };
 
 struct s_cylinder
@@ -61,6 +63,8 @@ struct s_cylinder
 	t_float		radius;
 	t_float		height;
 	t_surf		surf;
+	t_vec3		orivec_top;
+	t_vec3		orivec_right;
 };
 
 struct s_cone

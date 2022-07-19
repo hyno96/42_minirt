@@ -38,5 +38,11 @@ t_color3	trace_dot_light( \
 t_color3 get_color_phong(t_ray ray, t_data data);
 void	render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data);
 void	draw_screen(t_color3 **screen, t_data data);
+void	get_xy_mapping_sphere(\
+	t_float *x, t_float *y, t_vec3 normal_unit, t_sphere sp);
+void	get_xy_mapping_plane( \
+	t_float *x, t_float *y, t_point3 hitt, t_plane pl);
+void	get_xy_mapping_cylinder(\
+	t_float *x, t_float *y, t_hit_record rec, t_cylinder cy);
 
 #endif
