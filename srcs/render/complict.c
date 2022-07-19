@@ -15,12 +15,7 @@ static t_float	get_dist_from_object(t_ray ray, t_list *head)
 	else if (head->type == PL)
 		dist = hit_plane(conv_pl(head)->origin, conv_pl(head)->normal, ray);
 	else if (head->type == CY)
-	{
-		// dev_comment_hyno
-		// 유닛벡터화 삭제하시오
-		conv_cy(head)->normal = vec3_unit(conv_cy(head)->normal);
 		dist = hit_cylinder(*conv_cy(head), ray);
-	}
 	return (dist);
 }
 

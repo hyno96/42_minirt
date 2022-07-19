@@ -20,15 +20,6 @@ static t_color3	get_sphere(t_hit_record record)
 	return (record.surf.checker.color2);
 }
 
-// dev_comment_hyno
-// static t_color3	get_plane(t_hit_record record)
-// {
-// 	t_plane plane;
-// 	t_vec3	origin;
-
-// 	plane = *conv_pl(record.obj);
-// }
-
 t_color3	get_color_checker(t_hit_record record)
 {
 	if (record.obj->type == SP)
