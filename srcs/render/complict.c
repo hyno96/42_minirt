@@ -91,6 +91,22 @@ static void	set_hit_record( \
 	{
 		set_hit_record_cy(conv_cy(hit_object), hit_record);
 	}
+	else if (hit_object->type == CN)
+	{
+		t_vec3	h;
+		t_cone	*cn;
+		t_float	cosin_theta;
+		t_float	t;
+		t_vec3	hh;
+
+		cn = (t_cone *)hit_object->content;
+		h = vec3_mult_scalar(cn->normal, cn->height);
+		cosin_theta = vec3_len(h) / (sqrt(vec3_square_len(h) + cn->radius * cn->radius));
+		t = vec3_len(vec3_minus(hit_record->hit_point, cn->origin));
+		hh = vec3_mult_scalar(cn->origin, t);
+		hit_record->normal_unit = vec3_unit(vec3_minus(hit_record->hit_point, hh));
+		hit_record->surf = conv_cn(hit_object)->surf;
+	}
 }
 
 // dev_comment
