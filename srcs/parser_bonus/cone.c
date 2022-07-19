@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:55:32 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/18 18:30:47 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/19 14:45:09 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static t_bool	modify_cone_args(t_cone_tmp_content *cn_content, \
 	cn->height = cn_content->height;
 	cn->surf.color = vec3(cn_content->colors[0], cn_content->colors[1], \
 							cn_content->colors[2]);
+	cn->surf.use_ctc = CTC_COLOR;
 	list = ft_lstnew((void *)cn);
 	list->type = CN;
 	ft_lstadd_back(&(data->object_list), list);

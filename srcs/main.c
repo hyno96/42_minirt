@@ -47,6 +47,7 @@ void    print_parsing_result(t_data *data)
     t_sphere    *sp;
     t_plane     *pl;
     t_cylinder  *cy;
+    t_cone		*cn;
     size_t      idx = 0;
     object_list = data->object_list;
     while (object_list)
@@ -77,6 +78,16 @@ void    print_parsing_result(t_data *data)
             printf("height : %f\n", cy->height);
             printf("color : %f %f %f\n", cy->surf.color.x, cy->surf.color.y, cy->surf.color.z);
         }
+        else if (object_list->type == CN)
+        {
+            cn = (t_cone *)(object_list->content);
+            printf("%zu'th object - cone\n", idx);
+            printf("origin : %f %f %f\n", cn->origin.x, cn->origin.y, cn->origin.z);
+            printf("normal : %f %f %f\n", cn->normal.x, cn->normal.y, cn->normal.z);
+            printf("radius : %f\n", cn->radius);
+            printf("height : %f\n", cn->height);
+            printf("color : %f %f %f\n", cn->surf.color.x, cn->surf.color.y, cn->surf.color.z);
+        }
         else
             printf("I don't have this type\n");
         idx++;
@@ -97,7 +108,7 @@ int main(int argc, char **argv)
     ft_memset((void *)&data, 0, sizeof(t_data));
     if (!parse_rt_file(argv[1], &data))
         return (ERR_PARSING);
-    // print_parsing_result(&data);
+    print_parsing_result(&data);
     if (!init_window(&data.window))
     {
         ft_perror("failed to initiative mlx window");

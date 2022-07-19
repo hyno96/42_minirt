@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:59:35 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/18 18:30:59 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/19 14:47:00 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static t_bool	modify_plane_args(t_float points[3], t_float normals[3], \
 	// }
 	pl->normal = vec3_unit(pl->normal);
 	pl->surf.color = vec3(colors[0], colors[1], colors[2]);
+	pl->surf.use_ctc = CTC_COLOR;
 	list = ft_lstnew((void *)pl);
 	list->type = PL;
 	ft_lstadd_back(&(data->object_list), list);

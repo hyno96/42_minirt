@@ -15,5 +15,7 @@ t_ray		ray(t_vec3 point, t_vec3 direction);
 t_float	mypow(t_float val, int time);
 t_float	find_quadratic_formula(t_float a, t_float b, t_float c);
 t_float	find_small_solution(t_float sol1, t_float sol2);
+t_cone	*conv_cn(t_list *head);
+t_float	hit_cone(t_cone *cn, t_ray ray);
 
 #endif
