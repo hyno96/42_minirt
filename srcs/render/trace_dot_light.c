@@ -6,8 +6,6 @@
 #include <math.h>
 #include "render.h"
 
-#include <stdio.h>
-
 static t_color3	get_specular_color( \
 	t_vec3 direction_to_light, t_vec3 specular_unit, t_list *head, t_data data)
 {
