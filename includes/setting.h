@@ -14,6 +14,8 @@ struct s_setting
 	int		use_ambient;
 	int		use_dist_lose;
 	int		switch_phong_path;
+	int		use_dist_show;
+	int		use_normal_show;
 	t_float	ignore_complict_distance;
 
 	t_float	dot_light_diffuse_ratio;

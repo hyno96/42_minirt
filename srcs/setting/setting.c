@@ -21,5 +21,7 @@ void	setting_default(t_data *data)
 	myset->dot_light_diffuse_ratio = 0.4;
 	myset->dot_light_specular_ratio = 0.4;
 	myset->ambient_ratio = 0.2;
+	myset->use_dist_show = 0;
+	myset->use_normal_show = 0;
 	data->setting = myset;
 }
