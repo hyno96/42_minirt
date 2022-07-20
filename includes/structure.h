@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 10:03:27 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 10:05:01 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 17:40:13 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 # include "setting.h"
 # include "image.h"
 
-typedef struct s_window		t_window;
-typedef struct s_img		t_img;
-typedef struct s_camera		t_camera;
-typedef enum e_bool			t_bool;
-typedef struct s_data		t_data;
-typedef struct s_setting	t_setting;
+typedef struct s_window			t_window;
+typedef struct s_img			t_img;
+typedef struct s_camera			t_camera;
+typedef enum e_bool				t_bool;
+typedef struct s_data			t_data;
+typedef struct s_setting		t_setting;
+typedef struct s_quadratic_eq	t_quadratic_eq;
 
 struct s_window
 {
@@ -59,6 +60,14 @@ struct s_data
 	t_list		*dot_lights;
 	t_list		*object_list;
 	t_setting	*setting;
+};
+
+struct s_quadratic_eq
+{
+	t_float	a;
+	t_float	hb;
+	t_float	c;
+	t_float	d;
 };
 
 #endif

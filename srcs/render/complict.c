@@ -65,7 +65,6 @@ static void	set_hit_record_cy(t_cylinder *cy, t_hit_record *rec)
 // dev_comment
 // 이시점전에 plane의 노말벡터는 유닛벡터임이 보증되어있도록 하시오
 // 실린더, 콘의 경우 추가하기
-#include <stdio.h>
 static void	set_hit_record( \
 	t_ray ray, t_list *hit_object, t_hit_record *hit_record)
 {
@@ -89,19 +88,7 @@ static void	set_hit_record( \
 	}
 	else if (hit_object->type == CN)
 	{
-		t_cone	*cn;
-		t_vec3	ph;
-		t_float	hh;
-		t_vec3	h;
-
-		cn = (t_cone *)hit_object->content;
-		ph = vec3_minus(hit_record->hit_point, cn->origin);
-		hh = vec3_square_len(ph) / vec3_dot(ph, cn->normal);
-		h = vec3_plus(cn->origin, vec3_mult_scalar(cn->normal, hh));
-		hit_record->normal_unit = vec3_unit(vec3_minus(hit_record->hit_point, h));
-		// if (vec3_dot(hit_record->normal_unit, ray.direction) > 0)
-		// 	hit_record->normal_unit = vec3_mult_scalar(hit_record->normal_unit, -1);
-		hit_record->surf = conv_cn(hit_object)->surf;
+		set_hit_record_cn(conv_cn(hit_object), hit_record);
 	}
 }
 

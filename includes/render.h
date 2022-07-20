@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 20:37:16 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/13 15:32:02 by hyno             ###   ########.fr       */
+/*   Updated: 2022/07/20 17:19:36 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ void	get_xy_mapping_plane( \
 	t_float *x, t_float *y, t_point3 hitt, t_plane pl);
 void	get_xy_mapping_cylinder(\
 	t_float *x, t_float *y, t_hit_record rec, t_cylinder cy);
+void	set_hit_record_cn(t_cone *cn, t_hit_record *rec);
 
 #endif
