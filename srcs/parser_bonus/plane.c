@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:59:35 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/19 14:47:00 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 12:55:33 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,36 @@
 #include "parser_bonus.h"
 #include "libft.h"
 
-static t_bool	modify_plane_args(t_float points[3], t_float normals[3], \
-								t_float colors[3], t_data *data)
+static t_bool	modify_plane_args(t_plane_tmp_content *pl_content, \
+									t_data *data, char **args, size_t arg_num)
 {
 	t_plane	*pl;
 	t_list	*list;
+	t_bool	result;
 
+	result = TRUE;
 	pl = (t_plane *)malloc(sizeof(t_plane));
 	if (!pl)
 		return (FALSE);
-	pl->origin = vec3(points[0], points[1], points[2]);
-	pl->normal = vec3(normals[0], normals[1], normals[2]);
-	// if (!check_normal(pl->normal))
-	// {
-	// 	free(pl);
-	// 	return (FALSE);
-	// }
-	pl->normal = vec3_unit(pl->normal);
-	pl->surf.color = vec3(colors[0], colors[1], colors[2]);
+	pl->origin = vec3(pl_content->points[0], pl_content->points[1], pl_content->points[2]);
+	pl->normal = vec3_unit(vec3(pl_content->normals[0], \
+					pl_content->normals[1], pl_content->normals[2]));
+	pl->surf.color = vec3(pl_content->colors[0], \
+						pl_content->colors[1], pl_content->colors[2]);
 	pl->surf.use_ctc = CTC_COLOR;
-	list = ft_lstnew((void *)pl);
-	list->type = PL;
-	ft_lstadd_back(&(data->object_list), list);
+	if (arg_num > PLANE_ARG_NUM \
+		&& !tmp_set_bonus_surf(args, &(pl->surf), data , PLANE_ARG_NUM))
+			result = FALSE;
+	else
+	{
+		list = ft_lstnew((void *)pl);
+		list->type = PL;
+		ft_lstadd_back(&(data->object_list), list);
+	}
 	return (TRUE);
 }
 
-static t_bool	set_plane(char **args, t_data *data)
+static t_bool	set_plane(char **args, t_data *data, size_t arg_num)
 {
 	t_float	points[3];
 	t_float	normals[3];
@@ -53,7 +57,9 @@ static t_bool	set_plane(char **args, t_data *data)
 		return (FALSE);
 	if (!str_to_vec3(args[3], colors) || !check_range(colors, RANGE_COLOR, 3))
 		return (FALSE);
-	if (!modify_plane_args(points, normals, colors, data))
+	if (!modify_plane_args(\
+			&(t_plane_tmp_content){points, normals, colors}, data, \
+			args, arg_num))
 		return (FALSE);
 	return (TRUE);
 }
@@ -63,9 +69,9 @@ t_bool	parse_plane(char **args, t_data *data)
 	size_t	arg_num;
 
 	arg_num = get_arg_num(args);
-	if (arg_num != PLANE_ARG_NUM)
+	if (!(PLANE_ARG_NUM <= arg_num && arg_num <= BONUS_PLANE_ARG_NUM))
 		return (FALSE);
-	if (!set_plane(args, data))
+	if (!set_plane(args, data, arg_num))
 		return (FALSE);
 	return (TRUE);
 }

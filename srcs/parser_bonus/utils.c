@@ -6,13 +6,13 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:04:58 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/18 18:19:55 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 12:17:54 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <mlx.h>
 #include "parser.h"
-
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -55,9 +55,15 @@ size_t	get_arg_num(char **args)
 	return (arg_num);
 }
 
-t_bool	check_normal(t_vec3 normal)
+t_bool	load_image(char *filename, t_img *image, t_data *data)
 {
-	if (vec3_len(normal) > 1)
+	image->img_ptr = mlx_xpm_file_to_image(\
+		data->window.mlx_ptr, filename, &(image->x), &(image->y));
+	if (image->img_ptr == 0)
+		return (FALSE);
+	image->data_addr = mlx_get_data_addr(image->img_ptr, \
+			&(image->bits_per_pixel), &(image->size_line), &(image->endian));
+	if (image->data_addr == 0)
 		return (FALSE);
 	return (TRUE);
 }

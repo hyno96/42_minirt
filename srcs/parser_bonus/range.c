@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:01:48 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 21:06:49 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 10:19:12 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ t_bool	check_range(t_float *args, t_range_type range_type, size_t arg_num)
 		if (!(range_from_to[0] <= args[idx] && args[idx] <= range_from_to[1]))
 			return (FALSE);
 		idx++;
+	}
+	if (range_type == RANGE_NORMAL)
+	{
+		if (vec3_len(vec3(args[0], args[1], args[2])) > 1)
+			return (FALSE);
 	}
 	return (TRUE);
 }

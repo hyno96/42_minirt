@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:36:15 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/18 16:03:30 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 12:09:14 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,5 @@ t_float		*get_range(t_range_type range_type);
 t_bool		str_to_float(char *arg, t_float *num);
 t_bool		str_to_vec3(char *arg, t_float vec3_args[3]);
 t_bool		check_range(t_float *args, t_range_type range_type, size_t arg_num);
-t_bool		check_normal(t_vec3 normal);
 
 #endif

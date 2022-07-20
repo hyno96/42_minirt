@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:52:24 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/18 18:30:50 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 10:21:07 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ static t_bool	modify_camera_args(t_float points[3], t_float normals[3], \
 
 	cam = &(data->camera);
 	cam->origin = vec3(points[0], points[1], points[2]);
-	cam->direction = vec3(normals[0], normals[1], normals[2]);
-	// if (!check_normal(cam->direction))
-	// 	return (FALSE);
-	cam->direction = vec3_unit(cam->direction);
+	cam->direction = vec3_unit(vec3(normals[0], normals[1], normals[2]));
 	cam->horizontal = get_horizontal(cam);
 	cam->vertical = vec3_unit(vec3_cross(cam->horizontal, cam->direction));
 	cam->focal_len = (t_float)WIDTH / 2 / tan(fov / 2 * M_PI / 180);

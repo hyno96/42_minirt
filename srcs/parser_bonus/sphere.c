@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:11:19 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/19 14:46:16 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 12:03:46 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static t_bool	modify_sphere_args(t_sphere_tmp_content *sp_content, \
 	sp->surf.color = vec3(sp_content->colors[0], sp_content->colors[1], \
 							sp_content->colors[2]);
 	sp->surf.use_ctc = CTC_COLOR;
-	if (arg_num >= BONUS_SPHERE_ARG_NUM && \
-		!set_bonus_surf(args, &(sp->surf), data, BONUS_SPHERE_ARG_NUM))
+	if (arg_num > SPHERE_ARG_NUM && \
+		!set_bonus_surf(args, &(sp->surf), data, SPHERE_ARG_NUM))
 		result = FALSE;
 	else
 	{
@@ -70,7 +70,7 @@ t_bool	parse_sphere(char **args, t_data *data)
 	size_t	arg_num;
 
 	arg_num = get_arg_num(args);
-	if (arg_num != SPHERE_ARG_NUM && arg_num != BONUS_SPHERE_ARG_NUM)
+	if (!(SPHERE_ARG_NUM <= arg_num && arg_num <= BONUS_SPHERE_ARG_NUM))
 		return (FALSE);
 	if (!set_sphere(args, data, arg_num))
 		return (FALSE);

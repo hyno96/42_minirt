@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:55:32 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/19 14:45:09 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/20 10:22:53 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,8 @@ static t_bool	modify_cone_args(t_cone_tmp_content *cn_content, \
 		return (FALSE);
 	cn->origin = vec3(cn_content->points[0], cn_content->points[1], \
 						cn_content->points[2]);
-	cn->normal = vec3(cn_content->normals[0], cn_content->normals[1], \
-						cn_content->normals[2]);
-	// if (!check_normal(cn->normal))
-	// {
-	// 	free(cn);
-	// 	return (FALSE);
-	// }
-	cn->normal = vec3_unit(cn->normal);
+	cn->normal = vec3_unit(vec3(cn_content->normals[0], \
+						cn_content->normals[1],	cn_content->normals[2]));
 	cn->radius = (t_float)(cn_content->diameter / 2.0);
 	cn->height = cn_content->height;
 	cn->surf.color = vec3(cn_content->colors[0], cn_content->colors[1], \
