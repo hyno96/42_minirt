@@ -21,6 +21,8 @@ struct s_setting
 	t_float	dot_light_diffuse_ratio;
 	t_float	dot_light_specular_ratio;
 	t_float	ambient_ratio;
+
+	t_float	bump_ratio;
 };
 
 #endif

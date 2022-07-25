@@ -13,7 +13,7 @@ PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
 
 RENDER_DIR = $(SRC_DIR)/render
 RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c \
-				mapping.c checkerboard.c get_pixel_in_map.c\
+				mapping.c mapping_cone.c checkerboard.c get_pixel_in_map.c\
 
 OBJECTS_DIR = $(SRC_DIR)/objects
 OBJECTS_SRCS = hit_object.c object_conv.c ray.c hit_cone.c hit_cylinder.c mymath.c

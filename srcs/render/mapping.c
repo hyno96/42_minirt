@@ -17,7 +17,7 @@ void	get_xy_mapping_sphere(\
 	t_vec3			xy_vec;
 
 	if (origin.x == 0 && origin.z == 0)
-		origin = vec3_unit(vec3(0, 0, -1));
+		origin = vec3_unit(vec3(0.5, 0, -1));
 	xy_vec = vec3_unit(vec3(normal_unit.x, 0, normal_unit.z));
 	cos_theta = acos(vec3_dot(origin, xy_vec));
 	cos_theta /= M_PI;
@@ -35,7 +35,7 @@ void	get_xy_mapping_plane(\
 	*y = vec3_dot(pl.orivec_top, hitt);
 }
 
-static t_float	cylinder_body_mapping(t_float *x, t_float *y, t_hit_record rec, t_cylinder cy)
+static void	cylinder_body_mapping(t_float *x, t_float *y, t_hit_record rec, t_cylinder cy)
 {
 	t_float cos_theta;
 

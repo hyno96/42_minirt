@@ -47,6 +47,28 @@ static t_color3	get_diffuse_color( \
 	return (rtn_color);
 }
 
+static t_color3	trace_dot_light_inside( \
+	t_list *head, t_vec3 arg[3], t_data data)
+{
+	t_ray			myray;
+	t_float			dist;
+	t_hit_record	record;
+	t_color3		rtn_color;
+
+	myray = ray(arg[0], vec3_minus(conv_li(head)->origin, arg[0]));
+	dist = vec3_len(myray.direction);
+	myray.direction = vec3_unit(myray.direction);
+	if (complict(myray, data, &record) == FALSE || record.dist > dist)
+	{
+		rtn_color = vec3_plus(\
+			get_diffuse_color(myray.direction, arg[2], head, data), \
+			get_specular_color(myray.direction, arg[1], head, data));
+		if (data.setting->use_dist_lose != 0)
+			rtn_color = vec3_div(rtn_color, dist);
+	}
+	return (rtn_color);
+}
+
 t_color3	trace_dot_light( \
 	t_point3	origin, t_vec3 specular, t_vec3 normal_unit, t_data data)
 {
@@ -56,21 +78,16 @@ t_color3	trace_dot_light( \
 	t_color3		rtn_color;
 	t_float			dist;
 
+	t_vec3			arg[3];
+
 	rtn_color = vec3(0, 0, 0);
 	head = data.dot_lights;
 	while (head)
 	{
-		myray = ray(origin, vec3_minus(conv_li(head)->origin, origin));
-		dist = vec3_len(myray.direction);
-		myray.direction = vec3_unit(myray.direction);
-		if (complict(myray, data, &record) == FALSE || record.dist > dist)
-		{
-			rtn_color = vec3_plus(rtn_color, vec3_plus(\
-				get_diffuse_color(myray.direction, normal_unit, head, data), \
-				get_specular_color(myray.direction, specular, head, data)));
-			if (data.setting->use_dist_lose != 0)
-				rtn_color = vec3_div(rtn_color, dist);
-		}
+		arg[0] = origin;
+		arg[1] = specular;
+		arg[2] = normal_unit;
+		rtn_color = vec3_plus(rtn_color, trace_dot_light_inside(head, arg, data));
 		head = head->next;
 	}
 	return (rtn_color);

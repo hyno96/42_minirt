@@ -168,8 +168,30 @@ static void	set_orivec(t_list *head)
 			conv_cy(head)->orivec_right = vec3_unit(vec3_cross(\
 				conv_cy(head)->orivec_top, conv_cy(head)->normal));
 		}
+		if (head->type == CN)
+		{
+			conv_cn(head)->orivec_top = \
+				get_plane_orivec(conv_cn(head)->origin, conv_cn(head)->normal);
+			conv_cn(head)->orivec_right = vec3_unit(vec3_cross(\
+				conv_cn(head)->orivec_top, conv_cn(head)->normal));
+		}
 		head = head->next;
 	}
+}
+
+static void	free_myarr(t_ray **ray_arr, t_color3 **screen)
+{
+	int	i;
+
+	i = 0;
+	while (i < HEIGHT)
+	{
+		free(ray_arr[i]);
+		free(screen[i]);
+		i++;
+	}
+	free(ray_arr);
+	free(screen);
 }
 
 void	hyno_test(t_data data)
@@ -200,13 +222,27 @@ void	hyno_test(t_data data)
 	// conv_pl(data.object_list)->surf.checker.color2 = vec3(10,255,10);
 	// conv_pl(data.object_list)->surf.checker.x_range = 1;
 	// conv_pl(data.object_list)->surf.checker.y_range = 1;
-	// conv_pl(data.object_list)->surf.use_ctc = 2;
+
+	// conv_pl(data.object_list)->surf.use_ctc = 1;
+	// load_image("earthmap1k.xpm", &(conv_pl(data.object_list)->surf.texture), data);
+
+	// conv_cy(data.object_list)->surf.use_ctc = 1;
+	// load_image("earthmap1k.xpm", &(conv_cy(data.object_list)->surf.texture), data);
 
 	// conv_cy(data.object_list)->surf.checker.color1 = vec3(255,255,255);
 	// conv_cy(data.object_list)->surf.checker.color2 = vec3(10,255,10);
 	// conv_cy(data.object_list)->surf.checker.x_range = 1;
 	// conv_cy(data.object_list)->surf.checker.y_range = 1;
 	// conv_cy(data.object_list)->surf.use_ctc = 2;
+
+	// conv_cn(data.object_list)->surf.checker.color1 = vec3(255,255,255);
+	// conv_cn(data.object_list)->surf.checker.color2 = vec3(10,255,10);
+	// conv_cn(data.object_list)->surf.checker.x_range = 1;
+	// conv_cn(data.object_list)->surf.checker.y_range = 1;
+	// conv_cn(data.object_list)->surf.use_ctc = 2;
+
+	conv_sp(data.object_list)->surf.use_bump_map = 1;
+	load_image("earthbump1k.xpm", &(conv_sp(data.object_list)->surf.bump_map), data);
 
 	data.window.resolution_x = WIDTH;
 	data.window.resolution_y = HEIGHT;
@@ -218,4 +254,6 @@ void	hyno_test(t_data data)
 		data.setting->render_resolution_y);
 	render_image_one(ray_arr, screen, data);
 	draw_screen(screen, data);
+	free_myarr(ray_arr, screen);
+	system("leaks minirt_bonus");
 }

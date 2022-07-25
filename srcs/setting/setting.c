@@ -17,7 +17,7 @@ void	setting_default(t_data *data)
 	myset->use_dot_light_specular = 1;
 	myset->use_dot_light_diffuse = 1;
 	myset->use_ambient = 1;
-	myset->use_dist_lose = 0;
+	myset->use_dist_lose = 1;
 	myset->switch_phong_path = 0;
 	myset->ignore_complict_distance = 0.001;
 	myset->dot_light_diffuse_ratio = 0.4;
@@ -25,5 +25,6 @@ void	setting_default(t_data *data)
 	myset->ambient_ratio = 0.2;
 	myset->use_dist_show = 0;
 	myset->use_normal_show = 0;
+	myset->bump_ratio = 0;
 	data->setting = myset;
 }

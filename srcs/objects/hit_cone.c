@@ -30,6 +30,30 @@ static t_float	hit_cone_cap(t_cone *cn, t_ray r)
 	return (dist_cap1);
 }
 
+// void	set_hit_record_cn(t_cone *cn, t_hit_record *rec)
+// {
+// 	t_vec3	new_origin;
+// 	t_vec3	new_nomal;
+// 	t_vec3	ph;
+// 	t_float	hh;
+// 	t_vec3	h;
+
+// 	new_origin = vec3_plus(cn->origin, \
+// 		vec3_mult_scalar(cn->normal, cn->height));
+// 	new_nomal = vec3_mult_scalar(cn->normal, -1);
+// 	if (vec3_dot(vec3_minus(rec->hit_point, new_origin), \
+// 		new_nomal) <= 0.001)
+// 		rec->normal_unit = cn->normal;
+// 	else
+// 	{
+// 		ph = vec3_minus(rec->hit_point, cn->origin);
+// 		hh = vec3_len(ph) / (vec3_dot(ph, cn->normal) / vec3_len(ph));
+// 		h = vec3_plus(cn->origin, vec3_mult_scalar(cn->normal, hh));
+// 		rec->normal_unit = vec3_unit(vec3_minus(rec->hit_point, h));
+// 	}
+// 	rec->surf = conv_cn(rec->obj)->surf;
+// }
+
 void	set_hit_record_cn(t_cone *cn, t_hit_record *rec)
 {
 	t_vec3	new_origin;
@@ -43,14 +67,19 @@ void	set_hit_record_cn(t_cone *cn, t_hit_record *rec)
 	new_nomal = vec3_mult_scalar(cn->normal, -1);
 	if (vec3_dot(vec3_minus(rec->hit_point, new_origin), \
 		new_nomal) <= 0.001)
+	{
 		rec->normal_unit = cn->normal;
+		rec->perpen = 0;
+	}
 	else
 	{
 		ph = vec3_minus(rec->hit_point, cn->origin);
 		hh = vec3_len(ph) / (vec3_dot(ph, cn->normal) / vec3_len(ph));
 		h = vec3_plus(cn->origin, vec3_mult_scalar(cn->normal, hh));
 		rec->normal_unit = vec3_unit(vec3_minus(rec->hit_point, h));
+		rec->perpen = vec3_dot(ph, cn->normal);
 	}
+	rec->perpen_at = ray_at(ray(cn->origin, cn->normal), rec->perpen);
 	rec->surf = conv_cn(rec->obj)->surf;
 }
 

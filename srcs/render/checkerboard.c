@@ -54,6 +54,22 @@ static t_color3	get_cylinder(t_hit_record record)
 	return (record.surf.checker.color2);
 }
 
+static t_color3	get_cone(t_hit_record record)
+{
+	t_float	x;
+	t_float	y;
+	int		divide2;
+
+	get_xy_mapping_cone(&x, &y, record, *conv_cn(record.obj));
+	divide2 = (int) (x * 2 * M_PI * conv_cn(record.obj)->radius) \
+		/ record.surf.checker.x_range;
+	divide2 += (int) (y * (4 * conv_cn(record.obj)->radius + \
+		 conv_cn(record.obj)->height)) / record.surf.checker.y_range;
+	if (divide2 % 2 == 0)
+		return (record.surf.checker.color1);
+	return (record.surf.checker.color2);
+}
+
 t_color3	get_color_checker(t_hit_record record)
 {
 	if (record.obj->type == SP)
@@ -62,5 +78,7 @@ t_color3	get_color_checker(t_hit_record record)
 		return (get_plane(record));
 	else if (record.obj->type == CY)
 		return (get_cylinder(record));
+	else if (record.obj->type == CN)
+		return (get_cone(record));
 	return (vec3(230, 210, 190));
 }

@@ -4,6 +4,7 @@
 #include "structure.h"
 #include "mapping_f.h"
 #include "checkerboard_f.h"
+#include "objects_f.h"
 
 static t_color3	normal_show(t_vec3 normal)
 {
@@ -32,12 +33,30 @@ static void	apply_surf_color(t_vec3 *rtn_color, t_hit_record rec)
 {
 	if (rec.surf.use_ctc == 1)
 		*rtn_color = vec3_mult(\
-		*rtn_color, vec3_div(get_color_in_texture(rec), 255));
+		*rtn_color, vec3_div(get_color_texture(rec), 255));
 	else if (rec.surf.use_ctc == 2)
 		*rtn_color = vec3_mult(\
 			*rtn_color, vec3_div(get_color_checker(rec), 255));
 	else
 		*rtn_color = vec3_mult(*rtn_color, vec3_div(rec.surf.color, 255));
+}
+
+#include <stdio.h>
+
+static void	do_bump(t_ray ray, t_hit_record *rec, t_data data)
+{
+	t_vec3	bump;
+
+	if (vec3_dot(rec->normal_unit, ray.direction) > 0)
+		rec->normal_unit = vec3_mult_scalar(rec->normal_unit, -1);
+	if (rec->surf.use_bump_map == 1)
+	{
+		bump = get_color_bumpmap(*rec);
+		rec->hit_point_old = rec->hit_point;
+		rec->hit_point = vec3_plus(rec->hit_point, vec3_mult_scalar(\
+			rec->normal_unit, bump.y / 255 * data.setting->bump_ratio));
+		printf("%f	", bump.y / 255 * data.setting->bump_ratio);
+	}
 }
 
 t_color3	get_color_phong(t_ray ray, t_data data)
@@ -51,8 +70,7 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 	{
 		if (data.setting->use_dist_show != FALSE)
 			return (dist_show(record.dist));
-		if (vec3_dot(record.normal_unit, ray.direction) > 0)
-			record.normal_unit = vec3_mult_scalar(record.normal_unit, -1);
+		do_bump(ray, &record, data);
 		if (data.setting->use_normal_show != FALSE)
 			return (normal_show(record.normal_unit));
 		specular_direction = vec3_minus(ray.direction, vec3_mult_scalar(\
@@ -63,6 +81,7 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 		if (data.setting->use_ambient)
 			rtn_color = vec3_plus(rtn_color, \
 				vec3_mult_scalar(data.ambient, data.setting->ambient_ratio));
+		record.hit_point = record.hit_point_old;
 		apply_surf_color(&rtn_color, record);
 		return (rtn_color);
 	}
