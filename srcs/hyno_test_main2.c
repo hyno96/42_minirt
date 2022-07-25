@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hyno_test_main2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:28:37 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:28:43 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/objects_f.h"
 #include "../includes/mlx_window.h"
 #include "../includes/vec3.h"
 
-static t_vec3	get_plane_orivec(t_point3 point, t_vec3 normal)
+static t_vec3	get_plane_orivec(t_vec3 normal)
 {
 	t_vec3	rtn;
 
@@ -22,13 +34,11 @@ static t_vec3	get_plane_orivec(t_point3 point, t_vec3 normal)
 static void	set_orivec_2(t_list *head)
 {
 	t_vec3	plz;
-	t_vec3	ori;
 
 	if (head->type == PL)
 	{
-		ori = (conv_pl(head))->origin;
 		plz = (conv_pl(head))->normal;
-		(conv_pl(head))->orivec_top = get_plane_orivec(ori, plz);
+		(conv_pl(head))->orivec_top = get_plane_orivec(plz);
 		(conv_pl(head))->orivec_right = \
 			vec3_unit(vec3_cross((conv_pl(head))->orivec_top, plz));
 	}
@@ -37,24 +47,21 @@ static void	set_orivec_2(t_list *head)
 void	set_orivec(t_list *head)
 {
 	t_vec3	plz;
-	t_vec3	ori;
 
 	while (head)
 	{
 		set_orivec_2(head);
 		if (head->type == CY)
 		{
-			ori = (conv_cy(head))->origin;
 			plz = (conv_cy(head))->normal;
-			(conv_cy(head))->orivec_top = get_plane_orivec(ori, plz);
+			(conv_cy(head))->orivec_top = get_plane_orivec(plz);
 			(conv_cy(head))->orivec_right = \
 				vec3_unit(vec3_cross((conv_cy(head))->orivec_top, plz));
 		}
 		if (head->type == CN)
 		{
-			ori = (conv_cn(head))->origin;
 			plz = (conv_cn(head))->normal;
-			(conv_cn(head))->orivec_top = get_plane_orivec(ori, plz);
+			(conv_cn(head))->orivec_top = get_plane_orivec(plz);
 			(conv_cn(head))->orivec_right = \
 				vec3_unit(vec3_cross((conv_cn(head))->orivec_top, plz));
 		}

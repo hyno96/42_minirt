@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:59:35 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 12:55:33 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:51:42 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,26 @@ static t_bool	modify_plane_args(t_plane_tmp_content *pl_content, \
 {
 	t_plane	*pl;
 	t_list	*list;
-	t_bool	result;
 
-	result = TRUE;
 	pl = (t_plane *)malloc(sizeof(t_plane));
 	if (!pl)
 		return (FALSE);
-	pl->origin = vec3(pl_content->points[0], pl_content->points[1], pl_content->points[2]);
+	pl->origin = vec3(pl_content->points[0], pl_content->points[1], \
+					pl_content->points[2]);
 	pl->normal = vec3_unit(vec3(pl_content->normals[0], \
 					pl_content->normals[1], pl_content->normals[2]));
 	pl->surf.color = vec3(pl_content->colors[0], \
 						pl_content->colors[1], pl_content->colors[2]);
 	pl->surf.use_ctc = CTC_COLOR;
 	if (arg_num > PLANE_ARG_NUM \
-		&& !tmp_set_bonus_surf(args, &(pl->surf), data , PLANE_ARG_NUM))
-			result = FALSE;
-	else
+		&& !set_bonus_surf(args, &(pl->surf), data, PLANE_ARG_NUM))
 	{
-		list = ft_lstnew((void *)pl);
-		list->type = PL;
-		ft_lstadd_back(&(data->object_list), list);
+		free(pl);
+		return (FALSE);
 	}
+	list = ft_lstnew((void *)pl);
+	list->type = PL;
+	ft_lstadd_back(&(data->object_list), list);
 	return (TRUE);
 }
 

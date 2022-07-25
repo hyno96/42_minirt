@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checkerboard.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:26:02 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:26:03 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "checkerboard.h"
 #include "render.h"
 #include "objects_f.h"
@@ -6,13 +18,12 @@
 static t_color3	get_sphere(t_hit_record record)
 {
 	t_sphere	sphere;
-	t_vec3		origin;
 	t_float		x;
 	t_float		y;
 	int			divide2;
 
 	sphere = *conv_sp(record.obj);
-	get_xy_mapping_sphere(&x, &y, record.normal_unit, sphere);
+	get_xy_mapping_sphere(&x, &y, record.normal_unit);
 	divide2 = (int)(2 * M_PI * sphere.radius * x / record.surf.checker.x_range);
 	divide2 += (int)(M_PI * sphere.radius * y / record.surf.checker.y_range);
 	if (divide2 % 2 == 0)

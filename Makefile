@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -g #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = minirt
 
@@ -55,11 +55,18 @@ BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 BONUS_DEPS = $(BONUS_SRCS:.c=.d)
 
 INCLUDES = mlx.h libft.h structure.h mlx_window.h perror.h \
-			t_float.h objects.h object_f.h vec3.h parser.h get_next_line.h \
-			ray.h render.h setting.h setting_f.h vec.h mapping_f.h \
+			t_float.h objects.h objects_f.h vec3.h parser.h \
+			get_next_line.h ray.h render.h setting.h setting_f.h \
+			mapping_f.h checkerboard_f.h checkerboard.h hyno_main.h image.h
+
 			
 INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(INCLUDES))
 
+NORM_INCLUDES = parser_bonus.h libft.h structure.h mlx_window.h perror.h \
+			t_float.h objects.h objects_f.h vec3.h parser.h \
+			get_next_line.h ray.h render.h setting.h setting_f.h \
+			mapping_f.h checkerboard_f.h checkerboard.h hyno_main.h image.h
+NORM_INCLUDES := $(addprefix $(INCLUDE_DIR)/, $(NORM_INCLUDES))
 
 MLX_DIR = $(SRC_DIR)/minilibx
 MLX = $(MLX_DIR)/libmlx.dylib
@@ -104,7 +111,21 @@ clean :
 	$(RM) $(BONUS_OBJS)
 	find . -type f -name "*.o" -exec rm {} \;
 	find . -type f -name "*.d" -exec rm {} \;
+	$(RM) null.d
 
+
+.PHONY : norm
+norm :
+	@norminette srcs/libft
+	@norminette srcs/objects
+	@norminette srcs/parser
+	@norminette srcs/parser_bonus
+	@norminette srcs/render
+	@norminette srcs/setting
+	@norminette srcs/vec3
+	@norminette srcs/get_next_line.c srcs/hyno_test_main.c srcs/hyno_test_main2.c\
+				srcs/main.c srcs/mlx_window.c srcs/perror.c
+	@norminette $(NORM_INCLUDES)
 
 .PHONY : fclean
 fclean : clean

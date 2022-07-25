@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_pixel_in_map.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:25:42 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:25:46 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "t_float.h"
 #include "vec3.h"
 #include "structure.h"
@@ -35,7 +47,7 @@ t_color3	get_color_texture(t_hit_record record)
 	t_float	y;
 
 	if (record.obj->type == SP)
-		get_xy_mapping_sphere(&x, &y, record.normal_unit, *conv_sp(record.obj));
+		get_xy_mapping_sphere(&x, &y, record.normal_unit);
 	if (record.obj->type == PL)
 	{
 		get_xy_mapping_plane(&x, &y, record.hit_point, *conv_pl(record.obj));
@@ -59,7 +71,7 @@ t_color3	get_color_bumpmap(t_hit_record record)
 	t_float	y;
 
 	if (record.obj->type == SP)
-		get_xy_mapping_sphere(&x, &y, record.normal_unit, *conv_sp(record.obj));
+		get_xy_mapping_sphere(&x, &y, record.normal_unit);
 	if (record.obj->type == PL)
 	{
 		get_xy_mapping_plane(&x, &y, record.hit_point, *conv_pl(record.obj));

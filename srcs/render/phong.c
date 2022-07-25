@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   phong.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:25:37 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:25:37 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vec3.h"
 #include "render.h"
 #include "ray.h"
@@ -82,5 +94,5 @@ t_color3	get_color_phong(t_ray ray, t_data data)
 		apply_surf_color(&rtn_color, record);
 		return (rtn_color);
 	}
-	return (vec3(100, 0, 0));
+	return (vec3(0, 0, 0));
 }

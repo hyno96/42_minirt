@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 18:02:22 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 18:03:12 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 22:41:54 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,10 @@ void	set_hit_record_cn(t_cone *cn, t_hit_record *rec)
 
 static t_quadratic_eq	get_cone_quadratic_eq(t_cone *cn, t_ray *ray)
 {
-	t_vec3			h;
 	t_vec3			w;
 	t_float			m;
 	t_quadratic_eq	eq;
 
-	h = vec3_mult_scalar(cn->normal, cn->height);
 	w = vec3_minus(ray->point, cn->origin);
 	m = (cn->radius * cn->radius) / (cn->height * cn->height);
 	eq.a = vec3_dot(ray->direction, ray->direction) \

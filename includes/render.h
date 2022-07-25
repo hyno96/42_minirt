@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 20:37:16 by hyno              #+#    #+#             */
-/*   Updated: 2022/07/20 17:19:36 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 22:52:17 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,12 @@ struct s_hit_record
 	t_vec3		perpen_at;
 };
 
-int	complict(t_ray ray, t_data data, t_hit_record *hit_record);
-t_color3	trace_dot_light( \
-	t_point3	origin, t_vec3 specular, t_vec3 normal_unit, t_data data);
-t_color3 get_color_phong(t_ray ray, t_data data);
-void	render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data);
-void	draw_screen(t_color3 **screen, t_data data);
-// void	get_xy_mapping_sphere(\
-// 	t_float *x, t_float *y, t_vec3 normal_unit, t_sphere sp);
-// void	get_xy_mapping_plane( \
-// 	t_float *x, t_float *y, t_point3 hitt, t_plane pl);
-// void	get_xy_mapping_cylinder(\
-// 	t_float *x, t_float *y, t_hit_record rec, t_cylinder cy);
-void	set_hit_record_cn(t_cone *cn, t_hit_record *rec);
+int			complict(t_ray ray, t_data data, t_hit_record *hit_record);
+t_color3	trace_dot_light(t_point3 origin, \
+					t_vec3 specular, t_vec3 normal_unit, t_data data);
+t_color3	get_color_phong(t_ray ray, t_data data);
+void		render_image_one(t_ray **ray_arr, t_color3 **screen, t_data data);
+void		draw_screen(t_color3 **screen, t_data data);
+void		set_hit_record_cn(t_cone *cn, t_hit_record *rec);
 
 #endif

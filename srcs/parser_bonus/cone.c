@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:55:32 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 10:22:53 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:53:25 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 #include "parser_bonus.h"
 #include "libft.h"
 
-
 static t_bool	modify_cone_args(t_cone_tmp_content *cn_content, \
-										t_data *data)
+								t_data *data, char **args, size_t arg_num)
 {
 	t_cone	*cn;
 	t_list	*list;
@@ -28,19 +27,25 @@ static t_bool	modify_cone_args(t_cone_tmp_content *cn_content, \
 	cn->origin = vec3(cn_content->points[0], cn_content->points[1], \
 						cn_content->points[2]);
 	cn->normal = vec3_unit(vec3(cn_content->normals[0], \
-						cn_content->normals[1],	cn_content->normals[2]));
+						cn_content->normals[1], cn_content->normals[2]));
 	cn->radius = (t_float)(cn_content->diameter / 2.0);
 	cn->height = cn_content->height;
 	cn->surf.color = vec3(cn_content->colors[0], cn_content->colors[1], \
 							cn_content->colors[2]);
 	cn->surf.use_ctc = CTC_COLOR;
+	if (arg_num > CONE_ARG_NUM && \
+		!set_bonus_surf(args, &(cn->surf), data, CONE_ARG_NUM))
+	{
+		free(cn);
+		return (FALSE);
+	}
 	list = ft_lstnew((void *)cn);
 	list->type = CN;
 	ft_lstadd_back(&(data->object_list), list);
 	return (TRUE);
 }
 
-static t_bool	set_cone(char **args, t_data *data)
+static t_bool	set_cone(char **args, t_data *data, size_t arg_num)
 {
 	t_float	points[3];
 	t_float	normals[3];
@@ -64,7 +69,7 @@ static t_bool	set_cone(char **args, t_data *data)
 		return (FALSE);
 	if (!modify_cone_args(\
 		&(t_cone_tmp_content){points, normals, diameter, height, colors}, \
-			data))
+			data, args, arg_num))
 		return (FALSE);
 	return (TRUE);
 }
@@ -74,9 +79,9 @@ t_bool	parse_cone(char **args, t_data *data)
 	size_t	arg_num;
 
 	arg_num = get_arg_num(args);
-	if (arg_num != CONE_ARG_NUM)
+	if (!(CONE_ARG_NUM <= arg_num && arg_num <= BONUS_CONE_ARG_NUM))
 		return (FALSE);
-	if (!set_cone(args, data))
+	if (!set_cone(args, data, arg_num))
 		return (FALSE);
 	return (TRUE);
 }

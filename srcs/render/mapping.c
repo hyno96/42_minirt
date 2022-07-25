@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mapping.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:26:11 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:26:12 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "t_float.h"
 #include "vec3.h"
 #include "structure.h"
@@ -10,7 +22,7 @@
 #include <math.h>
 
 void	get_xy_mapping_sphere(\
-	t_float *x, t_float *y, t_vec3 normal_unit, t_sphere sp)
+	t_float *x, t_float *y, t_vec3 normal_unit)
 {
 	t_float			cos_theta;
 	static t_vec3	origin;

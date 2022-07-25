@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mapping_cone.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:25:50 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:25:51 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "t_float.h"
 #include "vec3.h"
 #include "structure.h"
@@ -9,9 +21,7 @@
 #include "objects_f.h"
 #include <math.h>
 
-#include <stdio.h>
-
-static t_float	cone_body_mapping(\
+static void	cone_body_mapping(\
 	t_float *x, t_float *y, t_hit_record rec, t_cone cn)
 {
 	t_float	cos_theta;

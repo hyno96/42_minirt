@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:29:36 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 12:10:44 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:48:40 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct s_cone_tmp_content		t_cone_tmp_content;
 typedef enum e_element					t_element;
 typedef enum e_arg_num					t_arg_num;
 
-
 enum e_arg_num
 {
 	AMBIENT_ARG_NUM = 3,
@@ -38,6 +37,7 @@ enum e_arg_num
 	CYLINDER_ARG_NUM = 6,
 	BONUS_CYLINDER_ARG_NUM = 8,
 	CONE_ARG_NUM = 6,
+	BONUS_CONE_ARG_NUM = 8,
 };
 
 enum e_range_type

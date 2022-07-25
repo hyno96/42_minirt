@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   trace_dot_light.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:26:15 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:26:16 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vec3.h"
 #include "structure.h"
 #include "objects_f.h"
@@ -58,6 +70,7 @@ static t_color3	trace_dot_light_inside( \
 	myray = ray(arg[0], vec3_minus(conv_li(head)->origin, arg[0]));
 	dist = vec3_len(myray.direction);
 	myray.direction = vec3_unit(myray.direction);
+	ft_memset((void *)(&rtn_color), 0, sizeof(t_color3));
 	if (complict(myray, data, &record) == FALSE || record.dist > dist)
 	{
 		rtn_color = vec3_plus(\

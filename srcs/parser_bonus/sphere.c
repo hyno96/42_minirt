@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:11:19 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 12:03:46 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:53:48 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ static t_bool	modify_sphere_args(t_sphere_tmp_content *sp_content, \
 {
 	t_sphere	*sp;
 	t_list		*list;
-	t_bool		result;
 
-	result = TRUE;
 	sp = (t_sphere *)malloc(sizeof(t_sphere));
 	if (!sp)
 		return (FALSE);
@@ -35,14 +33,14 @@ static t_bool	modify_sphere_args(t_sphere_tmp_content *sp_content, \
 	sp->surf.use_ctc = CTC_COLOR;
 	if (arg_num > SPHERE_ARG_NUM && \
 		!set_bonus_surf(args, &(sp->surf), data, SPHERE_ARG_NUM))
-		result = FALSE;
-	else
 	{
-		list = ft_lstnew((void *)sp);
-		list->type = SP;
-		ft_lstadd_back(&(data->object_list), list);
+		free(sp);
+		return (FALSE);
 	}
-	return (result);
+	list = ft_lstnew((void *)sp);
+	list->type = SP;
+	ft_lstadd_back(&(data->object_list), list);
+	return (TRUE);
 }
 
 static t_bool	set_sphere(char **args, t_data *data, size_t arg_num)

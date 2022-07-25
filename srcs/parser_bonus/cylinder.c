@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:55:32 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 12:16:33 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:51:32 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,32 @@
 #include "libft.h"
 
 static t_bool	modify_cylinder_args(t_cylinder_tmp_content *cy_content, \
-										t_data *data, char **args, size_t arg_num)
+									t_data *data, char **args, size_t arg_num)
 {
 	t_cylinder	*cy;
 	t_list		*list;
-	t_bool		result;
 
-	result = TRUE;
 	cy = (t_cylinder *)malloc(sizeof(t_cylinder));
 	if (!cy)
 		return (FALSE);
 	cy->origin = vec3(cy_content->points[0], cy_content->points[1], \
 						cy_content->points[2]);
 	cy->normal = vec3_unit(vec3(cy_content->normals[0], \
-						cy_content->normals[1],	cy_content->normals[2]));
+					cy_content->normals[1], cy_content->normals[2]));
 	cy->radius = (t_float)(cy_content->diameter / 2.0);
 	cy->height = cy_content->height;
 	cy->surf.color = vec3(cy_content->colors[0], cy_content->colors[1], \
 							cy_content->colors[2]);
 	cy->surf.use_ctc = CTC_COLOR;
 	if (arg_num > CYLINDER_ARG_NUM && \
-		!tmp_set_bonus_surf(args, &(cy->surf), data, CYLINDER_ARG_NUM))
-		result = FALSE;
-	else
+		!set_bonus_surf(args, &(cy->surf), data, CYLINDER_ARG_NUM))
 	{
-		list = ft_lstnew((void *)cy);
-		list->type = CY;
-		ft_lstadd_back(&(data->object_list), list);
+		free(cy);
+		return (FALSE);
 	}
+	list = ft_lstnew((void *)cy);
+	list->type = CY;
+	ft_lstadd_back(&(data->object_list), list);
 	return (TRUE);
 }
 

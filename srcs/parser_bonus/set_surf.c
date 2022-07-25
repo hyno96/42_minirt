@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:08:59 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 12:37:35 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/25 23:53:15 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #include "parser_bonus.h"
 #include "libft.h"
-
 
 t_bool	set_checker_board(char **args, t_surf *surf)
 {
@@ -91,6 +90,7 @@ t_bool	set_bonus_surf(char **args, t_surf *surf, t_data *data, \
 	char	**bonus_args;
 	size_t	arg_num;
 
+	result = TRUE;
 	bonus_args = ft_split(args[basic_arg_num], ':');
 	if (!bonus_args)
 		return (FALSE);
@@ -104,27 +104,6 @@ t_bool	set_bonus_surf(char **args, t_surf *surf, t_data *data, \
 	}
 	if (arg_num == basic_arg_num + 2)
 			result &= set_bump_mapping(data, args[basic_arg_num + 1], surf);
-	free_args(bonus_args);
-	return (result);
-}
-
-t_bool	tmp_set_bonus_surf(char **args, t_surf *surf, t_data *data, \
-						t_arg_num basic_arg_num)
-{
-	t_bool	result;
-	char	**bonus_args;
-	size_t	arg_num;
-
-	result = FALSE;
-	bonus_args = ft_split(args[basic_arg_num], ':');
-	if (!bonus_args)
-		return (FALSE);
-	arg_num = get_arg_num(args);
-	if (arg_num > basic_arg_num)
-	{
-		if (ft_strcmp(bonus_args[0], "checker") == 0)
-			result = set_checker_board(bonus_args, surf);
-	}
 	free_args(bonus_args);
 	return (result);
 }

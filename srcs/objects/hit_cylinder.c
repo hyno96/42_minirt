@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hit_cylinder.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 23:17:24 by kangkim           #+#    #+#             */
+/*   Updated: 2022/07/25 23:17:24 by kangkim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "t_float.h"
 #include "vec3.h"
 #include "objects_f.h"
@@ -7,10 +19,8 @@ static t_float	hit_cylinder_cap(t_cylinder cylinder, t_ray myray)
 	t_float	dist_cap1;
 	t_float	dist_cap2;
 	t_vec3	temp_rayat;
-	t_float	ignore;
 	t_vec3	origin2;
 
-	ignore = 0.001;
 	dist_cap1 = hit_plane(cylinder.origin, cylinder.normal, myray);
 	temp_rayat = ray_at(myray, dist_cap1);
 	if (vec3_square_len(vec3_minus(cylinder.origin, temp_rayat)) \
@@ -65,9 +75,7 @@ t_float	hit_cylinder(t_cylinder cylinder, t_ray ray)
 {
 	t_float	dist_cap;
 	t_float	dist_body;
-	t_float	ignore;
 
-	ignore = 0.001;
 	dist_cap = hit_cylinder_cap(cylinder, ray);
 	dist_body = hit_cylinder_body(cylinder, ray);
 	return (find_small_solution(dist_cap, dist_body));
