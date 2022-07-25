@@ -73,11 +73,7 @@ t_color3	trace_dot_light( \
 	t_point3	origin, t_vec3 specular, t_vec3 normal_unit, t_data data)
 {
 	t_list			*head;
-	t_ray			myray;
-	t_hit_record	record;
 	t_color3		rtn_color;
-	t_float			dist;
-
 	t_vec3			arg[3];
 
 	rtn_color = vec3(0, 0, 0);
@@ -87,7 +83,8 @@ t_color3	trace_dot_light( \
 		arg[0] = origin;
 		arg[1] = specular;
 		arg[2] = normal_unit;
-		rtn_color = vec3_plus(rtn_color, trace_dot_light_inside(head, arg, data));
+		rtn_color = vec3_plus(rtn_color, \
+			trace_dot_light_inside(head, arg, data));
 		head = head->next;
 	}
 	return (rtn_color);

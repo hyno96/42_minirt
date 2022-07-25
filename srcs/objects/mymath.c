@@ -3,7 +3,7 @@
 
 t_float	mypow(t_float val, int time)
 {
-	t_float rtn;
+	t_float	rtn;
 
 	rtn = 1;
 	while (time)

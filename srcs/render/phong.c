@@ -41,21 +41,18 @@ static void	apply_surf_color(t_vec3 *rtn_color, t_hit_record rec)
 		*rtn_color = vec3_mult(*rtn_color, vec3_div(rec.surf.color, 255));
 }
 
-#include <stdio.h>
-
 static void	do_bump(t_ray ray, t_hit_record *rec, t_data data)
 {
 	t_vec3	bump;
 
 	if (vec3_dot(rec->normal_unit, ray.direction) > 0)
 		rec->normal_unit = vec3_mult_scalar(rec->normal_unit, -1);
+	rec->hit_point_old = rec->hit_point;
 	if (rec->surf.use_bump_map == 1)
 	{
 		bump = get_color_bumpmap(*rec);
-		rec->hit_point_old = rec->hit_point;
 		rec->hit_point = vec3_plus(rec->hit_point, vec3_mult_scalar(\
 			rec->normal_unit, bump.y / 255 * data.setting->bump_ratio));
-		printf("%f	", bump.y / 255 * data.setting->bump_ratio);
 	}
 }
 

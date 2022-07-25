@@ -35,9 +35,10 @@ void	get_xy_mapping_plane(\
 	*y = vec3_dot(pl.orivec_top, hitt);
 }
 
-static void	cylinder_body_mapping(t_float *x, t_float *y, t_hit_record rec, t_cylinder cy)
+static void	cylinder_body_mapping(\
+	t_float *x, t_float *y, t_hit_record rec, t_cylinder cy)
 {
-	t_float cos_theta;
+	t_float	cos_theta;
 
 	cos_theta = acos(vec3_dot(cy.orivec_top, rec.normal_unit)) / M_PI;
 	if (vec3_dot(cy.orivec_right, rec.normal_unit) < 0)
@@ -50,20 +51,24 @@ static void	cylinder_body_mapping(t_float *x, t_float *y, t_hit_record rec, t_cy
 void	get_xy_mapping_cylinder(\
 	t_float *x, t_float *y, t_hit_record rec, t_cylinder cy)
 {
-	t_float r;
-	t_float p2r;
+	t_float	r;
+	t_float	p2r;
 
 	r = cy.radius;
 	p2r = M_PI * 2 * r;
 	if (rec.perpen < 0.001)
 	{
-		*x = (p2r - r + vec3_dot(cy.orivec_right, vec3_minus(rec.hit_point, cy.origin))) /  (p2r);
-		*y = (vec3_dot(cy.orivec_top, vec3_minus(rec.hit_point, cy.origin)) + r) / (4 * r + cy.height);
+		*x = (p2r - r + vec3_dot(cy.orivec_right, \
+			vec3_minus(rec.hit_point, cy.origin))) / (p2r);
+		*y = (vec3_dot(cy.orivec_top, \
+			vec3_minus(rec.hit_point, cy.origin)) + r) / (4 * r + cy.height);
 	}
 	else if (rec.perpen > cy.height - 0.001)
 	{
-		*x = (r + vec3_dot(cy.orivec_right, vec3_minus(rec.hit_point, cy.origin))) /  (p2r);
-		*y = (vec3_dot(cy.orivec_top, vec3_minus(rec.hit_point, cy.origin)) + r) / (4 * r + cy.height);
+		*x = (r + vec3_dot(cy.orivec_right, \
+			vec3_minus(rec.hit_point, cy.origin))) / (p2r);
+		*y = (vec3_dot(cy.orivec_top, \
+			vec3_minus(rec.hit_point, cy.origin)) + r) / (4 * r + cy.height);
 	}
 	else
 		cylinder_body_mapping(x, y, rec, cy);

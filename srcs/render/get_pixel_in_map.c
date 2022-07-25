@@ -21,7 +21,6 @@ static t_color3	my_mlx_pixel_get(int x, int y, t_img image)
 	return (vec3((uint >> 16) % 256, (uint >> 8) % 256, uint % 256));
 }
 
-
 static t_color3	get_color_in_image(t_float x, t_float y, t_img image)
 {
 	t_vec3	vec;
@@ -29,8 +28,6 @@ static t_color3	get_color_in_image(t_float x, t_float y, t_img image)
 	vec = my_mlx_pixel_get((t_float)image.x * x, (t_float)image.y * y, image);
 	return (vec);
 }
-
-#include <stdio.h>
 
 t_color3	get_color_texture(t_hit_record record)
 {
