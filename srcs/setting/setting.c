@@ -25,5 +25,6 @@ void	setting_default(t_data *data)
 	myset->ambient_ratio = 0.2;
 	myset->use_dist_show = 0;
 	myset->use_normal_show = 0;
+	myset->bump_ratio = 2;
 	data->setting = myset;
 }

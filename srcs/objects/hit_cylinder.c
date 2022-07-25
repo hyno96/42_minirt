@@ -51,7 +51,8 @@ static t_float	hit_cylinder_body(t_cylinder cylinder, t_ray ray)
 
 	tempvec = vec3_cross(ray.direction, cylinder.normal);
 	cal[0] = vec3_dot(tempvec, tempvec);
-	tempvec2 = vec3_cross(vec3_minus(ray.point, cylinder.origin), cylinder.normal);
+	tempvec2 = vec3_cross(\
+		vec3_minus(ray.point, cylinder.origin), cylinder.normal);
 	cal[1] = vec3_dot(tempvec, tempvec2) * 2.0;
 	cal[2] = vec3_dot(tempvec2, tempvec2) - cylinder.radius * cylinder.radius;
 	sol = find_quadratic_formula(cal[0], cal[1], cal[2]);

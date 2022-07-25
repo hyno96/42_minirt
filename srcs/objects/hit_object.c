@@ -2,8 +2,6 @@
 #include "ray.h"
 #include <math.h>
 
-// dev_comment
-// ray의 direction이 유닛벡터가 아니여도 정상적으로 작동합니까?
 t_float	hit_sphere(t_point3 center, t_float radius, t_ray r)
 {
 	t_vec3	oc;
@@ -28,11 +26,8 @@ t_float	hit_plane(t_point3 coord, t_vec3 normal_vec, t_ray ray)
 		normal_vec = vec3_mult_scalar(normal_vec, -1);
 	dot_n_pa = vec3_dot(normal_vec, vec3_minus(coord, ray.point));
 	dot_n_rd = vec3_dot(normal_vec, ray.direction);
-	// if (dot_n_pa < 0)
-	// 	return (-1);
 	sol = dot_n_pa / dot_n_rd;
 	if (sol > ignore)
 		return (sol);
 	return (-1);
 }
-

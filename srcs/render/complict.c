@@ -49,17 +49,17 @@ static t_float	complict_all(t_ray ray, t_list *head, t_list **hit_object)
 
 static void	set_hit_record_cy(t_cylinder *cy, t_hit_record *rec)
 {
-		rec->perpen = vec3_dot(vec3_minus(rec->hit_point, cy->origin), \
-			cy->normal) / vec3_dot(cy->normal, cy->normal);
-		rec->perpen_at = ray_at(ray(cy->origin, cy->normal), rec->perpen);
-		if (rec->perpen <= 0.001)
-			rec->normal_unit = vec3_mult_scalar(cy->normal, -1);
-		else if (rec->perpen >= cy->height - 0.001)
-			rec->normal_unit = cy->normal;
-		else
-			rec->normal_unit = \
-			vec3_unit(vec3_minus(rec->hit_point, rec->perpen_at));
-		rec->surf = cy->surf;
+	rec->perpen = vec3_dot(vec3_minus(rec->hit_point, cy->origin), \
+		cy->normal) / vec3_dot(cy->normal, cy->normal);
+	rec->perpen_at = ray_at(ray(cy->origin, cy->normal), rec->perpen);
+	if (rec->perpen <= 0.001)
+		rec->normal_unit = vec3_mult_scalar(cy->normal, -1);
+	else if (rec->perpen >= cy->height - 0.001)
+		rec->normal_unit = cy->normal;
+	else
+		rec->normal_unit = \
+		vec3_unit(vec3_minus(rec->hit_point, rec->perpen_at));
+	rec->surf = cy->surf;
 }
 
 // dev_comment

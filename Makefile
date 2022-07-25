@@ -13,7 +13,7 @@ PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
 
 RENDER_DIR = $(SRC_DIR)/render
 RENDER_SRCS = complict.c draw.c phong.c render.c trace_dot_light.c \
-				mapping.c checkerboard.c get_pixel_in_map.c\
+				mapping.c mapping_cone.c checkerboard.c get_pixel_in_map.c\
 
 OBJECTS_DIR = $(SRC_DIR)/objects
 OBJECTS_SRCS = hit_object.c object_conv.c ray.c hit_cone.c hit_cylinder.c mymath.c
@@ -24,7 +24,7 @@ SETTING_SRCS = setting.c
 VEC3_DIR = $(SRC_DIR)/vec3
 VEC3_SRCS = vec3_1.c vec3_2.c vec3_3.c
 
-SRCS = main.c mlx_window.c perror.c get_next_line.c hyno_test_main.c
+SRCS = main.c mlx_window.c perror.c get_next_line.c hyno_test_main.c hyno_test_main2.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 SRCS += $(addprefix $(PARSER_DIR)/, $(PARSER_SRCS))
 SRCS += $(addprefix $(RENDER_DIR)/, $(RENDER_SRCS))
@@ -43,7 +43,7 @@ BONUS_PARSER_SRCS = ambient.c camera.c cylinder.c light.c parser.c \
 				plane.c sphere.c utils.c str_to_x.c range.c \
 				str_to_float.c open_file.c set_surf.c cone.c
 
-BONUS_SRCS = main.c mlx_window.c perror.c get_next_line.c hyno_test_main.c
+BONUS_SRCS = main.c mlx_window.c perror.c get_next_line.c hyno_test_main.c hyno_test_main2.c
 BONUS_SRCS := $(addprefix $(SRC_DIR)/, $(BONUS_SRCS))
 BONUS_SRCS += $(addprefix $(BONUS_PARSER_DIR)/, $(BONUS_PARSER_SRCS))
 BONUS_SRCS += $(addprefix $(RENDER_DIR)/, $(RENDER_SRCS))
@@ -102,6 +102,9 @@ clean :
 	$(RM) $(OBJS)
 	$(RM) $(BONUS_DEPS)
 	$(RM) $(BONUS_OBJS)
+	find . -type f -name "*.o" -exec rm {} \;
+	find . -type f -name "*.d" -exec rm {} \;
+
 
 .PHONY : fclean
 fclean : clean

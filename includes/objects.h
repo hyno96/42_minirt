@@ -74,6 +74,8 @@ struct s_cone
 	t_float		radius;
 	t_float		height;
 	t_surf		surf;
+	t_vec3		orivec_top;
+	t_vec3		orivec_right;
 };
 
 

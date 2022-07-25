@@ -18,6 +18,6 @@
 # define FLOAT_MAX DBL_MAX
 # define FLOAT_MIN (-DBL_MAX)
 
-typedef double	t_float;
+typedef float	t_float;
 
 #endif
