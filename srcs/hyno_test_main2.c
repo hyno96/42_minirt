@@ -26,11 +26,11 @@ static void	set_orivec_2(t_list *head)
 
 	if (head->type == PL)
 	{
-		ori = conv_pl(head)->origin;
-		plz = conv_pl(head)->normal;
-		conv_pl(head)->orivec_top = get_plane_orivec(ori, plz);
-		conv_pl(head)->orivec_right = \
-			vec3_unit(vec3_cross(conv_pl(head)->orivec_top, plz));
+		ori = (conv_pl(head))->origin;
+		plz = (conv_pl(head))->normal;
+		(conv_pl(head))->orivec_top = get_plane_orivec(ori, plz);
+		(conv_pl(head))->orivec_right = \
+			vec3_unit(vec3_cross((conv_pl(head))->orivec_top, plz));
 	}
 }
 
@@ -44,19 +44,19 @@ void	set_orivec(t_list *head)
 		set_orivec_2(head);
 		if (head->type == CY)
 		{
-			ori = conv_cy(head)->origin;
-			plz = conv_cy(head)->normal;
-			conv_cy(head)->orivec_top = get_plane_orivec(ori, plz);
-			conv_cy(head)->orivec_right = \
-				vec3_unit(vec3_cross(conv_cy(head)->orivec_top, plz));
+			ori = (conv_cy(head))->origin;
+			plz = (conv_cy(head))->normal;
+			(conv_cy(head))->orivec_top = get_plane_orivec(ori, plz);
+			(conv_cy(head))->orivec_right = \
+				vec3_unit(vec3_cross((conv_cy(head))->orivec_top, plz));
 		}
 		if (head->type == CN)
 		{
-			ori = conv_cn(head)->origin;
-			plz = conv_cn(head)->normal;
-			conv_cn(head)->orivec_top = get_plane_orivec(ori, plz);
-			conv_cn(head)->orivec_right = \
-				vec3_unit(vec3_cross(conv_cn(head)->orivec_top, plz));
+			ori = (conv_cn(head))->origin;
+			plz = (conv_cn(head))->normal;
+			(conv_cn(head))->orivec_top = get_plane_orivec(ori, plz);
+			(conv_cn(head))->orivec_right = \
+				vec3_unit(vec3_cross((conv_cn(head))->orivec_top, plz));
 		}
 		head = head->next;
 	}
