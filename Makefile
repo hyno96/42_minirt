@@ -116,6 +116,7 @@ clean :
 
 .PHONY : norm
 norm :
+	@norminette $(NORM_INCLUDES)
 	@norminette srcs/libft
 	@norminette srcs/objects
 	@norminette srcs/parser
@@ -125,7 +126,6 @@ norm :
 	@norminette srcs/vec3
 	@norminette srcs/get_next_line.c srcs/hyno_test_main.c srcs/hyno_test_main2.c\
 				srcs/main.c srcs/mlx_window.c srcs/perror.c
-	@norminette $(NORM_INCLUDES)
 
 .PHONY : fclean
 fclean : clean
