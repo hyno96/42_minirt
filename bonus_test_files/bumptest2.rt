@@ -2,4 +2,4 @@ A 1.0   0,20,0
 C 0,0,0 0,0,-1 90
 L 0,0,1 1.0 255,255,255
 
-sp 0,0,-5 5 10,0,255 bumpmap:"earthbump1k.xpm"
+sp 0,0,-5 5 10,0,255 checker: bumpmap:"earthbump1k.xpm"
