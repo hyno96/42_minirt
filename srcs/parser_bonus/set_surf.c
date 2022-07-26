@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:08:59 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/25 23:53:15 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/26 14:03:53 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ t_bool	set_bonus_surf(char **args, t_surf *surf, t_data *data, \
 	{
 		if (ft_strcmp(bonus_args[0], "checker") == 0)
 			result = set_checker_board(bonus_args, surf);
+		else if (ft_strcmp(bonus_args[0], "bumpmap") == 0)
+			result = set_bump_mapping(data, args[basic_arg_num], surf);
 		else
 			result = set_texture(data, args[basic_arg_num], surf);
 	}

@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 21:02:52 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/15 21:03:52 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/26 13:48:21 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static t_bool	modify_sphere_args(t_float points[3], t_float diameter, \
 	sp->origin = vec3(points[0], points[1], points[2]);
 	sp->radius = (t_float)(diameter / 2.0);
 	sp->surf.color = vec3(colors[0], colors[1], colors[2]);
+	sp->surf.use_ctc = CTC_COLOR;
 	list = ft_lstnew((void *)sp);
 	list->type = SP;
 	ft_lstadd_back(&(data->object_list), list);

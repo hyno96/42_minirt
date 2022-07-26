@@ -6,7 +6,7 @@
 /*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 20:55:32 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/20 10:16:37 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/26 13:47:52 by kangkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static t_bool	modify_cylinder_args(t_cylinder_tmp_content *cy_content, \
 	cy->height = cy_content->height;
 	cy->surf.color = vec3(cy_content->colors[0], cy_content->colors[1], \
 							cy_content->colors[2]);
+	cy->surf.use_ctc = CTC_COLOR;
 	list = ft_lstnew((void *)cy);
 	list->type = CY;
 	ft_lstadd_back(&(data->object_list), list);
