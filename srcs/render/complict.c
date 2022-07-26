@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   complict.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:26:05 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/25 23:26:06 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/26 13:31:56 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ static void	set_hit_record_cy(t_cylinder *cy, t_hit_record *rec)
 	rec->surf = cy->surf;
 }
 
-// dev_comment
-// 이시점전에 plane의 노말벡터는 유닛벡터임이 보증되어있도록 하시오
-// 실린더, 콘의 경우 추가하기
 static void	set_hit_record( \
 	t_ray ray, t_list *hit_object, t_hit_record *hit_record)
 {
@@ -104,8 +101,6 @@ static void	set_hit_record( \
 	}
 }
 
-// dev_comment
-// 충돌 최적화 함수를 새로 만들고 여기에 추가하시오
 int	complict(t_ray ray, t_data data, t_hit_record *hit_record)
 {
 	t_list	*hit_object;

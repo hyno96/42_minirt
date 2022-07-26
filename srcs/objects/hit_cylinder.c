@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kangkim <kangkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyno <hyno@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:17:24 by kangkim           #+#    #+#             */
-/*   Updated: 2022/07/25 23:17:24 by kangkim          ###   ########.fr       */
+/*   Updated: 2022/07/26 13:32:13 by hyno             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static t_bool	is_on_cy(t_cylinder cy, t_vec3 rayat)
 	return (TRUE);
 }
 
-// dev_comment_hyno
-// 노말벡터를 사전에 유닛벡터화 할 것
 static t_float	hit_cylinder_body(t_cylinder cylinder, t_ray ray)
 {
 	t_float	cal[3];
